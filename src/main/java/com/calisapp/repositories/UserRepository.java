@@ -1,4 +1,4 @@
-package com.repositories;
+package com.calisapp.repositories;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.model.User;
+import com.calisapp.model.User;
 
 @Configuration
 @Repository

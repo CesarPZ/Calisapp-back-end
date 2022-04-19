@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 @Table(name = "exercise")
 /*----------------------------------------------------------------
@@ -32,6 +31,8 @@ public class Exercise {
 	private String description;
 	@Column
 	private String urlVideo;
+	
+	//private List<String> muscles;
 
 	public Exercise() { }
 		
@@ -74,15 +75,15 @@ public class Exercise {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public List<String> getMusculos() {
-		return musculos;
+	/*
+	public List<String> getMuscles() {
+		return muscles;
 	}
 
-	public void setMusculos(List<String> musculos) {
-		this.musculos = musculos;
+	public void setMuscles(List<String> muscles) {
+		this.muscles = muscles;
 	}
-	
+	*/
 	public String getUrlVideo() {
 		return urlVideo;
 	}

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import com.calisapp.model.Exercise;
 
-
 @Configuration
 @Repository
 public interface ExerciseRepository extends CrudRepository<Exercise, Integer> {

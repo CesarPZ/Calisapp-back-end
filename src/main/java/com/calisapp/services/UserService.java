@@ -1,4 +1,4 @@
-package com.servicies;
+package com.calisapp.services;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -7,9 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.model.User;
+import com.calisapp.repositories.UserRepository;
 import com.exceptions.ResourceNotFoundException;
-import com.model.User;
-import com.repositories.UserRepository;
 
 @Service
 public class UserService {
