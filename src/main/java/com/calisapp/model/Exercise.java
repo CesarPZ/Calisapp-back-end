@@ -1,4 +1,4 @@
-package model;
+package com.calisapp.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -30,8 +30,6 @@ public class Exercise {
 	private Integer complexityNumber;
 	@Column
 	private String description;
-	@Column
-	private List<String> musculos;
 	@Column
 	private String urlVideo;
 

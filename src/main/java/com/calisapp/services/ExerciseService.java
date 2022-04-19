@@ -1,12 +1,14 @@
-package services;
+package com.calisapp.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import model.Exercise;
-import repositories.ExerciseRepository;
+import com.calisapp.model.Exercise;
+import com.calisapp.repositories.ExerciseRepository;
+
+
 
 @Service
 public class ExerciseService {

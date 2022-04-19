@@ -1,4 +1,4 @@
-package webservices;
+package com.calisapp.webservices;
 
 import java.util.List;
 
@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import model.Exercise;
-import services.ExerciseService;
+import com.calisapp.model.Exercise;
+import com.calisapp.services.ExerciseService;
+
 
 @RestController
 @EnableAutoConfiguration
