@@ -8,11 +8,8 @@ import org.springframework.stereotype.Service;
 import com.calisapp.model.Exercise;
 import com.calisapp.repositories.ExerciseRepository;
 
-
-
 @Service
 public class ExerciseService {
-
 	@Autowired
 	private ExerciseRepository  exerciseRepository;
 	
