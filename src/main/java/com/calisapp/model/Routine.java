@@ -6,18 +6,21 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance
-@Table(name = "exercise")
+@Table(name = "routines")
 /*----------------------------------------------------------------
  	Descripción:	Clase abstracta generada para el almacenamiento 
  					de rutinas.
@@ -34,7 +37,14 @@ public abstract class Routine {
 	protected String nameRoutine;
 	
 	@Column
-	protected String generatedBy;
+	public String generatedBy;
+	
+	@Column
+	public String level;
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name= "userId", referencedColumnName = "id")
+	protected User userRoutine;
 	
 	@JsonBackReference
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
@@ -78,5 +88,21 @@ public abstract class Routine {
 
 	public void setExercises(Set<Exercise> exercises) {
 		this.exercises = exercises;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+	public User getUserRoutine() {
+		return userRoutine;
+	}
+
+	public void setUserRoutine(User userRoutine) {
+		this.userRoutine = userRoutine;
 	}
 }
