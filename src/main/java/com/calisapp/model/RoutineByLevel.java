@@ -19,14 +19,15 @@ public class RoutineByLevel extends Routine{
 	
 	public RoutineByLevel () {}
 	
-	public RoutineByLevel (String nameRoutine) {
+	public RoutineByLevel (String nameRoutine, String level) {
 		 super(nameRoutine, routineGeneratedBy);
 	}
 	
 	public RoutineByLevel (RoutineByLevelBuilder builder) {
-		super.nameRoutine = builder.nameRoutine;
-		super.exercises = builder.exercises;
-		super.generatedBy = routineGeneratedBy;	
+		super.setNameRoutine(builder.nameRoutine);
+		super.setExercises(builder.exercises);
+		super.setLevel(builder.level);
+		super.setGeneratedBy(routineGeneratedBy);	
 	}
 	
 	/*----------------------------------------------------------------
@@ -37,10 +38,12 @@ public class RoutineByLevel extends Routine{
 		
 		private String nameRoutine;
 		private Set<Exercise> exercises;
+		private String level;
 			
 		public RoutineByLevelBuilder() {
 			this.nameRoutine = "Rutina Avanzada";
 			this.exercises = new HashSet<Exercise>();
+			this.level= "Avanzado";
 		}
 			
 	    public RoutineByLevelBuilder withNameRoutine(String nameRoutinee) {
@@ -50,6 +53,11 @@ public class RoutineByLevel extends Routine{
 	    
 	    public RoutineByLevelBuilder withExercises(Set<Exercise> exercises) {
 	        this.exercises = exercises;
+	        return this;
+	    }
+	    
+	    public RoutineByLevelBuilder withLevel(String level) {
+	        this.level = level;
 	        return this;
 	    }
 	    

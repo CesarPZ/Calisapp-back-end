@@ -22,10 +22,11 @@ public class RoutineOfUser extends Routine{
 		 super(nameRoutine, routineGeneratedBy);
 	}
 	
-	public RoutineOfUser (RoutineOfUserBuilder builder) {
-		super.nameRoutine = builder.nameRoutine;
-		super.exercises = builder.exercises;
-		super.generatedBy = routineGeneratedBy;	
+	public RoutineOfUser (RoutineOfUserBuilder builder) {		
+		super.setNameRoutine(builder.nameRoutine);
+		super.setExercises(builder.exercises);
+		super.setGeneratedBy(routineGeneratedBy);
+		super.setUserRoutine(builder.userRoutine);
 	}
 	
 	/*----------------------------------------------------------------
@@ -36,10 +37,12 @@ public class RoutineOfUser extends Routine{
 		
 		private String nameRoutine;
 		private Set<Exercise> exercises;
+		private User userRoutine;
 			
 		public RoutineOfUserBuilder() {
 			this.nameRoutine = "Rutina Avanzada";
 			this.exercises = new HashSet<Exercise>();
+			this.userRoutine = new User();
 		}
 			
 	    public RoutineOfUserBuilder withNameRoutine(String nameRoutinee) {
@@ -49,6 +52,11 @@ public class RoutineOfUser extends Routine{
 	    
 	    public RoutineOfUserBuilder withExercises(Set<Exercise> exercises) {
 	        this.exercises = exercises;
+	        return this;
+	    }
+	    
+	    public RoutineOfUserBuilder withUserRoutine(User userRoutine) {
+	        this.userRoutine = userRoutine;
 	        return this;
 	    }
 	    
