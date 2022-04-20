@@ -42,7 +42,7 @@ public class UserController {
     	} catch (NoSuchElementException e){
 
     		throw new ResourceNotFoundException("User with ID:"+id+" Not Found!");
-    	}    	   
+    	}
     }
     
     @DeleteMapping(value="/api/users/{id}")
