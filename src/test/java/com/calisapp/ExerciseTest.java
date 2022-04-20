@@ -12,7 +12,7 @@ class ExerciseTest {
 	
 	@BeforeAll
 	static void setUp() {
-
+		
 		ejercicio1 = new Exercise.ExerciseBuilder()
 							.withNameExercise("Dominadas")
 							.withDescription("Levantar el cuerpo mientras este pende de una barra de dominadas")
@@ -31,6 +31,4 @@ class ExerciseTest {
 		assertEquals(ejercicio1.getMuscle(), "Espalda");
 		assertEquals(ejercicio1.getUrlVideo(), "https://Calisapp/exercise/dominada");
 	}
-	
-	
 }
