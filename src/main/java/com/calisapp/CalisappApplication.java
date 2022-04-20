@@ -12,5 +12,4 @@ public class CalisappApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CalisappApplication.class, args);
 	}
-
 }

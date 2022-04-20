@@ -5,20 +5,20 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.calisapp.model.Exercise;
-import com.calisapp.repositories.ExerciseRepository;
+import com.calisapp.model.Routine;
+import com.calisapp.repositories.RoutineRepository;
 
 @Service
-public class ExerciseService {
+public class RoutineService {
 	@Autowired
-	private ExerciseRepository  exerciseRepository;
+	private RoutineRepository  routineRepository;
 	
 	/*-------------------------------------------------------
- 	Descripción:	Devuelve todos los ejercicios de la base 
+ 	Descripción:	Retorna todos los ejercicios de la base 
  					de datos.
 	Fecha: 			20/04/2022
 	-------------------------------------------------------*/
-	public List<Exercise> findAll() {
-		return this.exerciseRepository.findAll();
+	public List<Routine> findAll() {
+		return this.routineRepository.findAll();
 	}
 }
