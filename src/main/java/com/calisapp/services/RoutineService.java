@@ -26,8 +26,8 @@ public class RoutineService {
 	}
 	
 	/*-------------------------------------------------------
- 	Descripción:	Retorna todas las rutinas con el nivel recibido
- 					de la base de datos.
+ 	Descripción:	Retorna todas las rutinas con el "level" recibido 
+ 					por parametro de la base de datos.
 	Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public List<Routine> findWithLevel(String level) {
