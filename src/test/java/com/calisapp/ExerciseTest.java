@@ -14,21 +14,18 @@ class ExerciseTest {
 	static void setUp() {
 		
 		ejercicio1 = new Exercise.ExerciseBuilder()
-							.withNameExercise("Dominadas")
-							.withDescription("Levantar el cuerpo mientras este pende de una barra de dominadas")
-							.withComplexityNumber(3)
-							.withMuscle("Espalda")
-							.withUrlVideo("https://Calisapp/exercise/dominada")
+							.withRepetitions(3)
+							.withLevelExcercise("Principiante")
+							.withExerciseTime(60)
+							.withBreakTime(2)
 							.build();
 	}
 	
 	@Test
 	public void generacionDeExcerciseConSusVariables(){
-		assertEquals(ejercicio1.getnameExercise(), "Dominadas");
-		assertEquals(ejercicio1.getDescription(),
-				"Levantar el cuerpo mientras este pende de una barra de dominadas");
-		assertEquals(ejercicio1.getComplexityNumber(), 3);
-		assertEquals(ejercicio1.getMuscle(), "Espalda");
-		assertEquals(ejercicio1.getUrlVideo(), "https://Calisapp/exercise/dominada");
+		assertEquals(ejercicio1.getRepetitions(), 3);
+		assertEquals(ejercicio1.getLevelExcercise(), "Principiante");
+		assertEquals(ejercicio1.getExerciseTime(), 60);
+		assertEquals(ejercicio1.getBreakTime(), 2);
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.calisapp.model.Exercise;
+import com.calisapp.model.ProcessExercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.RoutineByLevel;
 import com.calisapp.model.User;
@@ -32,6 +33,9 @@ public class InitInMemoryService {
 	private ExerciseService exerciseService;
 	
 	@Autowired
+	private ProcessExerciseService processExercise;
+	
+	@Autowired
 	private RoutineService routineService;
 	
 	@PostConstruct
@@ -46,51 +50,202 @@ public class InitInMemoryService {
 		User user1 = new User("Cesar", "perez.cesaar@gmail.com", "1234");
 		User user2 = new User("Marcelo", "jmdicostanzo11@gmail.com", "1234");
 	
-		Exercise exercise1 = new Exercise.ExerciseBuilder().withNameExercise("dominadas australianas").withComplexityNumber(1)
-				.withDescription("ejercicio colgado").withUrlVideo("video1").withMuscle("espalda").build();
+		ProcessExercise processExercise1 = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("dominadas australianas")
+				.withComplexityNumber(1)
+				.withDescription("ejercicio colgado")
+				.withUrlVideo("video1")
+				.withMainMuscle("espalda")
+				.build();
 
-		Exercise exercise2  = new Exercise.ExerciseBuilder().withNameExercise("fondos").withComplexityNumber(1)
-                .withDescription("ejercicio en paralelas").withUrlVideo("video2").withMuscle("triceps").build();
+		ProcessExercise processExercise2  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("fondos")
+				.withComplexityNumber(1)
+                .withDescription("ejercicio en paralelas")
+                .withUrlVideo("video2")
+                .withMainMuscle("triceps").build();
 		
-		Exercise exercise3  = new Exercise.ExerciseBuilder().withNameExercise("flexiones").withComplexityNumber(1)
-                .withDescription("ejercicio en suelo").withUrlVideo("video3").withMuscle("pectoral").build();
+		ProcessExercise processExercise3  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("flexiones")
+				.withComplexityNumber(1)
+                .withDescription("ejercicio en suelo")
+                .withUrlVideo("video3")
+                .withMainMuscle("pectoral")
+                .build();
 		
-		Exercise exercise4  = new Exercise.ExerciseBuilder().withNameExercise("sentadillas").withComplexityNumber(1)
-                .withDescription("ejercicio en suelo").withUrlVideo("video4").withMuscle("piernas").build();
+		ProcessExercise processExercise4  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("sentadillas")
+				.withComplexityNumber(1)
+                .withDescription("ejercicio en suelo")
+                .withUrlVideo("video4")
+                .withMainMuscle("piernas")
+                .build();
 		
-		Exercise exercise5 = new Exercise.ExerciseBuilder().withNameExercise("dominadas supinas").withComplexityNumber(3)
-				.withDescription("ejercicio colgado").withUrlVideo("video5").withMuscle("espalda").build();
+		ProcessExercise processExercise5 = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("dominadas supinas")
+				.withComplexityNumber(3)
+				.withDescription("ejercicio colgado")
+				.withUrlVideo("video5")
+				.withMainMuscle("espalda")
+				.build();
 		
-		Exercise exercise6  = new Exercise.ExerciseBuilder().withNameExercise("flexiones diamantes").withComplexityNumber(3)
-				.withDescription("ejercicio en suelo").withUrlVideo("video6").withMuscle("pectoral").build();
+		ProcessExercise processExercise6  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("flexiones diamantes")
+				.withComplexityNumber(3)
+				.withDescription("ejercicio en suelo")
+				.withUrlVideo("video6")
+				.withMainMuscle("pectoral")
+				.build();
 		
-		Exercise exercise7  = new Exercise.ExerciseBuilder().withNameExercise("zancadas").withComplexityNumber(3)
-				.withDescription("ejercicio en suelo").withUrlVideo("video7").withMuscle("piernas").build();
+		ProcessExercise processExercise7  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("zancadas")
+				.withComplexityNumber(3)
+				.withDescription("ejercicio en suelo")
+				.withUrlVideo("video7")
+				.withMainMuscle("piernas")
+				.build();
 		
-		Exercise exercise8  = new Exercise.ExerciseBuilder().withNameExercise("plancha").withComplexityNumber(3)
-				.withDescription("ejercicio en suelo").withUrlVideo("video8").withMuscle("abdominales").build();
+		ProcessExercise processExercise8  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("plancha")
+				.withComplexityNumber(3)
+				.withDescription("ejercicio en suelo")
+				.withUrlVideo("video8")
+				.withMainMuscle("abdominales")
+				.build();
 		
-		Exercise exercise9  = new Exercise.ExerciseBuilder().withNameExercise("burpees").withComplexityNumber(3)
-                .withDescription("ejercicio en suelo").withUrlVideo("video9").withMuscle("abdominales").build();
+		ProcessExercise processExercise9  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("burpees")
+				.withComplexityNumber(3)
+                .withDescription("ejercicio en suelo")
+                .withUrlVideo("video9")
+                .withMainMuscle("abdominales")
+                .build();
 		
-		Exercise exercise10  = new Exercise.ExerciseBuilder().withNameExercise("flexiones a pino").withComplexityNumber(5)
-                .withDescription("ejercicio en suelo").withUrlVideo("video10").withMuscle("pectoral").build();
+		ProcessExercise processExercise10  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("flexiones a pino")
+				.withComplexityNumber(5)
+                .withDescription("ejercicio en suelo")
+                .withUrlVideo("video10")
+                .withMainMuscle("pectoral")
+                .build();
 		
-		Exercise exercise11  = new Exercise.ExerciseBuilder().withNameExercise("fondos explosivos").withComplexityNumber(5)
-                .withDescription("ejercicio en paralelas").withUrlVideo("video11").withMuscle("triceps").build();
+		ProcessExercise processExercise11  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("fondos explosivos")
+				.withComplexityNumber(5)
+                .withDescription("ejercicio en paralelas")
+                .withUrlVideo("video11")
+                .withMainMuscle("triceps")
+                .build();
 		
-		Exercise exercise12 = new Exercise.ExerciseBuilder().withNameExercise("muscle up").withComplexityNumber(5)
-				.withDescription("ejercicio colgado").withUrlVideo("video12").withMuscle("hombros").build();
+		ProcessExercise processExercise12 = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("muscle up")
+				.withComplexityNumber(5)
+				.withDescription("ejercicio colgado")
+				.withUrlVideo("video12")
+				.withMainMuscle("hombros")
+				.build();
 		
-		Exercise exercise13  = new Exercise.ExerciseBuilder().withNameExercise("pistol squat").withComplexityNumber(5)
-				.withDescription("ejercicio en suelo").withUrlVideo("video13").withMuscle("piernas").build();
+		ProcessExercise processExercise13  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("pistol squat")
+				.withComplexityNumber(5)
+				.withDescription("ejercicio en suelo")
+				.withUrlVideo("video13")
+				.withMainMuscle("piernas")
+				.build();
 		
-		Exercise exercise14 = new Exercise.ExerciseBuilder().withNameExercise("dominadas pronas").withComplexityNumber(5)
-				.withDescription("ejercicio colgado").withUrlVideo("video14").withMuscle("espalda").build();
+		ProcessExercise processExercise14 = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("dominadas pronas")
+				.withComplexityNumber(5)
+				.withDescription("ejercicio colgado")
+				.withUrlVideo("video14")
+				.withMainMuscle("espalda")
+				.build();
 		
-		Exercise exercise15  = new Exercise.ExerciseBuilder().withNameExercise("dragon flag").withComplexityNumber(5)
-                .withDescription("ejercicio en suelo").withUrlVideo("video15").withMuscle("abdominales").build();
+		ProcessExercise processExercise15  = new ProcessExercise.ProcessExerciseBuilder()
+				.withNameExercise("dragon flag")
+				.withComplexityNumber(5)
+                .withDescription("ejercicio en suelo")
+                .withUrlVideo("video15")
+                .withMainMuscle("abdominales")
+                .build();
+	
+
 		
+		Exercise exercise1  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise1)
+				.withRepetitions(15)
+				.build();
+		
+		Exercise exercise2  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise2)
+				.withRepetitions(25)
+				.build();
+		
+		Exercise exercise3  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise3)
+				.withRepetitions(10)
+				.build();
+		
+		Exercise exercise4  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise4)
+				.withRepetitions(8)
+				.build();
+		
+		Exercise exercise5  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise5)
+				.withRepetitions(12)
+				.build();
+		
+		Exercise exercise6  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise6)
+				.withRepetitions(6)
+				.build();
+		
+		Exercise exercise7  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise7)
+				.withRepetitions(3)
+				.build();
+		
+		Exercise exercise8  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise8)
+				.withRepetitions(1)
+				.build();
+		
+		Exercise exercise9  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise9)
+				.withRepetitions(22)
+				.build();
+		
+		Exercise exercise10  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise10)
+				.withRepetitions(2)
+				.build();
+		
+		Exercise exercise11  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise11)
+				.withRepetitions(3)
+				.build();
+		
+		Exercise exercise12  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise12)
+				.withRepetitions(5)
+				.build();
+		
+		Exercise exercise13  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise13)
+				.withRepetitions(10)
+				.build();
+		
+		Exercise exercise14  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise14)
+				.withRepetitions(15)
+				.build();
+		
+		Exercise exercise15  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise15)
+				.withRepetitions(21)
+				.build();
+
 		Set<Exercise> ejerciciosPrincipiantes = new HashSet<Exercise>();
 		ejerciciosPrincipiantes.add(exercise1);
 		ejerciciosPrincipiantes.add(exercise2);
@@ -115,23 +270,58 @@ public class InitInMemoryService {
 		Routine rutina1 = new RoutineByLevel.RoutineByLevelBuilder()
 				.withNameRoutine("Rutina 1")
 				.withExercises(ejerciciosPrincipiantes)
-				.withLevel("1").build();
+				.withLevel("1")
+				.build();
 			
 		Routine rutina2 = new RoutineByLevel.RoutineByLevelBuilder()
 				.withNameRoutine("Rutina 2")
 				.withExercises(ejerciciosIntermedios)
-				.withLevel("3").build();
+				.withLevel("3")
+				.build();
 		
 		Routine rutina3 = new RoutineByLevel.RoutineByLevelBuilder()
 				.withNameRoutine("Rutina 3")
 				.withExercises(ejerciciosAvanzados)
-				.withLevel("5").build();
-		
+				.withLevel("5")
+				.build();
+	
 		userService.save(user1);
 		userService.save(user2);
 		
 		routineService.save(rutina1);
 		routineService.save(rutina2);
 		routineService.save(rutina3);
+		
+		processExercise.save(processExercise1);
+		processExercise.save(processExercise2);
+		processExercise.save(processExercise3);
+		processExercise.save(processExercise4);
+		processExercise.save(processExercise5);
+		processExercise.save(processExercise6);
+		processExercise.save(processExercise7);
+		processExercise.save(processExercise8);
+		processExercise.save(processExercise9);
+		processExercise.save(processExercise10);
+		processExercise.save(processExercise11);
+		processExercise.save(processExercise12);
+		processExercise.save(processExercise13);
+		processExercise.save(processExercise14);
+		processExercise.save(processExercise15);
+
+		exerciseService.save(exercise1);
+		exerciseService.save(exercise2);
+		exerciseService.save(exercise3);
+		exerciseService.save(exercise4);
+		exerciseService.save(exercise5);
+		exerciseService.save(exercise6);
+		exerciseService.save(exercise7);
+		exerciseService.save(exercise8);
+		exerciseService.save(exercise9);
+		exerciseService.save(exercise10);
+		exerciseService.save(exercise11);
+		exerciseService.save(exercise12);
+		exerciseService.save(exercise13);
+		exerciseService.save(exercise14);
+		exerciseService.save(exercise15);
 	}
 }

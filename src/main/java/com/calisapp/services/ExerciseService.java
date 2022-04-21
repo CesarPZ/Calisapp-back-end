@@ -15,7 +15,7 @@ public class ExerciseService {
 	private ExerciseRepository  exerciseRepository;
 	
 	/*-------------------------------------------------------
- 	Descripción:	Devuelve todos los ejercicios de la base 
+ 	Descripción:	Retorna todos los ejercicios de la base 
  					de datos.
 	Fecha: 			20/04/2022
 	-------------------------------------------------------*/

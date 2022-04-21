@@ -1,20 +1,23 @@
 package com.calisapp.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance
 @Table(name = "exercise")
 /*----------------------------------------------------------------
  	Descripción:	Clase generada para el almacenamiento de ejercicio,
- 	  				con sus caracteristicas.
+ 	  				repeticiones y tiempos.
 	Fecha: 			19/04/2022
 ----------------------------------------------------------------*/
 public class Exercise {
@@ -24,124 +27,116 @@ public class Exercise {
 	private Integer id;
 	
 	@Column
-	private String nameExercise;
+	private Integer repetitions;
 	@Column
-	private Integer complexityNumber; //between 1 and 5
+	private String levelExcercise;
 	@Column
-	private String description;
+	private Integer exerciseTime; //Minute
 	@Column
-	private String urlVideo;
-	@Column
-	private String muscle;
+	private Integer breakTime; //Minute
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name= "processExercise", referencedColumnName = "id")
+	private ProcessExercise processExercise;
 
 	public Exercise() { }
 		
-	public Exercise(String nameExercise, Integer complexityNumber, 
-			String description, String urlVideo, String muscle) {
-		this.nameExercise = nameExercise;
-		this.complexityNumber = complexityNumber;
-		this.description = description;
-		this.urlVideo = urlVideo;
-		this.muscle = muscle;
+	public Exercise(Integer repetitions, String levelExcercise,
+					Integer exerciseTime, Integer breakTime) {
+		this.repetitions = repetitions;
+		this.levelExcercise = levelExcercise;
+		this.exerciseTime = exerciseTime;
+		this.breakTime = breakTime;
+		this.processExercise = new ProcessExercise();
 	}
 	
 	public Exercise(ExerciseBuilder builder) {
-		this.nameExercise = builder.nameExercise;
-		this.complexityNumber = builder.complexityNumber;
-		this.description = builder.description;
-		this.urlVideo = builder.urlVideo;
-		this.muscle = builder.muscle;
+		this.repetitions = builder.repetitions;
+		this.levelExcercise = builder.levelExcercise;
+		this.exerciseTime = builder.exerciseTime;
+		this.breakTime = builder.breakTime;
+		this.processExercise = builder.processExercise;
 	}
 	
 	/*----------------------------------------------------------------
 		Descripción:	Getter and setter de variables.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
-	public Integer getId() {
-		return id;
+	public Integer getRepetitions() {
+		return repetitions;
 	}
 
-	public String getnameExercise() {
-		return nameExercise;
+	public void setRepetitions(Integer repetitions) {
+		this.repetitions = repetitions;
 	}
 
-	public void setnameExercise(String nameExercise) {
-		this.nameExercise = nameExercise;
+	public String getLevelExcercise() {
+		return levelExcercise;
 	}
 
-	public Integer getComplexityNumber() {
-		return complexityNumber;
+	public void setLevelExcercise(String levelExcercise) {
+		this.levelExcercise = levelExcercise;
 	}
 
-	public void setComplexityNumber(Integer complexityNumber) {
-		this.complexityNumber = complexityNumber;
+	public Integer getExerciseTime() {
+		return exerciseTime;
 	}
 
-	public String getDescription() {
-		return description;
+	public void setExerciseTime(Integer exerciseTime) {
+		this.exerciseTime = exerciseTime;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public Integer getBreakTime() {
+		return breakTime;
+	}
+
+	public void setBreakTime(Integer breakTime) {
+		this.breakTime = breakTime;
 	}
 	
-	public String getMuscle() {
-		return muscle;
-	}
-
-	public void setMuscle(String muscle) {
-		this.muscle = muscle;
-	}
-	public String getUrlVideo() {
-		return urlVideo;
-	}
-
-	public void setUrlVideo(String urlVideo) {
-		this.urlVideo = urlVideo;
-	}
-
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de Exercise.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
 	public static class ExerciseBuilder {
-		
-		private String nameExercise;
-		private Integer complexityNumber;
-		private String description;
-		private String urlVideo;
-		private String muscle;
+
+		private Integer repetitions;
+		private String levelExcercise;
+		private Integer exerciseTime;
+		private Integer breakTime;
+		private ProcessExercise processExercise;
+
 			
 		public ExerciseBuilder() {
-			this.nameExercise = "Flexiones diamante";	
-			this.complexityNumber = 3;
-			this.description = "Flexiones pero con las manos unidas formando la figura de un diamante";
-			this.urlVideo = "https://github.com/CesarPZ/Calisapp-back-end";
-			this.muscle = "Espalda";
+			this.repetitions = 3;
+			this.levelExcercise = "principiante";
+			this.exerciseTime = 30;
+			this.breakTime = 1;
+			this.processExercise = new ProcessExercise();
 		}
-			
-	    public ExerciseBuilder withNameExercise(String nameExercise) {
-	        this.nameExercise = nameExercise;
+	    
+	    public ExerciseBuilder withRepetitions(Integer repetitions) {
+	        this.repetitions = repetitions;
 	        return this;
 	    }
 	    
-	    public ExerciseBuilder withComplexityNumber(Integer complexityNumber) {
-	        this.complexityNumber = complexityNumber;
+	    public ExerciseBuilder withLevelExcercise (String levelExcercise) {
+	        this.levelExcercise = levelExcercise;
 	        return this;
 	    }
 	    
-	    public ExerciseBuilder withDescription(String description) {
-	        this.description = description;
+	    public ExerciseBuilder withBreakTime(Integer breakTime) {
+	        this.breakTime = breakTime;
 	        return this;
 	    }
 	    
-	    public ExerciseBuilder withUrlVideo(String urlVideo) {
-	        this.urlVideo = urlVideo;
+	    public ExerciseBuilder withExerciseTime(Integer exerciseTime) {
+	        this.exerciseTime = exerciseTime;
 	        return this;
 	    }
 	    
-	    public ExerciseBuilder withMuscle(String muscle) {
-	        this.muscle = muscle;
+	    public ExerciseBuilder withProcessExercise(ProcessExercise processExercise) {
+	        this.processExercise = processExercise;
 	        return this;
 	    }
 	    
