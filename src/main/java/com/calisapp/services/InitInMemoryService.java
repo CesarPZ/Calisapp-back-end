@@ -284,8 +284,7 @@ public class InitInMemoryService {
 				.withExercises(ejerciciosAvanzados)
 				.withLevel("5")
 				.build();
-
-		
+	
 		userService.save(user1);
 		userService.save(user2);
 		
