@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.calisapp.model.Exercise;
 import com.calisapp.repositories.ExerciseRepository;
@@ -20,5 +21,10 @@ public class ExerciseService {
 	-------------------------------------------------------*/
 	public List<Exercise> findAll() {
 		return this.exerciseRepository.findAll();
+	}
+	
+	@Transactional
+	public Exercise save(Exercise model) {
+		return exerciseRepository.save(model);
 	}
 }
