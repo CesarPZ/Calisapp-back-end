@@ -6,7 +6,6 @@ import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -14,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-
 @Entity
 @Table(name = "processexercise")
 /*----------------------------------------------------------------
@@ -36,8 +33,9 @@ public class ProcessExercise {
 	private String urlVideo;
 	@Column
 	private String mainMuscle;
-	 @ElementCollection
-	  @CollectionTable(
+	
+	@ElementCollection
+	@CollectionTable(
 	        name="PHONE",
 	        joinColumns=@JoinColumn(name="OWNER_ID")
 	  )
@@ -164,6 +162,11 @@ public class ProcessExercise {
 	    
 	    public ProcessExerciseBuilder withComplexityNumber(Integer complexityNumber) {
 	        this.complexityNumber = complexityNumber;
+	        return this;
+	    }
+	    
+	    public ProcessExerciseBuilder withAllMuscles(Set<String> allMuscles) {
+	        this.allMuscles = allMuscles;
 	        return this;
 	    }
 	    

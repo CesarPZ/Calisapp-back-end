@@ -1,14 +1,19 @@
 package com.calisapp.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
+@Inheritance
 @Table(name = "exercise")
 /*----------------------------------------------------------------
  	Descripción:	Clase generada para el almacenamiento de ejercicio,
@@ -29,6 +34,10 @@ public class Exercise {
 	private Integer exerciseTime; //Minute
 	@Column
 	private Integer breakTime; //Minute
+	
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name= "processExercise", referencedColumnName = "id")
+	private ProcessExercise processExercise;
 
 	public Exercise() { }
 		
@@ -38,6 +47,7 @@ public class Exercise {
 		this.levelExcercise = levelExcercise;
 		this.exerciseTime = exerciseTime;
 		this.breakTime = breakTime;
+		this.processExercise = new ProcessExercise();
 	}
 	
 	public Exercise(ExerciseBuilder builder) {
@@ -45,6 +55,7 @@ public class Exercise {
 		this.levelExcercise = builder.levelExcercise;
 		this.exerciseTime = builder.exerciseTime;
 		this.breakTime = builder.breakTime;
+		this.processExercise = builder.processExercise;
 	}
 	
 	/*----------------------------------------------------------------
@@ -93,6 +104,7 @@ public class Exercise {
 		private String levelExcercise;
 		private Integer exerciseTime;
 		private Integer breakTime;
+		private ProcessExercise processExercise;
 
 			
 		public ExerciseBuilder() {
@@ -100,6 +112,7 @@ public class Exercise {
 			this.levelExcercise = "principiante";
 			this.exerciseTime = 30;
 			this.breakTime = 1;
+			this.processExercise = new ProcessExercise();
 		}
 	    
 	    public ExerciseBuilder withRepetitions(Integer repetitions) {
@@ -119,6 +132,11 @@ public class Exercise {
 	    
 	    public ExerciseBuilder withExerciseTime(Integer exerciseTime) {
 	        this.exerciseTime = exerciseTime;
+	        return this;
+	    }
+	    
+	    public ExerciseBuilder withProcessExercise(ProcessExercise processExercise) {
+	        this.processExercise = processExercise;
 	        return this;
 	    }
 	    

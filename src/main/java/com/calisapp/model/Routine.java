@@ -31,24 +31,24 @@ public abstract class Routine {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
-	protected Integer id;
+	private Integer id;
 	
 	@Column
-	protected String nameRoutine;
+	private String nameRoutine;
 	
 	@Column
-	public String generatedBy;
+	private String generatedBy;
 	
 	@Column
-	public String level;
+	private String level;
 	
 	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name= "userId", referencedColumnName = "id")
-	protected User userRoutine;
+	private User userRoutine;
 	
 	@JsonBackReference
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
-	protected Set<Exercise> exercises = new HashSet<Exercise>();
+	private Set<Exercise> exercises = new HashSet<Exercise>();
 	
 	public Routine() { }
 	
