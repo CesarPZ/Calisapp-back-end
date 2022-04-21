@@ -7,8 +7,10 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
 
 @Entity
+@Inheritance
 @Table(name = "exercise")
 /*----------------------------------------------------------------
  	Descripción:	Clase generada para el almacenamiento de ejercicio,
