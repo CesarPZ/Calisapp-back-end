@@ -27,4 +27,9 @@ public class ExerciseService {
 	public Exercise save(Exercise model) {
 		return exerciseRepository.save(model);
 	}
+
+	public List<Exercise> findExerciseByRoutine(String idRoutine) {
+		return this.exerciseRepository.findExcersiteToRoutine(idRoutine);
+	}
+
 }

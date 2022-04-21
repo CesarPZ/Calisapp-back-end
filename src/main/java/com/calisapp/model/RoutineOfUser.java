@@ -42,7 +42,7 @@ public class RoutineOfUser extends Routine{
 		public RoutineOfUserBuilder() {
 			this.nameRoutine = "Rutina Avanzada";
 			this.exercises = new HashSet<Exercise>();
-			this.userRoutine = new User();
+			this.userRoutine = null;
 		}
 			
 	    public RoutineOfUserBuilder withNameRoutine(String nameRoutinee) {
