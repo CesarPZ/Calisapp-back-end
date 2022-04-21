@@ -8,19 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.calisapp.model.Exercise;
-import com.calisapp.services.ExerciseService;
+import com.calisapp.model.ProcessExercise;
+import com.calisapp.services.ProcessExerciseService;
 
 @RestController
 @EnableAutoConfiguration
-public class ExerciseController {
+public class ProcessExerciseController {
 
     @Autowired
-    private ExerciseService exerciseService;
+    private ProcessExerciseService processExerciseService;
 
-    @GetMapping("/api/exercises")
-    public ResponseEntity<?> allLExercise() {
-    	List<Exercise> list = exerciseService.findAll();
+    @GetMapping("/api/processExercise")
+    public ResponseEntity<?> allProcessExercise() {
+    	List<ProcessExercise> list = processExerciseService.findAll();
 
         return ResponseEntity.ok().body(list);
     } 
