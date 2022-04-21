@@ -16,6 +16,7 @@ import com.calisapp.model.Exercise;
 import com.calisapp.model.ProcessExercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.RoutineByLevel;
+import com.calisapp.model.RoutineOfUser;
 import com.calisapp.model.User;
 
 @Service
@@ -46,7 +47,7 @@ public class InitInMemoryService {
 		}
 	}
 	
-	private void fireInitialData() throws Exception {
+	private void fireInitialData() {
 		User user1 = new User("Cesar", "perez.cesaar@gmail.com", "1234");
 		User user2 = new User("Marcelo", "jmdicostanzo11@gmail.com", "1234");
 	
@@ -279,18 +280,31 @@ public class InitInMemoryService {
 				.withLevel("3")
 				.build();
 		
-		Routine rutina3 = new RoutineByLevel.RoutineByLevelBuilder()
+		Routine rutina3 = new RoutineOfUser.RoutineOfUserBuilder()
 				.withNameRoutine("Rutina 3")
 				.withExercises(ejerciciosAvanzados)
-				.withLevel("5")
+				.withUserRoutine(user2)
 				.build();
-	
-		userService.save(user1);
-		userService.save(user2);
-		
+
 		routineService.save(rutina1);
 		routineService.save(rutina2);
 		routineService.save(rutina3);
+		
+		exerciseService.save(exercise1);
+		exerciseService.save(exercise2);
+		exerciseService.save(exercise3);
+		exerciseService.save(exercise4);
+		exerciseService.save(exercise5);
+		exerciseService.save(exercise6);
+		exerciseService.save(exercise7);
+		exerciseService.save(exercise8);
+		exerciseService.save(exercise9);
+		exerciseService.save(exercise10);
+		exerciseService.save(exercise11);
+		exerciseService.save(exercise12);
+		exerciseService.save(exercise13);
+		exerciseService.save(exercise14);
+		exerciseService.save(exercise15);
 		
 		processExercise.save(processExercise1);
 		processExercise.save(processExercise2);
@@ -307,21 +321,8 @@ public class InitInMemoryService {
 		processExercise.save(processExercise13);
 		processExercise.save(processExercise14);
 		processExercise.save(processExercise15);
-
-		exerciseService.save(exercise1);
-		exerciseService.save(exercise2);
-		exerciseService.save(exercise3);
-		exerciseService.save(exercise4);
-		exerciseService.save(exercise5);
-		exerciseService.save(exercise6);
-		exerciseService.save(exercise7);
-		exerciseService.save(exercise8);
-		exerciseService.save(exercise9);
-		exerciseService.save(exercise10);
-		exerciseService.save(exercise11);
-		exerciseService.save(exercise12);
-		exerciseService.save(exercise13);
-		exerciseService.save(exercise14);
-		exerciseService.save(exercise15);
+		
+		userService.save(user1);
+		userService.save(user2);
 	}
 }

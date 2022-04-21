@@ -36,9 +36,9 @@ public class ProcessExercise {
 	
 	@ElementCollection
 	@CollectionTable(
-	        name="PHONE",
-	        joinColumns=@JoinColumn(name="OWNER_ID")
-	  )
+        name="allMuscles",
+        joinColumns=@JoinColumn(name="allMuscles")
+	)
 	@Column(name="PHONE_NUMBER")
 	private Set<String> allMuscles;
 	@Column

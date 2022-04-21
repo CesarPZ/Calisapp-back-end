@@ -42,8 +42,8 @@ public abstract class Routine {
 	@Column
 	private String level;
 	
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
-	@JoinColumn(name= "userId", referencedColumnName = "id")
+	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinColumn(name= "userRoutine", referencedColumnName = "id")
 	private User userRoutine;
 	
 	@JsonBackReference
