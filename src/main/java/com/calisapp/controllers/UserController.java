@@ -19,9 +19,9 @@ import com.calisapp.model.User;
 import com.calisapp.services.UserService;
 import com.exceptions.ResourceNotFoundException;
 
-@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 @RestController
 @EnableAutoConfiguration
+@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
 public class UserController {
 	@Autowired
 	private UserService userService;
