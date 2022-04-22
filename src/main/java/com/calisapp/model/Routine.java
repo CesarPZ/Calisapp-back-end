@@ -6,17 +6,14 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Inheritance
@@ -42,20 +39,16 @@ public abstract class Routine {
 	@Column
 	private String level;
 	
-	@OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-	@JoinColumn(name= "userRoutine", referencedColumnName = "id")
-	private User userRoutine;
-	
-	@JsonBackReference
+	@JsonManagedReference
 	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
-	private Set<Exercise> exercises = new HashSet<Exercise>();
+	private Set<Exercise> exercises;
 	
 	public Routine() { }
 	
 	public Routine(String nameRoutine, String generatedBy) {
 	    this.nameRoutine = nameRoutine;
 	    this.generatedBy = generatedBy;
-    	this.exercises = new HashSet<Exercise>();
+		this.exercises = new HashSet<Exercise>();
 	}
 
 	/*----------------------------------------------------------------
@@ -96,13 +89,5 @@ public abstract class Routine {
 
 	public void setLevel(String level) {
 		this.level = level;
-	}
-
-	public User getUserRoutine() {
-		return userRoutine;
-	}
-
-	public void setUserRoutine(User userRoutine) {
-		this.userRoutine = userRoutine;
 	}
 }

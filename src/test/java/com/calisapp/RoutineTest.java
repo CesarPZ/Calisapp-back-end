@@ -55,7 +55,6 @@ class RoutineTest {
 		routineOfUser = new RoutineOfUser.RoutineOfUserBuilder()
 							.withNameRoutine("Intermedio")
 							.withExercises(ejerciciosRoutineOfUser)
-							.withUserRoutine(usuario1)
 							.build();
 	}
 	
@@ -63,7 +62,6 @@ class RoutineTest {
 	public void generacionDeRoutineByLevel(){
 		assertEquals(routineByLevel.getGeneratedBy(), "APP");
 		assertEquals(routineByLevel.getExercises().size(), 2);
-		assertEquals(routineByLevel.getUserRoutine(), null);
 		assertEquals(routineByLevel.getLevel(), "Avanzado");
 	}
 	
@@ -71,7 +69,6 @@ class RoutineTest {
 	public void generacionDeRoutineOfUser(){
 		assertEquals(routineOfUser.getGeneratedBy(), "USER");
 		assertEquals(routineOfUser.getExercises().size(), 3);
-		assertEquals(routineOfUser.getUserRoutine(), usuario1);
 		assertEquals(routineOfUser.getLevel(), null);
 	}
 

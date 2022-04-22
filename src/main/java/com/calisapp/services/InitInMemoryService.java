@@ -162,12 +162,17 @@ public class InitInMemoryService {
 				.withMainMuscle("espalda")
 				.build();
 		
+		Set<String> allMuscles15 =  new HashSet<String>();
+		allMuscles15.add("Espalda");
+		allMuscles15.add("Pecho");
+		
 		ProcessExercise processExercise15  = new ProcessExercise.ProcessExerciseBuilder()
 				.withNameExercise("dragon flag")
 				.withComplexityNumber(5)
                 .withDescription("ejercicio en suelo")
                 .withUrlVideo("video15")
                 .withMainMuscle("abdominales")
+                .withAllMuscles(allMuscles15)
                 .build();
 	
 
@@ -283,7 +288,6 @@ public class InitInMemoryService {
 		Routine rutina3 = new RoutineOfUser.RoutineOfUserBuilder()
 				.withNameRoutine("Rutina 3")
 				.withExercises(ejerciciosAvanzados)
-				.withUserRoutine(user2)
 				.build();
 
 		routineService.save(rutina1);

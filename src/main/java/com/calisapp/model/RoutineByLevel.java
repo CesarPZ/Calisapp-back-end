@@ -28,7 +28,6 @@ public class RoutineByLevel extends Routine{
 		super.setExercises(builder.exercises);
 		super.setLevel(builder.level);
 		super.setGeneratedBy(routineGeneratedBy);
-		super.setUserRoutine(null);
 	}
 	
 	/*----------------------------------------------------------------
