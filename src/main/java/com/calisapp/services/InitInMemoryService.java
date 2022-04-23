@@ -16,7 +16,6 @@ import com.calisapp.model.Exercise;
 import com.calisapp.model.ProcessExercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.RoutineByLevel;
-import com.calisapp.model.RoutineOfUser;
 import com.calisapp.model.User;
 
 @Service
@@ -274,20 +273,21 @@ public class InitInMemoryService {
 		ejerciciosAvanzados.add(exercise15);
 
 		Routine rutina1 = new RoutineByLevel.RoutineByLevelBuilder()
-				.withNameRoutine("Rutina 1")
+				.withNameRoutine("Rutina Principiantes")
 				.withExercises(ejerciciosPrincipiantes)
 				.withLevel("1")
 				.build();
 			
 		Routine rutina2 = new RoutineByLevel.RoutineByLevelBuilder()
-				.withNameRoutine("Rutina 2")
+				.withNameRoutine("Rutina Avanzados 2")
 				.withExercises(ejerciciosIntermedios)
 				.withLevel("3")
 				.build();
 		
-		Routine rutina3 = new RoutineOfUser.RoutineOfUserBuilder()
-				.withNameRoutine("Rutina 3")
+		Routine rutina3 = new RoutineByLevel.RoutineByLevelBuilder()
+				.withNameRoutine("Rutina Avanzados")
 				.withExercises(ejerciciosAvanzados)
+				.withLevel("3")
 				.build();
 
 		routineService.save(rutina1);
