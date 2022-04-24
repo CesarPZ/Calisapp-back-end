@@ -18,6 +18,10 @@ public class RoutineOfUser extends Routine{
 	
 	public RoutineOfUser () {}
 	
+	public RoutineOfUser (String nameRoutine, Set<Exercise> ejercicios) {
+		 super(nameRoutine, ejercicios, routineGeneratedBy);
+	}
+	
 	public RoutineOfUser (String nameRoutine) {
 		 super(nameRoutine, routineGeneratedBy);
 	}
