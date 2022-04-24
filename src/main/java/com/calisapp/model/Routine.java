@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -40,7 +40,7 @@ public abstract class Routine {
 	private String level;
 	
 	@JsonManagedReference
-	@OneToMany(cascade= CascadeType.ALL, orphanRemoval = true)
+	@ManyToMany(cascade= CascadeType.ALL)
 	private Set<Exercise> exercises;
 	
 	public Routine() { }
@@ -50,9 +50,15 @@ public abstract class Routine {
 	    this.generatedBy = generatedBy;
 		this.exercises = new HashSet<Exercise>();
 	}
+	
+	public Routine(String nameRoutine, Set<Exercise> ejercicios, String generatedBy) {
+	    this.nameRoutine = nameRoutine;
+	    this.generatedBy = generatedBy;
+		this.exercises = ejercicios;
+	}
 
 	/*----------------------------------------------------------------
- 		Descripción:	Getter and setter de variables.
+ 		Descripción:	Get y Set de variables.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
 	public Integer getId() {

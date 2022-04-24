@@ -39,7 +39,7 @@ public class ProcessExercise {
         name="allMuscles",
         joinColumns=@JoinColumn(name="allMuscles")
 	)
-	@Column(name="PHONE_NUMBER")
+	@Column(name="MUSCLES")
 	private Set<String> allMuscles;
 	@Column
 	private Integer complexityNumber; //between 1 and 5
@@ -54,6 +54,7 @@ public class ProcessExercise {
 		this.urlVideo = urlVideo;
 		this.mainMuscle = mainMuscle;
 		this.allMuscles = new HashSet<String>();
+		this.allMuscles.add(mainMuscle);
 		this.complexityNumber = complexityNumber;
 	}
 	
@@ -67,8 +68,8 @@ public class ProcessExercise {
 	}
 	
 	/*----------------------------------------------------------------
-		Descripción:	Getter and setter de variables.
-		Fecha: 			21/04/2022
+		Descripción:	Get y Set de variables.
+		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
 	public String getNameExercise() {
 		return nameExercise;
@@ -157,6 +158,7 @@ public class ProcessExercise {
 	    
 	    public ProcessExerciseBuilder withMainMuscle(String mainMuscle) {
 	        this.mainMuscle = mainMuscle;
+	        this.allMuscles.add(mainMuscle);
 	        return this;
 	    }
 	    

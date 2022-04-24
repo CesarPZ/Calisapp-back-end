@@ -1,7 +1,6 @@
 package com.calisapp.model;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -38,7 +37,7 @@ public class Exercise {
 	private Integer breakTime; //Minute
 	
 	@JsonManagedReference
-	@ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	private ProcessExercise processExercise;
 
 	public Exercise() { }
@@ -61,8 +60,8 @@ public class Exercise {
 	}
 	
 	/*----------------------------------------------------------------
-		Descripción:	Getter and setter de variables.
-		Fecha: 			20/04/2022
+		Descripción:	Get y Set de variables.
+		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
 	public Integer getRepetitions() {
 		return repetitions;

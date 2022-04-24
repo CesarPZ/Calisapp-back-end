@@ -30,6 +30,6 @@ class ProcessExerciseTest {
 		assertEquals(ejercicio1.getUrlVideo(), "https://Calisapp/exercise/dominada");
 		assertEquals(ejercicio1.getMainMuscle(), "Espalda");
 		assertEquals(ejercicio1.getComplexityNumber(), 3);
-		assertEquals(ejercicio1.getAllMuscles().size(), 0);
+		assertEquals(ejercicio1.getAllMuscles().size(), 1);
 	}
 }

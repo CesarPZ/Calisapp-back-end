@@ -1,6 +1,7 @@
 package com.calisapp.services;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,16 @@ public class ExerciseService {
 	}
 
 	public List<Exercise> findExerciseByRoutine(String idRoutine) {
-		return this.exerciseRepository.findExcersiteToRoutine(idRoutine);
+		return this.exerciseRepository.findExerciseToRoutine(idRoutine);
+	}
+
+	/*-------------------------------------------------------
+ 	Descripción:	Retorna los exercise con el id recibido por 
+ 					parametro.
+	Fecha: 			24/04/2022
+	-------------------------------------------------------*/
+	public Set<Exercise> findExcersicesByID(List<Integer> excersicesId) {
+		return this.exerciseRepository.findExercisesToId(excersicesId);
 	}
 
 }
