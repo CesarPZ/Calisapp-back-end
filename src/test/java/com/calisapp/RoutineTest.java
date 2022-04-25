@@ -59,17 +59,30 @@ class RoutineTest {
 	}
 	
 	@Test
-	public void generacionDeRoutineByLevel(){
+	public void generacionDeRoutineByLevelTest(){
 		assertEquals(routineByLevel.getGeneratedBy(), "APP");
 		assertEquals(routineByLevel.getExercises().size(), 2);
 		assertEquals(routineByLevel.getLevel(), "Avanzado");
 	}
 	
 	@Test
-	public void generacionDeRoutineOfUser(){
-		assertEquals(routineOfUser.getGeneratedBy(), "USER");
-		assertEquals(routineOfUser.getExercises().size(), 3);
-		assertEquals(routineOfUser.getLevel(), null);
+	public void editRoutineOfUserTest(){
+		Set<Exercise> nuevosEjercicios = new HashSet<Exercise>();
+		nuevosEjercicios.add(ejercicio2);
+		nuevosEjercicios.add(ejercicio5);
+		
+		routineOfUser.updateRoutine("Rutina Modificada", nuevosEjercicios);
+		
+		assertEquals(routineOfUser.getNameRoutine(), "Rutina Modificada");
+		assertEquals(routineOfUser.getExercises().size(), 2);
 	}
-
+	
+	
+	@Test
+	public void editRoutineOfUserSinNameNiEjerciciosTest(){
+		routineOfUser.updateRoutine(null, null);
+		
+		assertEquals(routineOfUser.getNameRoutine(), "Intermedio");
+		assertEquals(routineOfUser.getExercises().size(), 3);
+	}
 }

@@ -23,7 +23,7 @@ class ProcessExerciseTest {
 	}
 	
 	@Test
-	public void generacionDeExcerciseConSusVariables(){
+	public void generacionDeExcerciseConSusVariablesTest(){
 		assertEquals(ejercicio1.getNameExercise(), "Dominadas");
 		assertEquals(ejercicio1.getDescription(),
 				"Levantar el cuerpo mientras este pende de una barra de dominadas");

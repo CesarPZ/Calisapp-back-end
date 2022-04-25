@@ -14,8 +14,6 @@ import com.calisapp.model.Exercise;
 @Configuration
 @Repository
 public interface ExerciseRepository extends CrudRepository<Exercise, Integer> {
-
-	List<Exercise> findAll();
 	
 	@Query(value = "SELECT * FROM exercise e WHERE e.id in (SELECT exercises_id FROM routines_exercises r WHERE r.routine_id = :idRoutine)", nativeQuery = true)
 	List<Exercise> findExerciseToRoutine(@Param("idRoutine") String idRoutine);

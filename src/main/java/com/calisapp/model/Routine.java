@@ -56,7 +56,43 @@ public abstract class Routine {
 	    this.generatedBy = generatedBy;
 		this.exercises = ejercicios;
 	}
-
+	
+	/*----------------------------------------------------------------
+		Descripción:	Actualizar la rutina con el nameRoutine y los 
+						ejercicios recibidos por paramtro.
+		Fecha: 			24/04/2022
+	----------------------------------------------------------------*/
+	public void updateRoutine(String nameRoutine, Set<Exercise> exercises) {
+		if(nameRoutine !=null) {
+			this.setNameRoutine(nameRoutine);
+		}
+		
+		if(exercises !=null && !exercises.isEmpty()) {
+			this.setExercises(exercises);
+		}
+	}
+	
+	/*----------------------------------------------------------------
+		Descripción:	Eliminar exercise recibido por parametro a la  
+						lista de excersice de la rutina.
+		Fecha: 			24/04/2022
+	----------------------------------------------------------------*/
+	public void removeExercise(Exercise excersiceDeleted) {
+		
+		exercises.remove(excersiceDeleted);
+		
+	}
+	
+	/*----------------------------------------------------------------
+		Descripción:	Agregar exercise recibido por parametro a la  
+						lista de excersice de la rutina.
+		Fecha: 			24/04/2022
+	----------------------------------------------------------------*/
+	public void addExercise(Exercise newExcersice) {
+		
+		exercises.add(newExcersice);
+		
+	}
 	/*----------------------------------------------------------------
  		Descripción:	Get y Set de variables.
 		Fecha: 			20/04/2022

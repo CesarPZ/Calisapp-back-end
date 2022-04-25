@@ -21,7 +21,7 @@ public class ExerciseService {
 	Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public List<Exercise> findAll() {
-		return this.exerciseRepository.findAll();
+		return (List<Exercise>) this.exerciseRepository.findAll();
 	}
 	
 	@Transactional
@@ -42,4 +42,8 @@ public class ExerciseService {
 		return this.exerciseRepository.findExercisesToId(excersicesId);
 	}
 
+	public Exercise findByID(Integer idExcersice) {
+		return this.exerciseRepository.findById(idExcersice).get();
+	}
+	
 }
