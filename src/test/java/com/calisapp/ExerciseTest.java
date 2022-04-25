@@ -22,7 +22,7 @@ class ExerciseTest {
 	}
 	
 	@Test
-	public void generacionDeExcerciseConSusVariables(){
+	public void generacionDeExcerciseConSusVariablesTest(){
 		assertEquals(ejercicio1.getRepetitions(), 3);
 		assertEquals(ejercicio1.getLevelExcercise(), "Principiante");
 		assertEquals(ejercicio1.getExerciseTime(), 60);

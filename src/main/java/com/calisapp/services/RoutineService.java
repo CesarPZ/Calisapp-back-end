@@ -34,6 +34,15 @@ public class RoutineService {
 	}
 	
 	/*-------------------------------------------------------
+	 	Descripción:	Retorna la rutina con el id recibido
+	 					por parametro.
+		Fecha: 			20/04/2022
+	-------------------------------------------------------*/
+	public Routine findByID(Integer id) {
+		return this.routineRepository.findById(id).get();
+	}
+	
+	/*-------------------------------------------------------
  	Descripción:	Retorna todas las rutinas con el "level" recibido 
  					por parametro de la base de datos.
 	Fecha: 			20/04/2022
@@ -73,6 +82,50 @@ public class RoutineService {
 	-------------------------------------------------------*/
 	public List<Routine> findWithUserId(Integer idUser) {
 		return this.routineRepository.findWithUserId(idUser);
+	}
+
+	/*-------------------------------------------------------
+ 	Descripción:	Actualiza la rutina, recibe el id de la 
+ 					rutina, el nuevo nombre y los nuevos 
+ 					nuevos ejercicios.
+	Fecha: 			24/04/2022
+	-------------------------------------------------------*/
+	public Routine editRoutine(Integer idRoutine, String nameRoutine, List<Integer> excersices) {
+		Routine routineToUpdate = this.findByID(idRoutine);
+		
+		Set<Exercise> exercises = this.exerciseService.findExcersicesByID(excersices);
+		routineToUpdate.updateRoutine(nameRoutine, exercises);
+		
+		
+		return this.routineRepository.save(routineToUpdate);
+	}
+
+	/*-------------------------------------------------------
+	 	Descripción:	Quita el ejercicio recibido por parametro
+	 					del repositorio de la rotina.
+		Fecha: 			24/04/2022
+	-------------------------------------------------------*/
+	public Routine removeExercise(Integer idRoutine, Integer idExcersice) {
+		Routine routineToUpdate = this.findByID(idRoutine);
+		Exercise exercise = exerciseService.findByID(idExcersice);
+		
+		routineToUpdate.removeExercise(exercise);
+		
+		return this.routineRepository.save(routineToUpdate);
+	}
+	
+	/*-------------------------------------------------------
+	 	Descripción:	Agrega el ejercicio recibido por parametro
+	 					del repositorio de la rotina.
+		Fecha: 			24/04/2022
+	-------------------------------------------------------*/
+	public Routine addExercise(Integer idRoutine, Integer idExcersice) {
+		Routine routineToUpdate = this.findByID(idRoutine);
+		Exercise exercise = exerciseService.findByID(idExcersice);
+		
+		routineToUpdate.addExercise(exercise);
+		
+		return this.routineRepository.save(routineToUpdate);
 	}
 
 }
