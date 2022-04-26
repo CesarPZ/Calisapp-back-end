@@ -30,6 +30,8 @@ public class Exercise {
 	@Column
 	private Integer repetitions;
 	@Column
+	private Integer series;
+	@Column
 	private String levelExcercise;
 	@Column
 	private Integer exerciseTime; //Minute
@@ -42,9 +44,10 @@ public class Exercise {
 
 	public Exercise() { }
 		
-	public Exercise(Integer repetitions, String levelExcercise,
+	public Exercise(Integer repetitions, Integer series, String levelExcercise,
 					Integer exerciseTime, Integer breakTime) {
 		this.repetitions = repetitions;
+		this.series = series;
 		this.levelExcercise = levelExcercise;
 		this.exerciseTime = exerciseTime;
 		this.breakTime = breakTime;
@@ -53,6 +56,7 @@ public class Exercise {
 	
 	public Exercise(ExerciseBuilder builder) {
 		this.repetitions = builder.repetitions;
+		this.series = builder.series;
 		this.levelExcercise = builder.levelExcercise;
 		this.exerciseTime = builder.exerciseTime;
 		this.breakTime = builder.breakTime;
@@ -63,12 +67,33 @@ public class Exercise {
 		Descripción:	Get y Set de variables.
 		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
+
+	public Integer getId() {
+		return id;
+	}
+
+	public ProcessExercise getProcessExercise() {
+		return processExercise;
+	}
+
+	public void setProcessExercise(ProcessExercise processExercise) {
+		this.processExercise = processExercise;
+	}
+
 	public Integer getRepetitions() {
 		return repetitions;
 	}
-
+	
 	public void setRepetitions(Integer repetitions) {
 		this.repetitions = repetitions;
+	}
+	
+	public Integer getSeries() {
+		return series;
+	}
+
+	public void setSeries(Integer series) {
+		this.series = series;
 	}
 
 	public String getLevelExcercise() {
@@ -102,6 +127,7 @@ public class Exercise {
 	public static class ExerciseBuilder {
 
 		private Integer repetitions;
+		private Integer series;
 		private String levelExcercise;
 		private Integer exerciseTime;
 		private Integer breakTime;
@@ -109,7 +135,8 @@ public class Exercise {
 
 			
 		public ExerciseBuilder() {
-			this.repetitions = 3;
+			this.repetitions = 12;
+			this.series = 3;
 			this.levelExcercise = "principiante";
 			this.exerciseTime = 30;
 			this.breakTime = 1;
@@ -118,6 +145,11 @@ public class Exercise {
 	    
 	    public ExerciseBuilder withRepetitions(Integer repetitions) {
 	        this.repetitions = repetitions;
+	        return this;
+	    }
+	    
+	    public ExerciseBuilder withSeries(Integer series) {
+	        this.series = series;
 	        return this;
 	    }
 	    

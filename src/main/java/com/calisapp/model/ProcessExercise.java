@@ -25,6 +25,7 @@ public class ProcessExercise {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
+	
 	@Column
 	private String nameExercise;
 	@Column
@@ -71,6 +72,10 @@ public class ProcessExercise {
 		Descripción:	Get y Set de variables.
 		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
+	public Integer getId() {
+		return id;
+	}
+	
 	public String getNameExercise() {
 		return nameExercise;
 	}

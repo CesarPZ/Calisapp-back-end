@@ -173,82 +173,95 @@ public class InitInMemoryService {
                 .withMainMuscle("abdominales")
                 .withAllMuscles(allMuscles15)
                 .build();
-	
-
 		
 		Exercise exercise1  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise1)
 				.withRepetitions(15)
+				.withSeries(3)
 				.build();
 		
 		Exercise exercise2  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise2)
 				.withRepetitions(25)
+				.withSeries(2)
 				.build();
 		
 		Exercise exercise3  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise3)
 				.withRepetitions(10)
+				.withSeries(4)
 				.build();
 		
 		Exercise exercise4  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise4)
 				.withRepetitions(8)
+				.withSeries(5)
 				.build();
 		
 		Exercise exercise5  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise5)
 				.withRepetitions(12)
+				.withSeries(4)
 				.build();
 		
 		Exercise exercise6  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise6)
 				.withRepetitions(6)
+				.withSeries(6)
 				.build();
 		
 		Exercise exercise7  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise7)
 				.withRepetitions(3)
+				.withSeries(5)
 				.build();
 		
 		Exercise exercise8  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise8)
-				.withRepetitions(1)
+				.withRepetitions(5)
+				.withSeries(6)
 				.build();
 		
 		Exercise exercise9  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise9)
 				.withRepetitions(22)
+				.withSeries(3)
 				.build();
 		
 		Exercise exercise10  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise10)
-				.withRepetitions(2)
+				.withRepetitions(12)
+				.withSeries(3)
 				.build();
 		
 		Exercise exercise11  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise11)
-				.withRepetitions(3)
+				.withRepetitions(13)
+				.withSeries(4)
 				.build();
 		
 		Exercise exercise12  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise12)
-				.withRepetitions(5)
+				.withRepetitions(8)
+				.withSeries(5)
 				.build();
 		
 		Exercise exercise13  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise13)
 				.withRepetitions(10)
+				.withSeries(4)
 				.build();
 		
 		Exercise exercise14  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise14)
 				.withRepetitions(15)
+				.withSeries(3)
 				.build();
 		
 		Exercise exercise15  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise15)
 				.withRepetitions(21)
+				.withSeries(4)
 				.build();
 
 		Set<Exercise> ejerciciosPrincipiantes = new HashSet<Exercise>();

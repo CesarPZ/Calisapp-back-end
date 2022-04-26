@@ -14,7 +14,8 @@ class ExerciseTest {
 	static void setUp() {
 		
 		ejercicio1 = new Exercise.ExerciseBuilder()
-							.withRepetitions(3)
+							.withRepetitions(12)
+							.withSeries(3)
 							.withLevelExcercise("Principiante")
 							.withExerciseTime(60)
 							.withBreakTime(2)
@@ -23,7 +24,8 @@ class ExerciseTest {
 	
 	@Test
 	public void generacionDeExcerciseConSusVariablesTest(){
-		assertEquals(ejercicio1.getRepetitions(), 3);
+		assertEquals(ejercicio1.getRepetitions(), 12);
+		assertEquals(ejercicio1.getSeries(), 3);
 		assertEquals(ejercicio1.getLevelExcercise(), "Principiante");
 		assertEquals(ejercicio1.getExerciseTime(), 60);
 		assertEquals(ejercicio1.getBreakTime(), 2);
