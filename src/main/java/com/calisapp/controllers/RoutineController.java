@@ -1,6 +1,7 @@
 package com.calisapp.controllers;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.calisapp.model.Routine;
 import com.calisapp.services.RoutineService;
+import com.exceptions.ResourceNotFoundException;
 
 @RestController
 @EnableAutoConfiguration
@@ -82,11 +85,22 @@ public class RoutineController {
     @PutMapping("/api/addExerciseRoutine/{id}")
     public ResponseEntity<?> addExerciseToRoutine(@Valid @PathVariable("id") Integer id,
 							@RequestParam ("idExcersice") Integer idExcersice) {
-    	
-    		
+
     	Routine routineUpdate = routineService.addExercise(id, idExcersice);
     	
         return ResponseEntity.ok().body(routineUpdate);
+    }
+    
+    @DeleteMapping("/api/deleteRoutine/{id}")
+    public ResponseEntity<?> deleteRoutine(@PathVariable("id") Integer id,
+    						@RequestParam ("idUser") Integer idUser) {
+    	try {
+    		routineService.deleteById(id,idUser);
+    		return ResponseEntity.ok().body("Routine deleted with success!");	
+        
+    	} catch (NoSuchElementException e){
+    		throw new ResourceNotFoundException("Routine with ID:"+id+" Not Found!");
+    	}
     }
     
 }

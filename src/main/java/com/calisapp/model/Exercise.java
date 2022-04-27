@@ -22,6 +22,10 @@ import javax.persistence.ManyToOne;
 	Fecha: 			19/04/2022
 ----------------------------------------------------------------*/
 public class Exercise {
+	
+	static final String routineGeneratedByUser = "USER";
+	static final String routineGeneratedByApp = "APP";
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -37,6 +41,8 @@ public class Exercise {
 	private Integer exerciseTime; //Minute
 	@Column
 	private Integer breakTime; //Minute
+	@Column
+	private String generatedBy; //Minute
 	
 	@JsonManagedReference
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
@@ -45,13 +51,30 @@ public class Exercise {
 	public Exercise() { }
 		
 	public Exercise(Integer repetitions, Integer series, String levelExcercise,
-					Integer exerciseTime, Integer breakTime) {
+					Integer exerciseTime, Integer breakTime, String generatedBy) {
 		this.repetitions = repetitions;
 		this.series = series;
 		this.levelExcercise = levelExcercise;
 		this.exerciseTime = exerciseTime;
 		this.breakTime = breakTime;
+		this.generatedBy = generatedBy;
 		this.processExercise = new ProcessExercise();
+	}
+	
+	/*----------------------------------------------------------------
+		Descripción:	Constructor utilizado para replicar exercise,
+						a diferentes user.
+		Fecha: 			24/04/2022
+	----------------------------------------------------------------*/
+
+	public Exercise(Exercise oldExercise) {
+		this.repetitions = oldExercise.repetitions;
+		this.series = oldExercise.series;
+		this.levelExcercise = oldExercise.levelExcercise;
+		this.exerciseTime = oldExercise.exerciseTime;
+		this.breakTime = oldExercise.breakTime;
+		this.generatedBy = routineGeneratedByUser;
+		this.processExercise = oldExercise.processExercise;	
 	}
 	
 	public Exercise(ExerciseBuilder builder) {
@@ -61,6 +84,7 @@ public class Exercise {
 		this.exerciseTime = builder.exerciseTime;
 		this.breakTime = builder.breakTime;
 		this.processExercise = builder.processExercise;
+		this.generatedBy = builder.generatedBy;
 	}
 	
 	/*----------------------------------------------------------------
@@ -120,6 +144,14 @@ public class Exercise {
 		this.breakTime = breakTime;
 	}
 	
+	public String getGeneratedBy() {
+		return generatedBy;
+	}
+
+	public void setGeneratedBy(String generatedBy) {
+		this.generatedBy = generatedBy;
+	}
+
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de Exercise.
 		Fecha: 			20/04/2022
@@ -131,6 +163,7 @@ public class Exercise {
 		private String levelExcercise;
 		private Integer exerciseTime;
 		private Integer breakTime;
+		private String generatedBy;
 		private ProcessExercise processExercise;
 
 			
@@ -140,6 +173,7 @@ public class Exercise {
 			this.levelExcercise = "principiante";
 			this.exerciseTime = 30;
 			this.breakTime = 1;
+			this.generatedBy = routineGeneratedByApp;
 			this.processExercise = new ProcessExercise();
 		}
 	    
@@ -170,6 +204,11 @@ public class Exercise {
 	    
 	    public ExerciseBuilder withProcessExercise(ProcessExercise processExercise) {
 	        this.processExercise = processExercise;
+	        return this;
+	    }
+	    
+	    public ExerciseBuilder withGeneratedBy(String generatedBy) {
+	        this.generatedBy = generatedBy;
 	        return this;
 	    }
 	    

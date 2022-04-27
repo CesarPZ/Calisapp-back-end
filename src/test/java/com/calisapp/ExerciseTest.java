@@ -19,6 +19,7 @@ class ExerciseTest {
 							.withLevelExcercise("Principiante")
 							.withExerciseTime(60)
 							.withBreakTime(2)
+							.withGeneratedBy("USER")
 							.build();
 	}
 	
@@ -29,5 +30,6 @@ class ExerciseTest {
 		assertEquals(ejercicio1.getLevelExcercise(), "Principiante");
 		assertEquals(ejercicio1.getExerciseTime(), 60);
 		assertEquals(ejercicio1.getBreakTime(), 2);
+		assertEquals(ejercicio1.getGeneratedBy(), "USER");
 	}
 }

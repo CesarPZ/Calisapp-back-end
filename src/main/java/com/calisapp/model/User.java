@@ -1,6 +1,7 @@
 package com.calisapp.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -63,7 +64,14 @@ public class User {
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
 	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios) {
-		Routine newRoutine = new RoutineOfUser(nameRoutine, ejercicios);
+		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
+		
+		for(Exercise exercise:ejercicios) {
+			Exercise newExercise = new Exercise(exercise);
+			ejerciciosNuevos.add(newExercise);
+		}
+		
+		Routine newRoutine = new RoutineOfUser(nameRoutine, ejerciciosNuevos);
 		this.routines.add(newRoutine);
 		
 		return newRoutine;
