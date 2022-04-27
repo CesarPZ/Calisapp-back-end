@@ -71,6 +71,7 @@ public class RoutineService {
 		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersicesId);
 		
 		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios);
+		exerciseService.saveAll(newRoutine.getExercises());
 		
 		return save(newRoutine);
 	}
@@ -115,8 +116,8 @@ public class RoutineService {
 	}
 	
 	/*-------------------------------------------------------
-	 	Descripción:	Agrega el ejercicio recibido por parametro
-	 					del repositorio de la rotina.
+	 	Descripción:	Agrega el ejercicio recibido por parametro,
+	 					a la rutina recibida.
 		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public Routine addExercise(Integer idRoutine, Integer idExcersice) {
@@ -126,6 +127,15 @@ public class RoutineService {
 		routineToUpdate.addExercise(exercise);
 		
 		return this.routineRepository.save(routineToUpdate);
+	}
+
+	/*-------------------------------------------------------
+	 	Descripción:	Elimina la rutina recibida por parametro
+		Fecha: 			27/04/2022
+	-------------------------------------------------------*/
+	public void deleteById(Integer idRoutine, Integer idUser) {
+		//validar origen de rutina(ADMIN O USER)
+		//this.routineRepository.deleteById(id);	
 	}
 
 }

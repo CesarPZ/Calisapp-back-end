@@ -12,6 +12,9 @@ import com.calisapp.repositories.ExerciseRepository;
 
 @Service
 public class ExerciseService {
+	static final String routineGeneratedByUser = "USER";
+	static final String routineGeneratedByApp = "APP";
+	
 	@Autowired
 	private ExerciseRepository  exerciseRepository;
 	
@@ -24,9 +27,22 @@ public class ExerciseService {
 		return (List<Exercise>) this.exerciseRepository.findAll();
 	}
 	
+	/*-------------------------------------------------------
+ 	Descripción:	Retorna todos los ejercicios de la base 
+ 					de datos que fueron creados por la aplicacion.
+	Fecha: 			27/04/2022
+	-------------------------------------------------------*/
+	public List<Exercise> findAllToGeneratedByApp() {
+		return (List<Exercise>) this.exerciseRepository.findAllToGeneratedByApp(routineGeneratedByApp);
+	}
+	
 	@Transactional
 	public Exercise save(Exercise model) {
 		return exerciseRepository.save(model);
+	}
+	
+	public Iterable<Exercise> saveAll(Set<Exercise> exercises) {
+		return exerciseRepository.saveAll(exercises);
 	}
 
 	public List<Exercise> findExerciseByRoutine(String idRoutine) {
@@ -45,5 +61,12 @@ public class ExerciseService {
 	public Exercise findByID(Integer idExcersice) {
 		return this.exerciseRepository.findById(idExcersice).get();
 	}
-	
+
+	public Exercise updateExercise(Integer exerciseId, Integer series, Integer repetitions) {
+		Exercise exerciseToUpdate = this.findByID(exerciseId);
+		exerciseToUpdate.setSeries(series);
+		exerciseToUpdate.setRepetitions(repetitions);
+		
+		return this.exerciseRepository.save(exerciseToUpdate);
+	}
 }

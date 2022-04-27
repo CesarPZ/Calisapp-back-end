@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calisapp.model.Exercise;
@@ -26,6 +28,13 @@ public class ExerciseController {
     	List<Exercise> list = exerciseService.findAll();
 
         return ResponseEntity.ok().body(list);
+    }
+    
+    @GetMapping("/api/exercisesApp")
+    public ResponseEntity<?> allLExerciseApp() {
+    	List<Exercise> list = exerciseService.findAllToGeneratedByApp();
+
+        return ResponseEntity.ok().body(list);
     } 
     
     @GetMapping("/api/exercisesRoutine/{idRoutine}")
@@ -33,5 +42,15 @@ public class ExerciseController {
     	List<Exercise> list = exerciseService.findExerciseByRoutine(idRoutine);
 
         return ResponseEntity.ok().body(list);
+    }
+    
+    @PostMapping("/api/editExercise/{id}")
+    public ResponseEntity<?> editExercise(@PathVariable ("id") Integer id,
+									@RequestParam ("series") Integer series,
+					    			@RequestParam ("repetitions") Integer repetitions) {
+
+    	Exercise exerciseUpdate = exerciseService.updateExercise(id, series, repetitions);
+    	
+        return ResponseEntity.ok().body(exerciseUpdate);
     }
 }

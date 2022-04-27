@@ -20,4 +20,7 @@ public interface ExerciseRepository extends CrudRepository<Exercise, Integer> {
 	
 	@Query(value = "SELECT * FROM exercise e WHERE e.id in :excersicesId", nativeQuery = true)
 	Set<Exercise> findExercisesToId(@Param("excersicesId") List<Integer> excersicesId);
+
+	@Query(value = "SELECT * FROM exercise e WHERE e.generated_by = :generated_by", nativeQuery = true)
+	List<Exercise> findAllToGeneratedByApp(@Param("generated_by") String generated_by);
 }
