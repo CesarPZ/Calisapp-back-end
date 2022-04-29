@@ -39,24 +39,22 @@ public class UserController {
     		User user = userService.findByID(id);
     		return ResponseEntity.ok().body(user);
         
-    	} catch (NoSuchElementException e){
-
+    	} catch (NoSuchElementException e){	
     		throw new ResourceNotFoundException("User with ID:"+id+" Not Found!");
     	}
     }
     
     @DeleteMapping(value="/api/users/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable("id") Long id) {
-    	try {
-    		User user = userService.findByID(id);
-        
-    		userService.deleteById(user.getId());
+    	try{
+			User user = userService.findByID(id);
+			userService.deleteById(user.getId());
 
-    		return ResponseEntity.ok().body("User deleted with success!");	
-        
-    	} catch (NoSuchElementException e){
+    		return ResponseEntity.ok().body("User deleted with success!");
+    		
+    	}catch (NoSuchElementException e){
     		throw new ResourceNotFoundException("User with ID:"+id+" Not Found!");
-    		}
+    	}
     }
     
     @PostMapping("/api/users/login")
@@ -80,8 +78,8 @@ public class UserController {
     
     @PutMapping("/api/users/{id}")
 	public ResponseEntity<User> updateUserById(@PathVariable("id") Long id, 
-			@RequestParam (value = "name", required=false) String name,
-			@RequestParam (value = "password", required=false) String password) {
+											@RequestParam(value="name", required=false) String name,
+											@RequestParam(value="password", required=false) String password) {
 		
 		User userUpdate = userService.update(id,name,password);
 

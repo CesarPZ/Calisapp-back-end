@@ -62,11 +62,11 @@ public class Exercise {
 	}
 	
 	/*----------------------------------------------------------------
-		Descripción:	Constructor utilizado para replicar exercise,
-						a diferentes user.
+		Descripción:	Constructor utilizado para copiar las caracteristicas 
+						del exercise recibido, y crear uno nuevo con el campo
+						generatedBy = USER.
 		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
-
 	public Exercise(Exercise oldExercise) {
 		this.repetitions = oldExercise.repetitions;
 		this.series = oldExercise.series;

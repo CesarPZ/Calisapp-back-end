@@ -14,17 +14,17 @@ public class ProcessExerciseService {
 	@Autowired
 	private ProcessExerciseRepository processExerciseRepository;
 	
-	/*-------------------------------------------------------
- 	Descripción:	Retorna todos los ejercicios y caracteristicas 
- 					de la base de datos.
-	Fecha: 			20/04/2022
-	-------------------------------------------------------*/
-	public List<ProcessExercise> findAll() {
-		return this.processExerciseRepository.findAll();
-	}
-	
 	@Transactional
 	public ProcessExercise save(ProcessExercise model) {
 		return processExerciseRepository.save(model);
+	}
+	
+	/*-------------------------------------------------------
+	 	Descripción:	Retorna todos los ejercicios y caracteristicas 
+	 					de la base de datos.
+		Fecha: 			20/04/2022
+	-------------------------------------------------------*/
+	public List<ProcessExercise> findAll() {
+		return this.processExerciseRepository.findAll();
 	}
 }

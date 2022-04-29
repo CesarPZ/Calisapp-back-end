@@ -25,7 +25,6 @@ public class ProcessExercise {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
-	
 	@Column
 	private String nameExercise;
 	@Column
@@ -33,8 +32,9 @@ public class ProcessExercise {
 	@Column
 	private String urlVideo;
 	@Column
+	private Integer complexityNumber;
+	@Column
 	private String mainMuscle;
-	
 	@ElementCollection
 	@CollectionTable(
         name="allMuscles",
@@ -42,8 +42,6 @@ public class ProcessExercise {
 	)
 	@Column(name="MUSCLES")
 	private Set<String> allMuscles;
-	@Column
-	private Integer complexityNumber; //between 1 and 5
 	
 	public ProcessExercise() { }
 		
