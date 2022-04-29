@@ -49,7 +49,7 @@ public class InitInMemoryService {
 	private void fireInitialData() {
 		User user1 = new User("Cesar", "perez.cesaar@gmail.com", "1234");
 		User user2 = new User("Marcelo", "jmdicostanzo11@gmail.com", "1234");
-	
+
 		ProcessExercise processExercise1 = new ProcessExercise.ProcessExerciseBuilder()
 				.withNameExercise("dominadas australianas")
 				.withComplexityNumber(1)
@@ -236,7 +236,7 @@ public class InitInMemoryService {
 		
 		Exercise exercise11  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise11)
-				.withRepetitions(13)
+				.withRepetitions(15)
 				.withSeries(4)
 				.build();
 		
@@ -263,7 +263,38 @@ public class InitInMemoryService {
 				.withRepetitions(21)
 				.withSeries(4)
 				.build();
+		
+		//Rutina espartana
+		Exercise dominadasPronas  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise14)
+				.withRepetitions(50)
+				.withSeries(2)
+				.build();
 
+		Exercise sentadillas  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise4)
+				.withRepetitions(100)
+				.withSeries(2)
+				.build();
+		
+		Exercise fondos  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise11)
+				.withRepetitions(50)
+				.withSeries(2)
+				.build();
+		
+		Exercise flexiones  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise3)
+				.withRepetitions(100)
+				.withSeries(2)
+				.build();
+		
+		Exercise burpees  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise9)
+				.withRepetitions(50)
+				.withSeries(2)
+				.build();
+		
 		Set<Exercise> ejerciciosPrincipiantes = new HashSet<Exercise>();
 		ejerciciosPrincipiantes.add(exercise1);
 		ejerciciosPrincipiantes.add(exercise2);
@@ -285,16 +316,23 @@ public class InitInMemoryService {
 		ejerciciosAvanzados.add(exercise14);
 		ejerciciosAvanzados.add(exercise15);
 
+		Set<Exercise> ejerciciosEspartanos = new HashSet<Exercise>();
+		ejerciciosEspartanos.add(dominadasPronas);
+		ejerciciosEspartanos.add(sentadillas);
+		ejerciciosEspartanos.add(fondos);
+		ejerciciosEspartanos.add(flexiones);
+		ejerciciosEspartanos.add(burpees);
+
 		Routine rutina1 = new RoutineByLevel.RoutineByLevelBuilder()
 				.withNameRoutine("Rutina Principiantes")
 				.withExercises(ejerciciosPrincipiantes)
 				.withLevel("1")
 				.build();
-			
+		
 		Routine rutina2 = new RoutineByLevel.RoutineByLevelBuilder()
-				.withNameRoutine("Rutina Avanzados 2")
+				.withNameRoutine("Rutina Intermedios")
 				.withExercises(ejerciciosIntermedios)
-				.withLevel("3")
+				.withLevel("2")
 				.build();
 		
 		Routine rutina3 = new RoutineByLevel.RoutineByLevelBuilder()
@@ -302,11 +340,15 @@ public class InitInMemoryService {
 				.withExercises(ejerciciosAvanzados)
 				.withLevel("3")
 				.build();
-
-		routineService.save(rutina1);
-		routineService.save(rutina2);
-		routineService.save(rutina3);
 		
+		Routine rutina4 = new RoutineByLevel.RoutineByLevelBuilder()
+				.withNameRoutine("Rutina Espartana")
+				.withExercises(ejerciciosEspartanos)
+				.withLevel("3")
+				.build();
+
+		
+	/*	
 		exerciseService.save(exercise1);
 		exerciseService.save(exercise2);
 		exerciseService.save(exercise3);
@@ -322,6 +364,13 @@ public class InitInMemoryService {
 		exerciseService.save(exercise13);
 		exerciseService.save(exercise14);
 		exerciseService.save(exercise15);
+		exerciseService.save(dominadasPronas);
+		exerciseService.save(sentadillas);
+		exerciseService.save(fondos);
+		exerciseService.save(flexiones);
+		exerciseService.save(burpees);
+		 */
+		 
 		
 		processExercise.save(processExercise1);
 		processExercise.save(processExercise2);
@@ -338,6 +387,13 @@ public class InitInMemoryService {
 		processExercise.save(processExercise13);
 		processExercise.save(processExercise14);
 		processExercise.save(processExercise15);
+		
+	
+		routineService.save(rutina1);
+		routineService.save(rutina2);
+		routineService.save(rutina3);
+		routineService.save(rutina4);
+	
 		
 		userService.save(user1);
 		userService.save(user2);
