@@ -45,7 +45,7 @@ public class Exercise {
 	private String generatedBy; //Minute
 	
 	@JsonManagedReference
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	private ProcessExercise processExercise;
 
 	public Exercise() { }
