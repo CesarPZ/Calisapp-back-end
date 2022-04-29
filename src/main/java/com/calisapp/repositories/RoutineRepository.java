@@ -18,9 +18,7 @@ public interface RoutineRepository extends CrudRepository<Routine, Integer> {
 	
 	@Query(value =  "SELECT * FROM routines r WHERE r.generated_by = :generated_by and r.level = :level", nativeQuery = true)
 	List<Routine> findWithLevel(@Param("level") String level, @Param("generated_by") String generated_by);
-	
-	//@Query(value = "SELECT * FROM routines r WHERE r.id in (SELECT routines_id FROM user_routines u WHERE u.routines_id = :idUser)", nativeQuery = true)
-	
+		
 	@Query(value = "SELECT * FROM routines r WHERE r.id in (SELECT routines_id FROM user_routines u WHERE u.user_id = :idUser)", nativeQuery = true)
 	List<Routine> findWithUserId(@Param("idUser") Integer idUser);
 }

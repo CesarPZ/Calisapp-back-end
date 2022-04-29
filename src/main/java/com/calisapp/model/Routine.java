@@ -29,16 +29,12 @@ public abstract class Routine {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	private Integer id;
-	
 	@Column
 	private String nameRoutine;
-	
 	@Column
 	private String generatedBy;
-	
 	@Column
 	private String level;
-	
 	@JsonManagedReference
 	@ManyToMany(cascade= CascadeType.ALL)
 	private Set<Exercise> exercises;

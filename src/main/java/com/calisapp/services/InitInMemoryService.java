@@ -29,8 +29,8 @@ public class InitInMemoryService {
 	@Autowired
 	private UserService userService;
 	
-	@Autowired
-	private ExerciseService exerciseService;
+	//@Autowired
+	//private ExerciseService exerciseService;
 	
 	@Autowired
 	private ProcessExerciseService processExercise;
@@ -346,9 +346,8 @@ public class InitInMemoryService {
 				.withExercises(ejerciciosEspartanos)
 				.withLevel("3")
 				.build();
-
 		
-	/*	
+		/*	
 		exerciseService.save(exercise1);
 		exerciseService.save(exercise2);
 		exerciseService.save(exercise3);
@@ -369,8 +368,7 @@ public class InitInMemoryService {
 		exerciseService.save(fondos);
 		exerciseService.save(flexiones);
 		exerciseService.save(burpees);
-		 */
-		 
+		*/
 		
 		processExercise.save(processExercise1);
 		processExercise.save(processExercise2);
@@ -387,13 +385,11 @@ public class InitInMemoryService {
 		processExercise.save(processExercise13);
 		processExercise.save(processExercise14);
 		processExercise.save(processExercise15);
-		
-	
+			
 		routineService.save(rutina1);
 		routineService.save(rutina2);
 		routineService.save(rutina3);
 		routineService.save(rutina4);
-	
 		
 		userService.save(user1);
 		userService.save(user2);

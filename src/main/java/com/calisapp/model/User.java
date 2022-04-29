@@ -57,6 +57,13 @@ public class User {
 	    this.routines = new ArrayList<Routine>();
 	}
 	
+	public User(UserBuilder userBuilder) {
+	    this.name = userBuilder.name;
+	    this.mail = userBuilder.mail;
+	    this.password = userBuilder.password;
+	    this.routines = userBuilder.routines;
+	}
+
 	/*----------------------------------------------------------------
 		Descripción:	Metodo para generar rutinas a un usuario, con
 						el nombre y los ejercicios recibidos por parametro.
@@ -107,5 +114,57 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Routine> getRoutines() {
+		return routines;
+	}
+
+	public void setRoutines(List<Routine> routines) {
+		this.routines = routines;
+	}
+
+	/*----------------------------------------------------------------
+		Descripción:	Clase builder estatica de User.
+		Fecha: 			20/04/2022
+	----------------------------------------------------------------*/
+	public static class UserBuilder {
+		
+		private String name;
+		private String mail;
+		private String password;
+		private List<Routine> routines;
+			
+		public UserBuilder() {
+			this.name = "Julian";
+			this.mail = "julian@gmail.com";
+			this.password = "miContraseña";
+			this.routines = new ArrayList<Routine>();
+		}
+			
+	    public UserBuilder withName(String name) {
+	        this.name = name;
+	        return this;
+	    }
+	    
+	    public UserBuilder withMail(String mail) {
+	        this.mail = mail;
+	        return this;
+	    }
+	    
+	    public UserBuilder withPassword(String password) {
+	        this.password = password;
+	        return this;
+	    }
+	    
+	    public UserBuilder withRoutines(List<Routine> routines) {
+	        this.routines = routines;
+	        return this;
+	    }
+	    
+	    public User build() {
+	    	User routine =  new User(this);
+	        return routine;
+	    }
 	}
 }
