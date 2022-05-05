@@ -17,10 +17,7 @@ public class UserService {
 	private UserRepository  repository;
 	
 	@Transactional
-	public User save(User model) {
-		return repository.save(model);
-		
-		/*
+	public User save(User model) {		
 		User user = null;
     	try {
     		user = findByMail(model.getMail());
@@ -29,8 +26,7 @@ public class UserService {
     	if(user!= null) {
     		throw new ResourceNotFoundException("Access denied: User already exist");
     	}
-    		return repository.save(model);
-    	*/	
+    		return repository.save(model);	
 	}
 
 	public User findByID(Long id) {
