@@ -1,6 +1,9 @@
 package com.calisapp.model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,6 +51,10 @@ public class User {
 	@ManyToMany(cascade= CascadeType.ALL)
 	private List<Routine> routines;
 	
+	@JsonManagedReference
+	@ManyToMany(cascade= CascadeType.ALL)
+	private List<CalendarUser> calendar;
+	
 	public User() { }
 
 	public User(String aName, String aMail, String aPassword) {
@@ -55,6 +62,7 @@ public class User {
 	    this.mail = aMail;
 	    this.password = aPassword;
 	    this.routines = new ArrayList<Routine>();
+	    this.calendar =  new ArrayList<CalendarUser>();
 	}
 	
 	public User(UserBuilder userBuilder) {
@@ -62,6 +70,7 @@ public class User {
 	    this.mail = userBuilder.mail;
 	    this.password = userBuilder.password;
 	    this.routines = userBuilder.routines;
+	    this.calendar = userBuilder.calendar;
 	}
 
 	/*----------------------------------------------------------------
@@ -82,6 +91,36 @@ public class User {
 		this.routines.add(newRoutine);
 		
 		return newRoutine;
+	}
+	
+	/*----------------------------------------------------------------
+		Descripción:	Metodo para generar CalendarUsers y agregarlos a un usuario, 
+						se generan weekRoutine cantidad de CalendarUser 
+						y con los dia calculados con dayRoutine; dayRoutine equivale
+						a el numero de dia de la semana. 1->Lunes; 2->Martes; 3->Miercoles ...
+		Fecha: 			05/05/2022
+	----------------------------------------------------------------*/
+	public List<CalendarUser> addEventTocalendar(Integer dayRoutine, Integer weekRoutine, Routine routine) {
+		List<CalendarUser> calendarComplete = new ArrayList<CalendarUser>();
+		LocalDate localDate = LocalDate.now();
+		LocalDate firstDayOfExercise = LocalDate.now();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		
+		for(int i=0; i<6; i++) {
+			localDate = localDate.plusDays(1);
+			if(localDate.getDayOfWeek().getValue() == dayRoutine ) {
+				firstDayOfExercise = localDate;
+			}
+		}
+		
+		for(int i = 0; i<weekRoutine; i++) {
+			LocalDate dayFinishRoutine = firstDayOfExercise.plusDays(i*7);
+			CalendarUser calendarFinish = new CalendarUser(Date.from(dayFinishRoutine.atStartOfDay(defaultZoneId).toInstant()),routine);
+			calendarComplete.add(calendarFinish);
+			calendar.add(calendarFinish);
+		}
+		
+		return calendarComplete;
 	}
 	
 	/*----------------------------------------------------------------
@@ -123,6 +162,14 @@ public class User {
 	public void setRoutines(List<Routine> routines) {
 		this.routines = routines;
 	}
+	
+	public List<CalendarUser> getCalendar() {
+		return calendar;
+	}
+
+	public void setCalendar(List<CalendarUser> calendar) {
+		this.calendar = calendar;
+	}
 
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de User.
@@ -134,12 +181,14 @@ public class User {
 		private String mail;
 		private String password;
 		private List<Routine> routines;
+		private List<CalendarUser> calendar;
 			
 		public UserBuilder() {
 			this.name = "Julian";
 			this.mail = "julian@gmail.com";
 			this.password = "miContraseña";
 			this.routines = new ArrayList<Routine>();
+			this.calendar = new ArrayList<CalendarUser>();
 		}
 			
 	    public UserBuilder withName(String name) {
@@ -159,6 +208,11 @@ public class User {
 	    
 	    public UserBuilder withRoutines(List<Routine> routines) {
 	        this.routines = routines;
+	        return this;
+	    }
+	    
+	    public UserBuilder withCalendar(List<CalendarUser> calendar) {
+	        this.calendar = calendar;
 	        return this;
 	    }
 	    

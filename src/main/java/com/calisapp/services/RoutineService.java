@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.model.CalendarUser;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.User;
@@ -20,14 +21,16 @@ public class RoutineService {
 	private UserService userService;
 	@Autowired
 	private ExerciseService exerciseService;
+	@Autowired
+	private CalendarUserService calendarUserService;
 	
 	static final String routineGeneratedByApp = "APP";
 	static final String routineGeneratedByUser= "USER";
 	
 	/*-------------------------------------------------------
- 	Descripción:	Retorna todas las rutinas de la base 
- 					de datos.
-	Fecha: 			20/04/2022
+	 	Descripción:	Retorna todas las rutinas de la base 
+	 					de datos.
+		Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public List<Routine> findAll() {
 		return this.routineRepository.findAll();
@@ -43,17 +46,17 @@ public class RoutineService {
 	}
 	
 	/*-------------------------------------------------------
- 	Descripción:	Retorna todas las rutinas con el "level" recibido 
- 					por parametro de la base de datos.
-	Fecha: 			20/04/2022
+	 	Descripción:	Retorna todas las rutinas con el "level" recibido 
+	 					por parametro de la base de datos.
+		Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public List<Routine> findWithLevel(String level) {
 		return this.routineRepository.findWithLevel(level, routineGeneratedByApp);
 	}
 
 	/*-------------------------------------------------------
- 	Descripción:	Guarda una routine.
-	Fecha: 			24/04/2022
+	 	Descripción:	Guarda una routine.
+		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	@Transactional
 	public Routine save(Routine model) {
@@ -61,35 +64,41 @@ public class RoutineService {
 	}
 
 	/*-------------------------------------------------------
- 	Descripción:	Genera una rutina con los ejercicios recibidos
- 	 				por parametro y la retorna.
-	Fecha: 			24/04/2022
+	 	Descripción:	Genera una rutina con los ejercicios recibidos
+	 	 				por parametro y la retorna. Ademas genera un listado de
+	 	 				Calendar con dayRoutine y weeksRoutine recibido por parametro.
+		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
-	public Routine createRoutine(Long userId, String nameRoutine, List<Integer> excersicesId) {
+	public Routine createRoutine(Long userId, String nameRoutine, List<Integer> excersicesId, 
+									Integer dayRoutine, Integer weeksRoutine) {
 		
 		User user = this.userService.findByID(userId);
 		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersicesId);
-		
 		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios);
-		exerciseService.saveAll(newRoutine.getExercises());
 		
-		return save(newRoutine);
+		exerciseService.saveAll(newRoutine.getExercises());
+		save(newRoutine);
+		
+		List<CalendarUser> calendarUser = user.addEventTocalendar(dayRoutine, weeksRoutine, newRoutine);
+		calendarUserService.saveAll(calendarUser);
+		
+		return newRoutine;
 	}
 
 	/*-------------------------------------------------------
- 	Descripción:	Retorna todas las rutinas del usuario
- 					recibido por parametro
-	Fecha: 			24/04/2022
+	 	Descripción:	Retorna todas las rutinas del usuario
+	 					recibido por parametro
+		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public List<Routine> findWithUserId(Integer idUser) {
 		return this.routineRepository.findWithUserId(idUser);
 	}
 
 	/*-------------------------------------------------------
- 	Descripción:	Actualiza la rutina, recibe el id de la 
- 					rutina, el nuevo nombre y los nuevos 
- 					nuevos ejercicios.
-	Fecha: 			24/04/2022
+	 	Descripción:	Actualiza la rutina, recibe el id de la 
+	 					rutina, el nuevo nombre y los nuevos 
+	 					nuevos ejercicios.
+		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public Routine editRoutine(Integer idRoutine, String nameRoutine, List<Integer> excersices) {
 		Routine routineToUpdate = this.findByID(idRoutine);
