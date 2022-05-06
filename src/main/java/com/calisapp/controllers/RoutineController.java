@@ -55,9 +55,11 @@ public class RoutineController {
     public ResponseEntity<?> createRouitne(@Validated 
 									@RequestParam ("userId") Long userId,
 									@RequestParam ("nameRoutine")  String nameRoutine,
-					    			@RequestParam ("excersices") List<Integer> excersices) {
+					    			@RequestParam ("excersices") List<Integer> excersices,
+					    			@RequestParam ("dayRoutine") Integer dayRoutine,
+    								@RequestParam ("weeksRoutine") Integer weeksRoutine) {
 
-    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices);
+    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, dayRoutine, weeksRoutine);
     	
         return ResponseEntity.ok().body(newRoutine);
     }

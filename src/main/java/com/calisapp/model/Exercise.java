@@ -43,6 +43,8 @@ public class Exercise {
 	private Integer breakTime; //Minute
 	@Column
 	private String generatedBy; //Minute
+	@Column
+	private String dayExercise;
 	
 	@JsonManagedReference
 	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
@@ -51,13 +53,14 @@ public class Exercise {
 	public Exercise() { }
 		
 	public Exercise(Integer repetitions, Integer series, String levelExcercise,
-					Integer exerciseTime, Integer breakTime, String generatedBy) {
+					Integer exerciseTime, Integer breakTime, String generatedBy, String dayExercise) {
 		this.repetitions = repetitions;
 		this.series = series;
 		this.levelExcercise = levelExcercise;
 		this.exerciseTime = exerciseTime;
 		this.breakTime = breakTime;
 		this.generatedBy = generatedBy;
+		this.dayExercise = dayExercise;
 		this.processExercise = new ProcessExercise();
 	}
 	
@@ -74,7 +77,9 @@ public class Exercise {
 		this.exerciseTime = oldExercise.exerciseTime;
 		this.breakTime = oldExercise.breakTime;
 		this.generatedBy = routineGeneratedByUser;
-		this.processExercise = oldExercise.processExercise;	
+		this.processExercise = oldExercise.processExercise;
+		this.dayExercise = oldExercise.dayExercise;
+		
 	}
 	
 	public Exercise(ExerciseBuilder builder) {
@@ -85,6 +90,7 @@ public class Exercise {
 		this.breakTime = builder.breakTime;
 		this.processExercise = builder.processExercise;
 		this.generatedBy = builder.generatedBy;
+		this.dayExercise = builder.dayExercise;
 	}
 	
 	/*----------------------------------------------------------------
@@ -151,7 +157,15 @@ public class Exercise {
 	public void setGeneratedBy(String generatedBy) {
 		this.generatedBy = generatedBy;
 	}
+	
+	public String getDayExercise() {
+		return dayExercise;
+	}
 
+	public void setDayExercise(String dayExercise) {
+		this.dayExercise = dayExercise;
+	}
+	
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de Exercise.
 		Fecha: 			20/04/2022
@@ -165,6 +179,7 @@ public class Exercise {
 		private Integer breakTime;
 		private String generatedBy;
 		private ProcessExercise processExercise;
+		private String dayExercise;
 
 			
 		public ExerciseBuilder() {
@@ -175,6 +190,7 @@ public class Exercise {
 			this.breakTime = 1;
 			this.generatedBy = routineGeneratedByApp;
 			this.processExercise = new ProcessExercise();
+			this.dayExercise = "Dia 1";
 		}
 	    
 	    public ExerciseBuilder withRepetitions(Integer repetitions) {
@@ -209,6 +225,11 @@ public class Exercise {
 	    
 	    public ExerciseBuilder withGeneratedBy(String generatedBy) {
 	        this.generatedBy = generatedBy;
+	        return this;
+	    }	
+	    
+	    public ExerciseBuilder withDayExercise(String dayExercise) {
+	        this.dayExercise = dayExercise;
 	        return this;
 	    }
 	    

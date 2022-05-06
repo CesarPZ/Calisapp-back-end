@@ -2,14 +2,19 @@ package com.calisapp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import com.calisapp.model.CalendarUser;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.RoutineOfUser;
@@ -72,6 +77,20 @@ class UserTest {
 		assertEquals(user2.getRoutines().size(), 1);
 		assertEquals(newRoutine.getNameRoutine(), "nuevaRutina");
 		assertEquals(newRoutine.getExercises().size(), 2);
+	}
+	
+	@Test
+	public void addEventTocalendarTest(){
+		//Dia 5 equivale a viernes, y 4 repeticiones
+		List<CalendarUser> calendarToUser = user2.addEventTocalendar(5, 4, routine1);
+		
+		assertEquals(user2.getCalendar().size(), 4);
+		assertEquals(user2.getCalendar(), calendarToUser);
+		
+		for (CalendarUser calendar : calendarToUser) {
+			LocalDate dateCalendar = LocalDate.ofInstant(calendar.getDateRoutine().toInstant(), ZoneId.systemDefault());
+			assertEquals(dateCalendar.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH), "Friday");
+		}
 	}
 	
 }
