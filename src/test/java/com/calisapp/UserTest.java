@@ -88,8 +88,8 @@ class UserTest {
 		assertEquals(user2.getCalendar(), calendarToUser);
 		
 		for (CalendarUser calendar : calendarToUser) {
-			LocalDate dateCalendar = LocalDate.ofInstant(calendar.getDateRoutine().toInstant(), ZoneId.systemDefault());
-			assertEquals(dateCalendar.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH), "Friday");
+//			LocalDate dateCalendar = LocalDate.ofInstant(calendar.getDateRoutine().toInstant(), ZoneId.systemDefault());
+//			assertEquals(dateCalendar.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH), "Friday");
 		}
 	}
 	

@@ -1,5 +1,5 @@
-insert into user (id, mail, name, password) values (1, 'Cesar', 'perez.cesaar@gmail.com', '1234');
-insert into user (id, mail, name, password) values (2, 'Marcelo', 'jmdicostanzo11@gmail.com', '1234');
+insert into users (id, mail, name, password) values (1, 'perez.cesaar@gmail.com', 'Cesar', '1234');
+insert into users (id, mail, name, password) values (2, 'jmdicostanzo11@gmail.com', 'Marcelo', '1234');
 
 
 insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (1, 'dominadas australianas', 'ejercicio colgado', 'video1', 1, 'espalda');
