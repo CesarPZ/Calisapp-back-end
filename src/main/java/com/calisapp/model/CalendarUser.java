@@ -29,21 +29,21 @@ public class CalendarUser {
 	private Integer id;
 	
 	@Column
-	private Date dateRoutine;
+	private Date dayFinishRoutine;
 	
 	@JsonManagedReference
 	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	private Routine routine;
 	
-	public CalendarUser() { }
-		
-	public CalendarUser(Date dateRoutine, Routine routine) {
-		this.dateRoutine = dateRoutine;
+	public CalendarUser() {};
+	
+	public CalendarUser(Date dayFinishRoutine, Routine routine) {
+		this.dayFinishRoutine = dayFinishRoutine;
 		this.routine = routine;
 	}
 	
 	public CalendarUser(CalendarUserBuilder builder) {
-		this.dateRoutine = builder.dateRoutine;
+		this.dayFinishRoutine = builder.dayFinishRoutine;
 		this.routine = builder.routine;
 	}
 
@@ -56,12 +56,12 @@ public class CalendarUser {
 		return id;
 	}
 
-	public Date getDateRoutine() {
-		return dateRoutine;
+	public Date getDayFinishRoutine() {
+		return dayFinishRoutine;
 	}
 
-	public void setDateRoutine(Date dateRoutine) {
-		this.dateRoutine = dateRoutine;
+	public void setDayFinishRoutine(Date dayFinishRoutine) {
+		this.dayFinishRoutine = dayFinishRoutine;
 	}
 
 	public Routine getRoutine() {
@@ -78,16 +78,16 @@ public class CalendarUser {
 	----------------------------------------------------------------*/
 	public static class CalendarUserBuilder {
 	
-		private Date dateRoutine;
+		private Date dayFinishRoutine;
 		private Routine routine;
 		
 		public CalendarUserBuilder() {
-			this.dateRoutine = new Date();	
+			this.dayFinishRoutine = new Date();	
 			this.routine = new RoutineOfUser();
 		}
 			
-	    public CalendarUserBuilder withDateRoutine(Date dateRoutine) {
-	        this.dateRoutine = dateRoutine;
+	    public CalendarUserBuilder withDayFinishRoutine (Date dayFinishRoutine) {
+	        this.dayFinishRoutine = dayFinishRoutine;
 	        return this;
 	    }
 	    

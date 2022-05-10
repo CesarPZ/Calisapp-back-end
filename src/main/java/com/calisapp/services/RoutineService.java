@@ -1,6 +1,7 @@
 package com.calisapp.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,17 +71,17 @@ public class RoutineService {
 		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public Routine createRoutine(Long userId, String nameRoutine, List<Integer> excersicesId, 
-									Integer dayRoutine, Integer weeksRoutine) {
+								Map<String,Integer> dayRoutine, Integer weeksRoutine) {
 		
 		User user = this.userService.findByID(userId);
 		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersicesId);
-		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios);
+		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios, dayRoutine);
 		
 		exerciseService.saveAll(newRoutine.getExercises());
 		save(newRoutine);
 		
-		List<CalendarUser> calendarUser = user.addEventTocalendar(dayRoutine, weeksRoutine, newRoutine);
-		calendarUserService.saveAll(calendarUser);
+		CalendarUser calendarUser = user.addEventTocalendar(weeksRoutine, newRoutine);
+		calendarUserService.save(calendarUser);
 		
 		return newRoutine;
 	}

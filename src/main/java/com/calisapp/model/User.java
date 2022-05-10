@@ -1,11 +1,10 @@
 package com.calisapp.model;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -79,11 +78,13 @@ public class User {
 						La rutina generada se agrega al usuario.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
-	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios) {
-		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
+	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios, Map<String,Integer> dayRoutine) {
+									Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
 		
 		for(Exercise exercise:ejercicios) {
 			Exercise newExercise = new Exercise(exercise);
+			newExercise.setDayExercise(dayRoutine.get(exercise.getId().toString()));
+			
 			ejerciciosNuevos.add(newExercise);
 		}
 		
@@ -100,27 +101,14 @@ public class User {
 						a el numero de dia de la semana. 1->Lunes; 2->Martes; 3->Miercoles ...
 		Fecha: 			05/05/2022
 	----------------------------------------------------------------*/
-	public List<CalendarUser> addEventTocalendar(Integer dayRoutine, Integer weekRoutine, Routine routine) {
-		List<CalendarUser> calendarComplete = new ArrayList<CalendarUser>();
-		LocalDate localDate = LocalDate.now();
-		LocalDate firstDayOfExercise = LocalDate.now();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
+	public CalendarUser addEventTocalendar(Integer weekRoutine, Routine routine) {
+		Calendar dayFinishRoutine = Calendar.getInstance();
+		dayFinishRoutine.add(Calendar.DATE, weekRoutine*7-1);
 		
-		for(int i=0; i<6; i++) {
-			localDate = localDate.plusDays(1);
-			if(localDate.getDayOfWeek().getValue() == dayRoutine ) {
-				firstDayOfExercise = localDate;
-			}
-		}
-		
-		for(int i = 0; i<weekRoutine; i++) {
-			LocalDate dayFinishRoutine = firstDayOfExercise.plusDays(i*7);
-			CalendarUser calendarFinish = new CalendarUser(Date.from(dayFinishRoutine.atStartOfDay(defaultZoneId).toInstant()),routine);
-			calendarComplete.add(calendarFinish);
-			calendar.add(calendarFinish);
-		}
-		
-		return calendarComplete;
+		CalendarUser calendarFinish = new CalendarUser(dayFinishRoutine.getTime() ,routine);
+		this.calendar.add(calendarFinish);
+	
+		return calendarFinish;
 	}
 	
 	/*----------------------------------------------------------------
