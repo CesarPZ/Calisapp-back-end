@@ -44,7 +44,7 @@ public class Exercise {
 	@Column
 	private String generatedBy; //Minute
 	@Column
-	private String dayExercise;
+	private Integer dayExercise;
 	
 	@JsonManagedReference
 	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
@@ -53,7 +53,7 @@ public class Exercise {
 	public Exercise() { }
 		
 	public Exercise(Integer repetitions, Integer series, String levelExcercise,
-					Integer exerciseTime, Integer breakTime, String generatedBy, String dayExercise) {
+					Integer exerciseTime, Integer breakTime, String generatedBy, Integer dayExercise) {
 		this.repetitions = repetitions;
 		this.series = series;
 		this.levelExcercise = levelExcercise;
@@ -158,11 +158,11 @@ public class Exercise {
 		this.generatedBy = generatedBy;
 	}
 	
-	public String getDayExercise() {
+	public Integer getDayExercise() {
 		return dayExercise;
 	}
 
-	public void setDayExercise(String dayExercise) {
+	public void setDayExercise(Integer dayExercise) {
 		this.dayExercise = dayExercise;
 	}
 	
@@ -179,7 +179,7 @@ public class Exercise {
 		private Integer breakTime;
 		private String generatedBy;
 		private ProcessExercise processExercise;
-		private String dayExercise;
+		private Integer dayExercise;
 
 			
 		public ExerciseBuilder() {
@@ -190,7 +190,7 @@ public class Exercise {
 			this.breakTime = 1;
 			this.generatedBy = routineGeneratedByApp;
 			this.processExercise = new ProcessExercise();
-			this.dayExercise = "Dia 1";
+			this.dayExercise = 1;
 		}
 	    
 	    public ExerciseBuilder withRepetitions(Integer repetitions) {
@@ -228,7 +228,7 @@ public class Exercise {
 	        return this;
 	    }	
 	    
-	    public ExerciseBuilder withDayExercise(String dayExercise) {
+	    public ExerciseBuilder withDayExercise(Integer dayExercise) {
 	        this.dayExercise = dayExercise;
 	        return this;
 	    }

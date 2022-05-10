@@ -1,6 +1,7 @@
 package com.calisapp.controllers;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,9 +56,9 @@ public class RoutineController {
     @PostMapping("/api/createRoutine")
     public ResponseEntity<?> createRouitne(@Validated 
 									@RequestParam ("userId") Long userId,
-									@RequestParam ("nameRoutine")  String nameRoutine,
+									@RequestParam ("nameRoutine") String nameRoutine,
 					    			@RequestParam ("excersices") List<Integer> excersices,
-					    			@RequestParam ("dayRoutine") Integer dayRoutine,
+					    			@RequestBody Map<String,Integer> dayRoutine,
     								@RequestParam ("weeksRoutine") Integer weeksRoutine) {
 
     	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, dayRoutine, weeksRoutine);
@@ -68,7 +70,6 @@ public class RoutineController {
     public ResponseEntity<?> editRoutine(@Valid @PathVariable("id") Integer id,
 							@RequestParam ("nameRoutine") String nameRoutine,
 							@RequestParam ("excersices") List<Integer> excersices) {
-    	
     		
     	Routine routineUpdate = routineService.editRoutine(id, nameRoutine, excersices);
     	
