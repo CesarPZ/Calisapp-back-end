@@ -1,7 +1,6 @@
 package com.calisapp.controllers;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -58,10 +56,10 @@ public class RoutineController {
 									@RequestParam ("userId") Long userId,
 									@RequestParam ("nameRoutine") String nameRoutine,
 					    			@RequestParam ("excersices") List<Integer> excersices,
-					    			@RequestBody Map<String,Integer> dayRoutine,
+					    			@RequestParam ("daysRoutine") List<Integer> daysRoutine,
     								@RequestParam ("weeksRoutine") Integer weeksRoutine) {
 
-    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, dayRoutine, weeksRoutine);
+    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, daysRoutine, weeksRoutine);
     	
         return ResponseEntity.ok().body(newRoutine);
     }

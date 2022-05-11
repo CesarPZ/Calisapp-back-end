@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calisapp.model.CalendarUser;
+import com.calisapp.model.DayRoutine;
 import com.calisapp.services.CalendarUserService;
 
 @RestController
@@ -30,7 +31,7 @@ public class CalendarUserController {
     
     @GetMapping("/api/calendarUser/{idUser}")
     public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Integer idUser) {
-    	List<CalendarUser> list = calendarUserService.findWithUserId(idUser);
+    	List<DayRoutine> list = calendarUserService.findWithUserId(idUser);
 
         return ResponseEntity.ok().body(list);
     }

@@ -184,12 +184,14 @@ public class InitInMemoryService {
 				.withProcessExercise(processExercise2)
 				.withRepetitions(25)
 				.withSeries(2)
+				.withDayExercise(2)
 				.build();
 		
 		Exercise exercise3  = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise3)
 				.withRepetitions(10)
 				.withSeries(4)
+				.withDayExercise(4)
 				.build();
 		
 		Exercise exercise4  = new Exercise.ExerciseBuilder()

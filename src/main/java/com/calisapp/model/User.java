@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -78,12 +77,12 @@ public class User {
 						La rutina generada se agrega al usuario.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
-	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios, Map<String,Integer> dayRoutine) {
-									Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
+	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios) {
+		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
 		
 		for(Exercise exercise:ejercicios) {
 			Exercise newExercise = new Exercise(exercise);
-			newExercise.setDayExercise(dayRoutine.get(exercise.getId().toString()));
+			//newExercise.setDayExercise(exercise);
 			
 			ejerciciosNuevos.add(newExercise);
 		}
@@ -101,11 +100,11 @@ public class User {
 						a el numero de dia de la semana. 1->Lunes; 2->Martes; 3->Miercoles ...
 		Fecha: 			05/05/2022
 	----------------------------------------------------------------*/
-	public CalendarUser addEventTocalendar(Integer weekRoutine, Routine routine) {
+	public CalendarUser addEventTocalendar(Integer weekRoutine, Routine routine, List<Integer> daysRoutine) {
 		Calendar dayFinishRoutine = Calendar.getInstance();
 		dayFinishRoutine.add(Calendar.DATE, weekRoutine*7-1);
 		
-		CalendarUser calendarFinish = new CalendarUser(dayFinishRoutine.getTime() ,routine);
+		CalendarUser calendarFinish = new CalendarUser(dayFinishRoutine.getTime(),daysRoutine, weekRoutine ,routine);
 		this.calendar.add(calendarFinish);
 	
 		return calendarFinish;
