@@ -12,7 +12,7 @@ import com.calisapp.model.User;
 @Configuration
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
-	Optional<User> findById(Integer id);
+	Optional<User> findById(Long id);
 	
 	List<User> findAll();
 
