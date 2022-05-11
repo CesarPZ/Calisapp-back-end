@@ -1,14 +1,18 @@
 package com.calisapp.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -30,21 +34,39 @@ public class CalendarUser {
 	
 	@Column
 	private Date dayFinishRoutine;
+	@Column
+	private Date dayInitRoutine;
+	@Column
+	private Integer weeksRoutine;
 	
 	@JsonManagedReference
 	@ManyToOne(optional = false, cascade = CascadeType.MERGE)
 	private Routine routine;
 	
+	@ElementCollection
+	@CollectionTable(
+        name="daysRoutine",
+        joinColumns=@JoinColumn(name="daysRoutine")
+	)
+	@Column(name="DAYS")
+	private List<Integer> daysRoutine;
+	
 	public CalendarUser() {};
 	
-	public CalendarUser(Date dayFinishRoutine, Routine routine) {
+	public CalendarUser(Date dayFinishRoutine, List<Integer> daysRoutine, Integer weeksRoutine, Routine routine) {
 		this.dayFinishRoutine = dayFinishRoutine;
+		this.daysRoutine = daysRoutine;
+		this.weeksRoutine = weeksRoutine;
 		this.routine = routine;
+		this.dayInitRoutine = new Date();
 	}
 	
 	public CalendarUser(CalendarUserBuilder builder) {
 		this.dayFinishRoutine = builder.dayFinishRoutine;
+		this.dayFinishRoutine = builder.dayFinishRoutine;
+		this.weeksRoutine = builder.weeksRoutine;
 		this.routine = builder.routine;
+		this.dayInitRoutine = new Date();
 	}
 
 	/*----------------------------------------------------------------
@@ -71,6 +93,30 @@ public class CalendarUser {
 	public void setRoutine(Routine routine) {
 		this.routine = routine;
 	}
+	
+	public Date getDayInitRoutine() {
+		return dayInitRoutine;
+	}
+
+	public void setDayInitRoutine(Date dayInitRoutine) {
+		this.dayInitRoutine = dayInitRoutine;
+	}
+
+	public List<Integer> getDaysRoutine() {
+		return daysRoutine;
+	}
+
+	public void setDaysRoutine(List<Integer> daysRoutine) {
+		this.daysRoutine = daysRoutine;
+	}
+
+	public Integer getWeeksRoutine() {
+		return weeksRoutine;
+	}
+
+	public void setWeeksRoutine(Integer weeksRoutine) {
+		this.weeksRoutine = weeksRoutine;
+	}
 
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de CalendarUser.
@@ -80,10 +126,12 @@ public class CalendarUser {
 	
 		private Date dayFinishRoutine;
 		private Routine routine;
+		private Integer weeksRoutine;
 		
 		public CalendarUserBuilder() {
 			this.dayFinishRoutine = new Date();	
 			this.routine = new RoutineOfUser();
+			this.weeksRoutine = 3;
 		}
 			
 	    public CalendarUserBuilder withDayFinishRoutine (Date dayFinishRoutine) {
@@ -93,6 +141,11 @@ public class CalendarUser {
 	    
 	    public CalendarUserBuilder withRoutine(Routine routine) {
 	        this.routine = routine;
+	        return this;
+	    }
+	    
+	    public CalendarUserBuilder withWeeksRoutine (Integer weeksRoutine) {
+	        this.weeksRoutine = weeksRoutine;
 	        return this;
 	    }
 	    

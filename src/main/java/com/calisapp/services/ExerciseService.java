@@ -19,9 +19,9 @@ public class ExerciseService {
 	private ExerciseRepository  exerciseRepository;
 	
 	/*-------------------------------------------------------
- 	Descripción:	Retorna todos los ejercicios de la base 
- 					de datos.
-	Fecha: 			20/04/2022
+	 	Descripción:	Retorna todos los ejercicios de la base 
+	 					de datos.
+		Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public List<Exercise> findAll() {
 		return (List<Exercise>) this.exerciseRepository.findAll();
