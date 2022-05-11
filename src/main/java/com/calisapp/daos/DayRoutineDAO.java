@@ -1,19 +1,22 @@
-package com.calisapp.model;
+package com.calisapp.daos;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DayRoutine {
+import com.calisapp.model.Exercise;
+import com.calisapp.model.Routine;
+
+public class DayRoutineDAO {
 
 	private Date dayRoutine;
 	private String routineName;
 	private Integer exerciseNumberDayRoutine;
 	private List<Exercise> exercises;
 	
-	public DayRoutine() {};
+	public DayRoutineDAO() {};
 	
-	public DayRoutine(Date dayRoutine,Routine routine, Integer exerciseNumberDayRoutine) {
+	public DayRoutineDAO(Date dayRoutine,Routine routine, Integer exerciseNumberDayRoutine) {
 		this.dayRoutine = dayRoutine;
 		this.routineName = routine.getNameRoutine();
 		this.exerciseNumberDayRoutine = exerciseNumberDayRoutine;
