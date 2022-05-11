@@ -1,22 +1,22 @@
-insert into users (id, mail, name, password) values (1, 'perez.cesaar@gmail.com', 'Cesar', '1234');
-insert into users (id, mail, name, password) values (2, 'jmdicostanzo11@gmail.com', 'Marcelo', '1234');
+insert into users (mail, name, password) values ('perez.cesaar@gmail.com', 'Cesar', '1234');
+insert into users (mail, name, password) values ('jmdicostanzo11@gmail.com', 'Marcelo', '1234');
 
 
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (1, 'dominadas australianas', 'ejercicio colgado', 'video1', 1, 'espalda');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (2, 'fondos', 'ejercicio en paralelas', 'video2', 1, 'triceps');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (3, 'flexiones', 'ejercicio en suelo', 'video3', 1, 'pectoral');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (4, 'sentadillas', 'ejercicio en suelo', 'video4', 1, 'piernas');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (5, 'dominadas supinas', 'ejercicio colgado', 'video5', 3, 'espalda');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (6, 'flexiones diamantes', 'ejercicio en suelo', 'video6', 3, 'pectoral');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (7, 'zancadas', 'ejercicio en suelo', 'video7', 3, 'piernas');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (8, 'plancha', 'ejercicio en suelo', 'video8', 3, 'abdominales');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (9, 'burpees', 'ejercicio en suelo', 'video9', 3, 'abdominales');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (10, 'flexiones a pino', 'ejercicio en suelo', 'video10', 5, 'pectoral');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (11, 'fondos explosivos', 'ejercicio en paralelas', 'video11', 5, 'triceps');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (12, 'muscle up', 'ejercicio colgado', 'video12', 5, 'hombros');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (13, 'pistol squat', 'ejercicio en suelo', 'video13', 5, 'piernas');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (14, 'dominadas pronas', 'ejercicio colgado', 'video14', 5, 'espalda');
-insert into processexercise (id, name_exercise, description, url_video, complexity_number, main_muscle) values (15, 'dragon flag', 'ejercicio en suelo', 'video15', 5, 'espalda');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('dominadas australianas', 'ejercicio colgado', 'video1', 1, 'espalda');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('fondos', 'ejercicio en paralelas', 'video2', 1, 'triceps');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('flexiones', 'ejercicio en suelo', 'video3', 1, 'pectoral');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('sentadillas', 'ejercicio en suelo', 'video4', 1, 'piernas');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('dominadas supinas', 'ejercicio colgado', 'video5', 3, 'espalda');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('flexiones diamantes', 'ejercicio en suelo', 'video6', 3, 'pectoral');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('zancadas', 'ejercicio en suelo', 'video7', 3, 'piernas');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('plancha', 'ejercicio en suelo', 'video8', 3, 'abdominales');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('burpees', 'ejercicio en suelo', 'video9', 3, 'abdominales');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('flexiones a pino', 'ejercicio en suelo', 'video10', 5, 'pectoral');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('fondos explosivos', 'ejercicio en paralelas', 'video11', 5, 'triceps');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('muscle up', 'ejercicio colgado', 'video12', 5, 'hombros');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('pistol squat', 'ejercicio en suelo', 'video13', 5, 'piernas');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('dominadas pronas', 'ejercicio colgado', 'video14', 5, 'espalda');
+insert into processexercise (name_exercise, description, url_video, complexity_number, main_muscle) values ('dragon flag', 'ejercicio en suelo', 'video15', 5, 'espalda');
  
 
 
