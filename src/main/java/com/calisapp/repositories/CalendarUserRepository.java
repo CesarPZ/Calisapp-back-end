@@ -14,7 +14,7 @@ import com.calisapp.model.CalendarUser;
 @Repository
 public interface CalendarUserRepository extends CrudRepository<CalendarUser, Integer> {
 
-	@Query(value = "SELECT * FROM calendar_user r WHERE r.id in (SELECT calendar_id FROM user_calendar u WHERE u.user_id = :idUser)", nativeQuery = true)
+	@Query(value = "SELECT * FROM calendar_user r WHERE r.id in (SELECT calendar_id FROM users_calendar u WHERE u.user_id = :idUser)", nativeQuery = true)
 	List<CalendarUser> findWithUserId(@Param("idUser") Integer idUser);
 	
 }
