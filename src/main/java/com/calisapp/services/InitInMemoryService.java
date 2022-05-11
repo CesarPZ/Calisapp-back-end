@@ -174,93 +174,91 @@ public class InitInMemoryService {
                 .withAllMuscles(allMuscles15)
                 .build();
 		
-		Exercise exercise1  = new Exercise.ExerciseBuilder()
+		Exercise exercise1 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise1)
 				.withRepetitions(15)
 				.withSeries(3)
 				.build();
 		
-		Exercise exercise2  = new Exercise.ExerciseBuilder()
+		Exercise exercise2 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise2)
 				.withRepetitions(25)
 				.withSeries(2)
-				.withDayExercise(2)
 				.build();
 		
-		Exercise exercise3  = new Exercise.ExerciseBuilder()
+		Exercise exercise3 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise3)
 				.withRepetitions(10)
 				.withSeries(4)
-				.withDayExercise(4)
 				.build();
 		
-		Exercise exercise4  = new Exercise.ExerciseBuilder()
+		Exercise exercise4 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise4)
 				.withRepetitions(8)
 				.withSeries(5)
 				.build();
 		
-		Exercise exercise5  = new Exercise.ExerciseBuilder()
+		Exercise exercise5 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise5)
 				.withRepetitions(12)
 				.withSeries(4)
 				.build();
 		
-		Exercise exercise6  = new Exercise.ExerciseBuilder()
+		Exercise exercise6 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise6)
 				.withRepetitions(6)
 				.withSeries(6)
 				.build();
 		
-		Exercise exercise7  = new Exercise.ExerciseBuilder()
+		Exercise exercise7 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise7)
 				.withRepetitions(3)
 				.withSeries(5)
 				.build();
 		
-		Exercise exercise8  = new Exercise.ExerciseBuilder()
+		Exercise exercise8 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise8)
 				.withRepetitions(5)
 				.withSeries(6)
 				.build();
 		
-		Exercise exercise9  = new Exercise.ExerciseBuilder()
+		Exercise exercise9 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise9)
 				.withRepetitions(22)
 				.withSeries(3)
 				.build();
 		
-		Exercise exercise10  = new Exercise.ExerciseBuilder()
+		Exercise exercise10 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise10)
 				.withRepetitions(12)
 				.withSeries(3)
 				.build();
 		
-		Exercise exercise11  = new Exercise.ExerciseBuilder()
+		Exercise exercise11 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise11)
 				.withRepetitions(15)
 				.withSeries(4)
 				.build();
 		
-		Exercise exercise12  = new Exercise.ExerciseBuilder()
+		Exercise exercise12 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise12)
 				.withRepetitions(8)
 				.withSeries(5)
 				.build();
 		
-		Exercise exercise13  = new Exercise.ExerciseBuilder()
+		Exercise exercise13 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise13)
 				.withRepetitions(10)
 				.withSeries(4)
 				.build();
 		
-		Exercise exercise14  = new Exercise.ExerciseBuilder()
+		Exercise exercise14 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise14)
 				.withRepetitions(15)
 				.withSeries(3)
 				.build();
 		
-		Exercise exercise15  = new Exercise.ExerciseBuilder()
+		Exercise exercise15 = new Exercise.ExerciseBuilder()
 				.withProcessExercise(processExercise15)
 				.withRepetitions(21)
 				.withSeries(4)
@@ -297,11 +295,67 @@ public class InitInMemoryService {
 				.withSeries(2)
 				.build();
 		
+		Exercise dia2exercise5 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise5)
+				.withRepetitions(10)
+				.withSeries(5)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise dia2exercise6 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise6)
+				.withRepetitions(21)
+				.withSeries(3)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise dia2exercise7 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise7)
+				.withRepetitions(16)
+				.withSeries(3)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise dia2exercise8 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise8)
+				.withRepetitions(10)
+				.withSeries(4)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise dia3exercise9 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise9)
+				.withRepetitions(10)
+				.withSeries(5)
+				.withDayExercise(3)
+				.build();
+		
+		Exercise dia3exercise6 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise6)
+				.withRepetitions(21)
+				.withSeries(3)
+				.withDayExercise(3)
+				.build();
+		
+		Exercise dia3exercise3 = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise3)
+				.withRepetitions(16)
+				.withSeries(3)
+				.withDayExercise(3)
+				.build();
+		
 		Set<Exercise> ejerciciosPrincipiantes = new HashSet<Exercise>();
 		ejerciciosPrincipiantes.add(exercise1);
 		ejerciciosPrincipiantes.add(exercise2);
 		ejerciciosPrincipiantes.add(exercise3);
 		ejerciciosPrincipiantes.add(exercise4);
+		ejerciciosPrincipiantes.add(dia2exercise5);
+		ejerciciosPrincipiantes.add(dia2exercise6);
+		ejerciciosPrincipiantes.add(dia2exercise7);
+		ejerciciosPrincipiantes.add(dia2exercise8);
+		ejerciciosPrincipiantes.add(dia3exercise3);
+		ejerciciosPrincipiantes.add(dia3exercise6);
+		ejerciciosPrincipiantes.add(dia3exercise9);
 
 		Set<Exercise> ejerciciosIntermedios = new HashSet<Exercise>();
 		ejerciciosIntermedios.add(exercise5);
@@ -326,7 +380,7 @@ public class InitInMemoryService {
 		ejerciciosEspartanos.add(burpees);
 
 		Routine rutina1 = new RoutineByLevel.RoutineByLevelBuilder()
-				.withNameRoutine("Rutina Principiantes")
+				.withNameRoutine("Rutina para Principiantes de 3 Dias")
 				.withExercises(ejerciciosPrincipiantes)
 				.withLevel("1")
 				.build();

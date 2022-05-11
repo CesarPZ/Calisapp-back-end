@@ -77,13 +77,14 @@ public class User {
 						La rutina generada se agrega al usuario.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
-	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios) {
+	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios, Boolean routineByLevel) {
 		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
 		
 		for(Exercise exercise:ejercicios) {
 			Exercise newExercise = new Exercise(exercise);
-			//newExercise.setDayExercise(exercise);
-			
+			if(!routineByLevel) {
+				newExercise.setDayExercise(1);
+			}
 			ejerciciosNuevos.add(newExercise);
 		}
 		

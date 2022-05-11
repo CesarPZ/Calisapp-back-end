@@ -70,11 +70,11 @@ public class RoutineService {
 		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public Routine createRoutine(Long userId, String nameRoutine, List<Integer> excersicesId, 
-									List<Integer> daysRoutine, Integer weeksRoutine) {
+								List<Integer> daysRoutine, Integer weeksRoutine, Boolean routineByLevel){
 		
 		User user = this.userService.findByID(userId);
 		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersicesId);
-		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios);
+		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios, routineByLevel);
 		
 		exerciseService.saveAll(newRoutine.getExercises());
 		save(newRoutine);

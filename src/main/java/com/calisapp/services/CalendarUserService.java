@@ -99,7 +99,9 @@ public class CalendarUserService {
 		Set<Integer> diasDeRoutine = new HashSet<Integer> ();
 		
 		for(Exercise ejercicio:routine.getExercises()) {
-			diasDeRoutine.add(ejercicio.getDayExercise());
+			if(ejercicio.getDayExercise() != null) {
+				diasDeRoutine.add(ejercicio.getDayExercise());
+			}
 		}
 		
 		List<Integer> listDays = new ArrayList<Integer>();
@@ -140,7 +142,7 @@ public class CalendarUserService {
 	private Integer numberRoutineCorresponding(Integer dayPos, List<Integer> numberDaysRotine) {
 		// Si la rutina es de un dia retorna retorno ese mismo dia.
 		if(numberDaysRotine.size() == 1) {
-			return numberDaysRotine.get(1);
+			return numberDaysRotine.get(0);
 		}
 		
 		Integer dayPosition = dayPos;
