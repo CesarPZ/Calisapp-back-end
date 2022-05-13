@@ -30,7 +30,7 @@ public class CalendarUserController {
     }
     
     @GetMapping("/api/calendarUser/{idUser}")
-    public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Integer idUser) {
+    public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Long idUser) {
     	List<DayRoutineDAO> list = calendarUserService.findWithUserId(idUser);
 
         return ResponseEntity.ok().body(list);

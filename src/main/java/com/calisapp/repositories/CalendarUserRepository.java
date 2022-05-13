@@ -12,9 +12,9 @@ import com.calisapp.model.CalendarUser;
 
 @Configuration
 @Repository
-public interface CalendarUserRepository extends CrudRepository<CalendarUser, Integer> {
+public interface CalendarUserRepository extends CrudRepository<CalendarUser, Long> {
 
 	@Query(value = "SELECT * FROM calendar_user r WHERE r.id in (SELECT calendar_id FROM users_calendar u WHERE u.user_id = :idUser)", nativeQuery = true)
-	List<CalendarUser> findWithUserId(@Param("idUser") Integer idUser);
+	List<CalendarUser> findWithUserId(@Param("idUser") Long idUser);
 	
 }

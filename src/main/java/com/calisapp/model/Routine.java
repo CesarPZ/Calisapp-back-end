@@ -24,7 +24,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 	Fecha: 			20/04/2022
 ----------------------------------------------------------------*/
 public abstract class Routine {
-
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
@@ -74,9 +73,7 @@ public abstract class Routine {
 		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
 	public void removeExercise(Exercise excersiceDeleted) {
-		
 		exercises.remove(excersiceDeleted);
-		
 	}
 	
 	/*----------------------------------------------------------------
@@ -85,10 +82,9 @@ public abstract class Routine {
 		Fecha: 			24/04/2022
 	----------------------------------------------------------------*/
 	public void addExercise(Exercise newExcersice) {
-		
 		exercises.add(newExcersice);
-		
 	}
+	
 	/*----------------------------------------------------------------
  		Descripción:	Get y Set de variables.
 		Fecha: 			20/04/2022
