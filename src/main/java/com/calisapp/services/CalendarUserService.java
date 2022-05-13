@@ -39,7 +39,7 @@ public class CalendarUserService {
 	 				dia. 
 		Fecha: 		11/05/2022
 	-------------------------------------------------------*/
-	public List<DayRoutineDAO> findWithUserId(Integer idUser) {
+	public List<DayRoutineDAO> findWithUserId(Long idUser) {
 		List<DayRoutineDAO> daysRoutine = new  ArrayList<DayRoutineDAO>();
 		List<CalendarUser> calendars = this.calendarUserRepository.findWithUserId(idUser);
 		

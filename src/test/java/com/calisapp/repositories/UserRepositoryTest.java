@@ -13,10 +13,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.calisapp.model.User;
 
-//@RunWith(SpringRunner.class)
-//@DataJpaTest
+@RunWith(SpringRunner.class)
+@DataJpaTest
 public class UserRepositoryTest  {
-/*	
   @Autowired
   private TestEntityManager entityManager;
   
@@ -45,5 +44,4 @@ public class UserRepositoryTest  {
     assertThat(user).hasFieldOrPropertyWithValue("mail", "ale@gmail.com");
     assertThat(user).hasFieldOrPropertyWithValue("password", "1234");
   }
-*/  
 }

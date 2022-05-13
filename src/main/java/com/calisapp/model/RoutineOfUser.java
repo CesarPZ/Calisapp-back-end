@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 	Fecha: 			20/04/2022
 ----------------------------------------------------------------*/
 public class RoutineOfUser extends Routine{
-
 	static final String routineGeneratedBy = "USER";
 	
 	public RoutineOfUser () {}
@@ -37,7 +36,6 @@ public class RoutineOfUser extends Routine{
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
 	public static class RoutineOfUserBuilder {
-		
 		private String nameRoutine;
 		private Set<Exercise> exercises;
 			
@@ -61,5 +59,4 @@ public class RoutineOfUser extends Routine{
 	        return routine;
 	    }
 	}
-	
 }

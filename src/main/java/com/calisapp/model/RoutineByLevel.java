@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.Entity;
 
-
 @Entity
 /*----------------------------------------------------------------
 	Descripción:	Clase generada para el almacenamiento de rutinas
@@ -14,7 +13,6 @@ import javax.persistence.Entity;
 	Fecha: 			20/04/2022
 ----------------------------------------------------------------*/
 public class RoutineByLevel extends Routine{
-
 	static final String routineGeneratedBy = "APP";
 	
 	public RoutineByLevel () {}
@@ -35,7 +33,6 @@ public class RoutineByLevel extends Routine{
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
 	public static class RoutineByLevelBuilder {
-		
 		private String nameRoutine;
 		private Set<Exercise> exercises;
 		private String level;

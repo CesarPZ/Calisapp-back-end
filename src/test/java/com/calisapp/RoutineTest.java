@@ -14,7 +14,6 @@ import com.calisapp.model.RoutineOfUser;
 import com.calisapp.model.User;
 
 class RoutineTest {
-
 	static RoutineByLevel routineByLevel;
 	static RoutineOfUser routineOfUser;
 	
@@ -35,7 +34,6 @@ class RoutineTest {
 		ejercicio5 = new Exercise.ExerciseBuilder().build();
 		
 		usuario1 = new User("Pepito", "Pepito@gmail", "1234");
-		
 		
 		Set<Exercise> ejerciciosRoutineByLevel = new HashSet<Exercise>();
 		ejerciciosRoutineByLevel.add(ejercicio1);
@@ -59,24 +57,36 @@ class RoutineTest {
 	}
 	
 	@Test
-	public void generacionDeRoutineByLevelTest(){
+	public void generationOfRoutineByLevelTest(){
 		assertEquals(routineByLevel.getGeneratedBy(), "APP");
 		assertEquals(routineByLevel.getExercises().size(), 2);
 		assertEquals(routineByLevel.getLevel(), "Avanzado");
 	}
 	
 	@Test
-	public void editRoutineOfUserTest(){
-		Set<Exercise> nuevosEjercicios = new HashSet<Exercise>();
-		nuevosEjercicios.add(ejercicio2);
-		nuevosEjercicios.add(ejercicio5);
+	public void generationOfRoutineOfUSerTest(){
+		Set<Exercise> exerciseUser = new HashSet<Exercise>();
+		exerciseUser.add(ejercicio2);
+		exerciseUser.add(ejercicio5);
 		
-		routineOfUser.updateRoutine("Rutina Modificada", nuevosEjercicios);
+		RoutineOfUser rutinaUser = new RoutineOfUser ("rutina picante", exerciseUser);
+		
+		assertEquals(rutinaUser.getGeneratedBy(), "USER");
+		assertEquals(rutinaUser.getExercises().size(), 2);
+		assertEquals(rutinaUser.getNameRoutine(), "rutina picante");
+	}
+	
+	@Test
+	public void editRoutineOfUserTest(){
+		Set<Exercise> newExercises = new HashSet<Exercise>();
+		newExercises.add(ejercicio2);
+		newExercises.add(ejercicio5);
+		
+		routineOfUser.updateRoutine("Rutina Modificada", newExercises);
 		
 		assertEquals(routineOfUser.getNameRoutine(), "Rutina Modificada");
 		assertEquals(routineOfUser.getExercises().size(), 2);
 	}
-	
 	
 	@Test
 	public void editRoutineOfUserSinNameNiEjerciciosTest(){
@@ -84,5 +94,17 @@ class RoutineTest {
 		
 		assertEquals(routineOfUser.getNameRoutine(), "Intermedio");
 		assertEquals(routineOfUser.getExercises().size(), 3);
+	}
+
+	@Test
+	public void removeAnExerciseFromARoutineTest(){
+		RoutineByLevel routine = new RoutineByLevel ("rutina 1", "APP");
+		routine.addExercise(ejercicio2);
+		routine.addExercise(ejercicio5);
+		
+		assertEquals(routine.getExercises().size(), 2);
+		
+		routine.removeExercise(ejercicio5);
+		assertEquals(routine.getExercises().size(), 1);
 	}
 }
