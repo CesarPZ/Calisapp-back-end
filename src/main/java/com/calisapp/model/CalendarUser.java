@@ -1,5 +1,6 @@
 package com.calisapp.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -62,10 +63,10 @@ public class CalendarUser {
 	}
 	
 	public CalendarUser(CalendarUserBuilder builder) {
-		this.dayFinishRoutine = builder.dayFinishRoutine;
-		this.dayFinishRoutine = builder.dayFinishRoutine;
+		this.dayInitRoutine = builder.dayInitRoutine;
 		this.weeksRoutine = builder.weeksRoutine;
 		this.routine = builder.routine;
+		this.daysRoutine = builder.daysRoutinee;
 		this.dayInitRoutine = new Date();
 	}
 
@@ -124,18 +125,20 @@ public class CalendarUser {
 	----------------------------------------------------------------*/
 	public static class CalendarUserBuilder {
 	
-		private Date dayFinishRoutine;
+		private Date dayInitRoutine;
 		private Routine routine;
 		private Integer weeksRoutine;
+		private List<Integer> daysRoutinee;
 		
 		public CalendarUserBuilder() {
-			this.dayFinishRoutine = new Date();	
+			this.dayInitRoutine = new Date();	
 			this.routine = new RoutineOfUser();
 			this.weeksRoutine = 3;
+			this.daysRoutinee = new ArrayList<Integer>();
 		}
-			
-	    public CalendarUserBuilder withDayFinishRoutine (Date dayFinishRoutine) {
-	        this.dayFinishRoutine = dayFinishRoutine;
+	    
+	    public CalendarUserBuilder withDayInitRoutine (Date dayInitRoutine) {
+	        this.dayInitRoutine = dayInitRoutine;
 	        return this;
 	    }
 	    
@@ -144,7 +147,12 @@ public class CalendarUser {
 	        return this;
 	    }
 	    
-	    public CalendarUserBuilder withWeeksRoutine (Integer weeksRoutine) {
+	    public CalendarUserBuilder withDaysRoutine(List<Integer> daysRoutinee) {
+	        this.daysRoutinee = daysRoutinee;
+	        return this;
+	    }
+	    
+	    public CalendarUserBuilder withWeeksRoutine(Integer weeksRoutine) {
 	        this.weeksRoutine = weeksRoutine;
 	        return this;
 	    }
