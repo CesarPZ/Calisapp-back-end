@@ -344,6 +344,27 @@ public class InitInMemoryService {
 				.withDayExercise(3)
 				.build();
 		
+		Exercise fondos2  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise11)
+				.withRepetitions(50)
+				.withSeries(2)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise flexiones2  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise3)
+				.withRepetitions(100)
+				.withSeries(2)
+				.withDayExercise(2)
+				.build();
+		
+		Exercise burpees2  = new Exercise.ExerciseBuilder()
+				.withProcessExercise(processExercise9)
+				.withRepetitions(50)
+				.withSeries(2)
+				.withDayExercise(2)
+				.build();
+		
 		Set<Exercise> ejerciciosPrincipiantes = new HashSet<Exercise>();
 		ejerciciosPrincipiantes.add(exercise1);
 		ejerciciosPrincipiantes.add(exercise2);
@@ -371,7 +392,10 @@ public class InitInMemoryService {
 		ejerciciosAvanzados.add(exercise13);
 		ejerciciosAvanzados.add(exercise14);
 		ejerciciosAvanzados.add(exercise15);
-
+		ejerciciosAvanzados.add(fondos2);
+		ejerciciosAvanzados.add(flexiones2);
+		ejerciciosAvanzados.add(burpees2);
+		
 		Set<Exercise> ejerciciosEspartanos = new HashSet<Exercise>();
 		ejerciciosEspartanos.add(dominadasPronas);
 		ejerciciosEspartanos.add(sentadillas);
@@ -392,7 +416,7 @@ public class InitInMemoryService {
 				.build();
 		
 		Routine rutina3 = new RoutineByLevel.RoutineByLevelBuilder()
-				.withNameRoutine("Rutina Avanzados")
+				.withNameRoutine("Rutina Avanzados de 2 Dias")
 				.withExercises(ejerciciosAvanzados)
 				.withLevel("3")
 				.build();

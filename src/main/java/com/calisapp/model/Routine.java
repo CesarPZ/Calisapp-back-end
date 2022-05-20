@@ -37,6 +37,8 @@ public abstract class Routine {
 	@JsonManagedReference
 	@ManyToMany(cascade= CascadeType.ALL)
 	private Set<Exercise> exercises;
+	@Column
+	private Integer opinion;
 	
 	public Routine() { }
 	
@@ -123,5 +125,13 @@ public abstract class Routine {
 
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public Integer getOpinion() {
+		return opinion;
+	}
+
+	public void setOpinion(Integer opinion) {
+		this.opinion = opinion;
 	}
 }

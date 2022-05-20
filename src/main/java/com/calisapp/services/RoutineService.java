@@ -147,4 +147,15 @@ public class RoutineService {
 		//this.routineRepository.deleteById(id);	
 	}
 
+	/*-------------------------------------------------------
+	 	Descripción:	Genera una opinion sobre la rutina
+		Fecha: 			19/05/2022
+	-------------------------------------------------------*/
+	public Routine generateOpinion(Integer idRoutine, Integer opinion) {
+		Routine routineToUpdate = this.findByID(idRoutine);
+		routineToUpdate.setOpinion(opinion);
+		
+		return this.routineRepository.save(routineToUpdate);
+	}
+
 }

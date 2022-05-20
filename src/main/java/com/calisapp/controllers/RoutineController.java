@@ -105,4 +105,14 @@ public class RoutineController {
     	}
     }
     
+    @PostMapping("/api/generateOpinion")
+    public ResponseEntity<?> generateOpinion(@Validated 
+									@RequestParam ("routineId") Integer idRoutine,
+									@RequestParam ("opinion") Integer opinion) {
+
+    	Routine routineUpdate = routineService.generateOpinion(idRoutine, opinion);
+    	
+        return ResponseEntity.ok().body(routineUpdate);
+    }
+    
 }

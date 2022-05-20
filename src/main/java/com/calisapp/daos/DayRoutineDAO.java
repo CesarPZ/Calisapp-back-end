@@ -13,6 +13,7 @@ public class DayRoutineDAO {
 	private String routineName;
 	private Integer exerciseNumberDayRoutine;
 	private List<Exercise> exercises;
+	private Routine routine;
 	
 	public DayRoutineDAO() {};
 	
@@ -20,6 +21,7 @@ public class DayRoutineDAO {
 		this.dayRoutine = dayRoutine;
 		this.routineName = routine.getNameRoutine();
 		this.exerciseNumberDayRoutine = exerciseNumberDayRoutine;
+		this.routine = routine;
 		List<Exercise> ejercicios = new ArrayList<Exercise>();
 		for(Exercise ejercicio: routine.getExercises()) {
 			if(ejercicio.getDayExercise() == exerciseNumberDayRoutine){
@@ -60,4 +62,13 @@ public class DayRoutineDAO {
 	public void setExercises (List<Exercise> exercises) {
 		this.exercises = exercises;
 	}
+
+	public Routine getRoutine() {
+		return routine;
+	}
+
+	public void setRoutine(Routine routine) {
+		this.routine = routine;
+	}
+	
 }
