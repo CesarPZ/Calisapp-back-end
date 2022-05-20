@@ -55,7 +55,7 @@ class UserTest {
 		assertEquals(user1.getPassword(), "cesar123");
 		assertEquals(user1.getRoutines().size(), 3);
 	}
-	/*
+	
 	@Test
 	public void generateRoutineTest(){
 		ejercicio1 = new Exercise.ExerciseBuilder().build();
@@ -65,13 +65,32 @@ class UserTest {
 		ejerciciosRoutine.add(ejercicio1);
 		ejerciciosRoutine.add(ejercicio2);
 		
-		Routine newRoutine = user2.generateRoutine("nuevaRutina", ejerciciosRoutine);
+		Routine newRoutine = user2.generateRoutine("nuevaRutina", ejerciciosRoutine, true);
 		 
 		assertEquals(user2.getRoutines().size(), 1);
 		assertEquals(newRoutine.getNameRoutine(), "nuevaRutina");
 		assertEquals(newRoutine.getExercises().size(), 2);
 	}
 	
+	@Test
+	public void generateCustomRoutineTest(){
+        User user = new User("alex", "alex@gmail.com", "1234");
+
+		ejercicio1 = new Exercise.ExerciseBuilder().build();
+		ejercicio2 = new Exercise.ExerciseBuilder().build();
+		
+		Set<Exercise> ejerciciosRoutine = new HashSet<Exercise>();
+		ejerciciosRoutine.add(ejercicio1);
+		ejerciciosRoutine.add(ejercicio2);
+		
+		Routine newRoutine = user.generateRoutine("miRutina", ejerciciosRoutine, false);
+
+		assertEquals(user.getRoutines().size(), 1);
+		assertEquals(newRoutine.getNameRoutine(), "miRutina");
+		assertEquals(newRoutine.getExercises().size(), 2);
+	}
+	
+	/*
 	@Test
 	public void addEventTocalendarTest(){
 		//Dia 5 equivale a viernes, y 4 repeticiones
@@ -85,5 +104,4 @@ class UserTest {
 //			assertEquals(dateCalendar.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.ENGLISH), "Friday");
 		}
 	}*/
-	
 }

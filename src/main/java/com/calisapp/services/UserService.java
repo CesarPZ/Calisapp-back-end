@@ -1,15 +1,16 @@
 package com.calisapp.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.User;
 import com.calisapp.repositories.UserRepository;
-import com.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -30,7 +31,12 @@ public class UserService {
 	}
 
 	public User findByID(Long id) {
-		return this.repository.findById(id).get();
+		try{
+			return this.repository.findById(id).get();
+			
+		}catch (NoSuchElementException e){
+    		throw new ResourceNotFoundException("User with ID:"+id+" Not Found!");
+    	}
 	}
 
 	public List<User> findAll() {
@@ -46,14 +52,12 @@ public class UserService {
 	}
 
 	@Transactional
-	public User update(Long id, String name, String password) {
-		User user = this.repository.findById(id).get();
-		if(name != null) {
-			user.setName(name);
-		}
-		if(password != null) {
-			user.setPassword(password);
-		}
+	public User update(Long id, String name, String password) throws Exception {
+		User user = this.findByID(id);		
+		validateNameAndPassword(name, password);
+		
+		user.setName(name);
+		user.setPassword(password);
 		
 		return this.repository.save(user);
 	}
@@ -75,6 +79,8 @@ public class UserService {
 
 	public User register(String name, String mail, String password) throws Exception {
 		validateMail(mail);
+		validateNameAndPassword(name, password);
+
 		User newUser = new User(name, mail, password);
 				
 		return save(newUser);
@@ -93,4 +99,13 @@ public class UserService {
     		throw new ResourceNotFoundException("Access denied: Mail not valid");
     	}			
 	}
+	
+	public void validateNameAndPassword(String name, String password) throws Exception {
+		if(name == null || name.length() < 4) {
+			throw new ResourceNotFoundException("Name must be longer than 4 characters");
+		}
+		if(name == null || password.length() < 4) {
+			throw new ResourceNotFoundException("Password must be longer than 4 characters");
+		}
+	}	
 }

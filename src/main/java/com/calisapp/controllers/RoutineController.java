@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.Routine;
 import com.calisapp.services.RoutineService;
-import com.exceptions.ResourceNotFoundException;
 
 @RestController
 @EnableAutoConfiguration
@@ -114,5 +114,5 @@ public class RoutineController {
     	
         return ResponseEntity.ok().body(routineUpdate);
     }
-    
+   
 }
