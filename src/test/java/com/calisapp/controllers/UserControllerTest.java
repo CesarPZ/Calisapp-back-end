@@ -30,7 +30,6 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 @ContextConfiguration(classes=CalisappApplication.class)
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserControllerTest {
 	@Autowired
 	private WebApplicationContext webApplicationContext;
@@ -95,8 +94,6 @@ public class UserControllerTest {
     public void loginUserTest() throws Exception {
         User user = new User("duke", "duke@spring.io", "1234");
         String uri = "/api/users/login?mail="+user.getMail()+"&password="+user.getPassword();
-
-//		when(userService.login("duke@spring.io", "1234")).thenReturn(user);
     		
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
         		.post(uri))
@@ -139,7 +136,3 @@ public class UserControllerTest {
         verify(userService, times(1)).update(id, "pepe", "12345678");        
     }
 }
-
-
-
-

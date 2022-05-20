@@ -1,9 +1,12 @@
 package com.calisapp.repositories;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.Optional;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,27 +24,60 @@ public class UserRepositoryTest  {
   
   @Autowired
   private UserRepository userRepository;
-      
-  @Test
-  public void whenfindByMailthenReturnUserTest() {
-      // given
-      User alex = new User("alex", "alex@gmail.com", "1234");
-      entityManager.persist(alex);
-      entityManager.flush();
-
-      // when
-      Optional<User> found = userRepository.findByMail("alex@gmail.com");
-
-      // then
-      assertThat(found.get().getMail()).isEqualTo(alex.getMail());
+  
+  @Before
+  public void setup() {
+      userRepository.deleteAll();
   }
   
   @Test
   public void saveUserInRepositoryTest() {
-    User user = userRepository.save(new User("alex", "ale@gmail.com", "1234"));
+	  User user = new User("alex", "alex@gmail.com", "1234");
+  
+	  entityManager.persistAndFlush(user);  
     
-    assertThat(user).hasFieldOrPropertyWithValue("name", "alex");
-    assertThat(user).hasFieldOrPropertyWithValue("mail", "ale@gmail.com");
-    assertThat(user).hasFieldOrPropertyWithValue("password", "1234");
+	  assertThat(user).hasFieldOrPropertyWithValue("name", "alex");
+	  assertThat(user).hasFieldOrPropertyWithValue("mail", "alex@gmail.com");
+	  assertThat(user).hasFieldOrPropertyWithValue("password", "1234");
+  }
+  
+  @Test
+  public void itShouldFindUserByMail() {   
+	  User user = userRepository.save(new User("alex", "alex@gmail.com", "1234"));  
+	  
+      Optional<User> found = userRepository.findByMail("alex@gmail.com");
+
+      assertThat(found.get().getMail()).isEqualTo(user.getMail());
+  }
+  
+  @Test
+  public void whenfindByIthenReturnUserTest() {
+	  User user = userRepository.save(new User("alex", "ale@gmail.com", "1234"));  
+
+      assertThat(userRepository.findById(user.getId()).get()).isEqualTo(user);
+  }
+  
+  @Test
+  public void findAllUsersTest() {
+	  User user = new User("alex", "ale@gmail.com", "1234");  
+	  User user2 =new User("esteban", "esteban@gmail.com", "1234");   
+
+	  userRepository.save(user);
+	  userRepository.save(user2);
+
+	  List<User> allUsers = (List<User>) userRepository.findAll();
+	  assertEquals("esteban", allUsers.get(1).getName());
+	  assertEquals("ale@gmail.com", allUsers.get(0).getMail());
+  }
+    
+  @Test
+  public void givenIdTODeleteThenShouldDeleteUserTest() {
+        User user = new User("alex", "ale@gmail.com", "1234");
+        userRepository.save(user);
+        userRepository.deleteById(user.getId());
+        
+        Optional<User> optional = userRepository.findById(user.getId());
+        
+        assertEquals(Optional.empty(), optional);
   }
 }
