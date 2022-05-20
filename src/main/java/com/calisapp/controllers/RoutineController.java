@@ -105,7 +105,7 @@ public class RoutineController {
     	}
     }
     
-    @PostMapping("/api/generateOpinion")
+    @PutMapping("/api/generateOpinion")
     public ResponseEntity<?> generateOpinion(@Validated 
 									@RequestParam ("routineId") Integer idRoutine,
 									@RequestParam ("opinion") Integer opinion) {
