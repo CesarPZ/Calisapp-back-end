@@ -2,19 +2,12 @@ package com.calisapp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.TextStyle;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.calisapp.model.CalendarUser;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.Routine;
 import com.calisapp.model.RoutineOfUser;
