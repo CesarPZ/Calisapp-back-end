@@ -45,7 +45,7 @@ public class UserServiceTest {
     }
     
     @Test
-    public void retrieveUserfindByIdTest() throws Exception {
+    public void retrieveUserFindByIdTest() throws Exception {
     	Optional<User> user = Optional.of(createUser());
         when(userRepository.findById(1L)).thenReturn(user);
       
@@ -55,7 +55,7 @@ public class UserServiceTest {
     }
     
     @Test 
-	public void userfindByIDException() throws Exception {
+	public void whenUserFindByIdAndIdNotExistThenReturnNotFoundText() throws Exception {
     	Long id = 1L;
         
         ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
@@ -66,7 +66,7 @@ public class UserServiceTest {
 	}
     
     @Test
-    public void retrieveUserfindByMailTest() throws Exception {
+    public void retrieveUserFindByMailTest() throws Exception {
     	Optional<User> user = Optional.of(createUser());
         when(userRepository.findByMail("alex@gmail.com")).thenReturn(user);
 
@@ -96,7 +96,7 @@ public class UserServiceTest {
     }
     
     @Test
-    public void deleteUserByIdtest() throws Exception {
+    public void deleteUserByIdSuccessfullyTest() throws Exception {
     	User user = new User("Esteban", "esteban@spring.io", "1234");
 
         userService.save(user);
@@ -109,7 +109,7 @@ public class UserServiceTest {
     }
     
     @Test
-    public void saveUserTest(){
+    public void saveUserSuccessfullyTest(){
     	User user = new User("Esteban", "esteban@spring.io", "1234");
 
     	userService.save(user);
@@ -121,7 +121,7 @@ public class UserServiceTest {
     }
     
     @Test
-    public void updateUserTest() throws Exception{
+    public void updateUserSuccessfullyTest() throws Exception{
     	Optional<User> user = Optional.of(createUser());
         when(userRepository.findById(1L)).thenReturn(user);
         
@@ -137,7 +137,7 @@ public class UserServiceTest {
     }    
     
     @Test 
-	public void updateUserExceptionByShortName() throws Exception {
+	public void notUpdateUserByShortByShortNameTest() throws Exception {
     	Optional<User> user = Optional.of(createUser());
         when(userRepository.findById(1L)).thenReturn(user);
         
@@ -151,7 +151,7 @@ public class UserServiceTest {
 	}
     
     @Test 
-	public void updateUserExceptionByShortPassword() throws Exception {
+	public void notUpdateUserByShortPasswordTest() throws Exception {
     	Optional<User> user = Optional.of(createUser());
         when(userRepository.findById(1L)).thenReturn(user);
         
@@ -165,7 +165,7 @@ public class UserServiceTest {
 	}
     
     @Test
-    public void registerUsertest() throws Exception {
+    public void registerUserSuccessfullyTest() throws Exception {
         userService.register("alex", "alex@gmail.com", "1234");
 
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
@@ -174,7 +174,7 @@ public class UserServiceTest {
     }
     
     @Test 
-	public void notRegisterUserByMailInvalid() throws Exception {       
+	public void notRegisterUserByMailInvalidTest() throws Exception {       
         ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
         	userService.register("alex", "alex.com", "1234");
 		});	
@@ -183,7 +183,7 @@ public class UserServiceTest {
 	}
     
     @Test
-    public void loginUsertest() throws Exception {
+    public void loginUserSuccessfullyTest() throws Exception {
     	Optional<User> user = Optional.of(createUser());
 
         when(userRepository.findByMail("alex@gmail.com")).thenReturn(user);
@@ -194,7 +194,7 @@ public class UserServiceTest {
     }
     
     @Test
-    public void notloginUserByUserNotExistTest() throws Exception {
+    public void notLoginUserByUserNotExistTest() throws Exception {
         ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
         	userService.login("alex@gmail.com", "1234");
 		});	

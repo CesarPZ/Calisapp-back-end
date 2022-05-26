@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.calisapp.CalisappApplication;
+import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.User;
 import com.calisapp.services.UserService;
 
@@ -26,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
@@ -63,7 +65,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserByIdTest() throws Exception {
+    public void whenGetUserByIdThenReturnUserTest() throws Exception {
         User user = new User("duke", "duke@spring.io", "1234");
 
 		when(userService.findByID(1L)).thenReturn(user);
@@ -76,22 +78,46 @@ public class UserControllerTest {
     } 
     
     @Test
-    public void deleteUserByIdtest() throws Exception {
-       String uri = "/api/users/3";
-       User user = new User("duke", "duke@spring.io", "1234");
+    public void whenGetUserByIdAndIdNotExistReturnNotFoundTest() throws Exception {
+        long id = 1L;
 
-	   when(userService.findByID(3L)).thenReturn(user);
+		when(userService.findByID(id)).thenThrow(new ResourceNotFoundException("User with ID:"+id+" Not Found!"));
+    	
+    	this.mvc
+        .perform(MockMvcRequestBuilders.get("/api/users/"+id))
+        .andExpect(status().is(404))
+        .andExpect(result -> assertEquals("User with ID:"+id+" Not Found!", result.getResolvedException().getMessage()));
+    } 
+    
+    @Test
+    public void whenDeleteUserByIdIfIdExistDeleteUserTest() throws Exception {
+    	String uri = "/api/users/3";
+    	User user = new User("duke", "duke@spring.io", "1234");
 
-       MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
-       int status = mvcResult.getResponse().getStatus();
-       String content = mvcResult.getResponse().getContentAsString();
+    	when(userService.findByID(3L)).thenReturn(user);
 
-       assertEquals(200, status);
-       assertEquals(content, "User deleted with success!");
+    	MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders.delete(uri)).andReturn();
+    	int status = mvcResult.getResponse().getStatus();
+    	String content = mvcResult.getResponse().getContentAsString();
+
+    	assertEquals(200, status);
+    	assertEquals(content, "User deleted with success!");
     }
     
     @Test
-    public void loginUserTest() throws Exception {
+    public void whenDeleteUserByIdAndIdNotExistReturnNotFoundTest() throws Exception {
+    	long id = 1L;
+
+		when(userService.findByID(id)).thenThrow(new ResourceNotFoundException("User with ID:"+id+" Not Found!"));
+    	
+    	this.mvc
+        .perform(MockMvcRequestBuilders.delete("/api/users/"+id))
+        .andExpect(status().is(404))
+        .andExpect(result -> assertEquals("User with ID:"+id+" Not Found!", result.getResolvedException().getMessage()));
+    }
+    
+    @Test
+    public void loginUserSuccessfullyTest() throws Exception {
         User user = new User("duke", "duke@spring.io", "1234");
         String uri = "/api/users/login?mail="+user.getMail()+"&password="+user.getPassword();
     		

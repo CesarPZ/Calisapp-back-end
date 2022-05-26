@@ -1,12 +1,14 @@
 package com.calisapp.services;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.CalendarUser;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.Routine;
@@ -42,8 +44,13 @@ public class RoutineService {
 		Fecha: 			20/04/2022
 	-------------------------------------------------------*/
 	public Routine findByID(Integer id) {
-		return this.routineRepository.findById(id).get();
-	}
+		try{
+			return this.routineRepository.findById(id).get();
+			
+		}catch (NoSuchElementException e){
+    		throw new ResourceNotFoundException("Routine with ID:"+id+" Not Found!");
+    	}
+	}	
 	
 	/*-------------------------------------------------------
 	 	Descripción:	Retorna todas las rutinas con el "level" recibido 
@@ -90,7 +97,7 @@ public class RoutineService {
 	 					recibido por parametro
 		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
-	public List<Routine> findWithUserId(Integer idUser) {
+	public List<Routine> findWithUserId(Long idUser) {
 		return this.routineRepository.findWithUserId(idUser);
 	}
 
@@ -157,5 +164,4 @@ public class RoutineService {
 		
 		return this.routineRepository.save(routineToUpdate);
 	}
-
 }

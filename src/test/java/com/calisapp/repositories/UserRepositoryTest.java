@@ -31,7 +31,7 @@ public class UserRepositoryTest  {
   }
   
   @Test
-  public void saveUserInRepositoryTest() {
+  public void saveUserInRepositorySuccessfullyTest() {
 	  User user = new User("alex", "alex@gmail.com", "1234");
   
 	  entityManager.persistAndFlush(user);  
@@ -42,7 +42,7 @@ public class UserRepositoryTest  {
   }
   
   @Test
-  public void itShouldFindUserByMail() {   
+  public void itShouldFindUserByMailTest() {   
 	  User user = userRepository.save(new User("alex", "alex@gmail.com", "1234"));  
 	  
       Optional<User> found = userRepository.findByMail("alex@gmail.com");
@@ -51,7 +51,7 @@ public class UserRepositoryTest  {
   }
   
   @Test
-  public void whenfindByIthenReturnUserTest() {
+  public void whenFindByIdThenReturnUserTest() {
 	  User user = userRepository.save(new User("alex", "ale@gmail.com", "1234"));  
 
       assertThat(userRepository.findById(user.getId()).get()).isEqualTo(user);

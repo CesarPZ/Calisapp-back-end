@@ -1,7 +1,6 @@
 package com.calisapp.controllers;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import javax.validation.Valid;
 
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.Routine;
 import com.calisapp.services.RoutineService;
 
@@ -45,7 +43,7 @@ public class RoutineController {
     }
     
     @GetMapping("/api/routineUser/{idUser}")
-    public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Integer idUser) {
+    public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Long idUser) {
     	List<Routine> list = routineService.findWithUserId(idUser);
 
         return ResponseEntity.ok().body(list);
@@ -96,15 +94,13 @@ public class RoutineController {
     @DeleteMapping("/api/deleteRoutine/{id}")
     public ResponseEntity<?> deleteRoutine(@PathVariable("id") Integer id,
     						@RequestParam ("idUser") Integer idUser) {
-    	try {
-    		routineService.deleteById(id,idUser);
-    		return ResponseEntity.ok().body("Routine deleted with success!");	
-        
-    	} catch (NoSuchElementException e){
-    		throw new ResourceNotFoundException("Routine with ID:"+id+" Not Found!");
-    	}
+    	
+        Routine routine = routineService.findByID(id);
+    	routineService.deleteById(routine.getId(),idUser);
+    	
+    	return ResponseEntity.ok().body("Routine deleted with success!");	
     }
-    
+	
     @PutMapping("/api/generateOpinion")
     public ResponseEntity<?> generateOpinion(@Validated 
 									@RequestParam ("routineId") Integer idRoutine,
@@ -114,5 +110,4 @@ public class RoutineController {
     	
         return ResponseEntity.ok().body(routineUpdate);
     }
-   
 }
