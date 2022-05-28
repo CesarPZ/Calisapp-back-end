@@ -67,7 +67,7 @@ class UserTest {
 		ejerciciosRoutine.add(ejercicio1);
 		ejerciciosRoutine.add(ejercicio2);
 		
-		Routine newRoutine = user2.generateRoutine("nuevaRutina", ejerciciosRoutine, true);
+		Routine newRoutine = user2.generateRoutine("nuevaRutina", ejerciciosRoutine);
 		 
 		assertEquals(user2.getRoutines().size(), 1);
 		assertEquals(newRoutine.getNameRoutine(), "nuevaRutina");
@@ -85,7 +85,7 @@ class UserTest {
 		ejerciciosRoutine.add(ejercicio1);
 		ejerciciosRoutine.add(ejercicio2);
 		
-		Routine newRoutine = user.generateRoutine("miRutina", ejerciciosRoutine, false);
+		Routine newRoutine = user.generateRoutine("miRutina", ejerciciosRoutine);
 
 		assertEquals(user.getRoutines().size(), 1);
 		assertEquals(newRoutine.getNameRoutine(), "miRutina");

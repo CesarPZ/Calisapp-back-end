@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -77,12 +78,30 @@ public class User {
 						La rutina generada se agrega al usuario.
 		Fecha: 			20/04/2022
 	----------------------------------------------------------------*/
-	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios, Boolean routineByLevel) {
+	public Routine generateRoutine(String nameRoutine, Set<Exercise> ejercicios) {
 		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
 		
 		for(Exercise exercise:ejercicios) {
 			Exercise newExercise = new Exercise(exercise);
-			if(!routineByLevel) {
+			ejerciciosNuevos.add(newExercise);
+		}
+		
+		Routine newRoutine = new RoutineOfUser(nameRoutine, ejerciciosNuevos);
+		this.routines.add(newRoutine);
+		
+		return newRoutine;
+	}
+	
+	public Routine generateRoutineWithExercise(String nameRoutine, Set<Exercise> ejercicios,
+			Map<Integer, Integer> daysExercise) {
+		
+		Set<Exercise> ejerciciosNuevos =  new HashSet<Exercise>();
+		
+		for(Exercise exercise:ejercicios) {
+			Exercise newExercise = new Exercise(exercise);
+			if(daysExercise.get(exercise.getId()) != null) {
+				newExercise.setDayExercise(daysExercise.get(exercise.getId()));
+			}else {
 				newExercise.setDayExercise(1);
 			}
 			ejerciciosNuevos.add(newExercise);

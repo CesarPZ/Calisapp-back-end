@@ -1,6 +1,7 @@
 package com.calisapp.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.calisapp.model.Routine;
 import com.calisapp.services.RoutineService;
@@ -55,10 +57,9 @@ public class RoutineController {
 									@RequestParam ("nameRoutine") String nameRoutine,
 					    			@RequestParam ("excersices") List<Integer> excersices,
 					    			@RequestParam ("daysRoutine") List<Integer> daysRoutine,
-    								@RequestParam ("weeksRoutine") Integer weeksRoutine,
-    								@RequestParam ("routineByLevel") Boolean routineByLevel) {
+    								@RequestParam ("weeksRoutine") Integer weeksRoutine) {
 
-    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, daysRoutine, weeksRoutine, routineByLevel);
+    	Routine newRoutine = routineService.createRoutine(userId, nameRoutine, excersices, daysRoutine, weeksRoutine);
     	
         return ResponseEntity.ok().body(newRoutine);
     }
@@ -110,4 +111,19 @@ public class RoutineController {
     	
         return ResponseEntity.ok().body(routineUpdate);
     }
+    
+    @PostMapping("/api/createRoutineExercise")
+    public ResponseEntity<?> createRouitneFromWithExercise(@Validated 
+									@RequestParam ("userId") Long userId,
+									@RequestParam ("nameRoutine") String nameRoutine,
+					    			@RequestParam ("excersices") List<Integer> excersices,
+					    			@RequestParam ("daysRoutine") List<Integer> daysRoutine,
+    								@RequestParam ("weeksRoutine") Integer weeksRoutine,
+    								@RequestBody Map<Integer,Integer> daysExercise) {
+
+    	Routine newRoutine = routineService.createRouitneFromWithExercise(userId, nameRoutine, excersices, daysRoutine, weeksRoutine, daysExercise);
+    	
+        return ResponseEntity.ok().body(newRoutine);
+    }
+    
 }

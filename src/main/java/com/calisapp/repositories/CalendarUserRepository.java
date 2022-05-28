@@ -1,6 +1,7 @@
 package com.calisapp.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.Query;
@@ -16,5 +17,7 @@ public interface CalendarUserRepository extends CrudRepository<CalendarUser, Lon
 
 	@Query(value = "SELECT * FROM calendar_user r WHERE r.id in (SELECT calendar_id FROM users_calendar u WHERE u.user_id = :idUser)", nativeQuery = true)
 	List<CalendarUser> findWithUserId(@Param("idUser") Long idUser);
+
+	Optional<CalendarUser> findById(Integer calendarId);
 	
 }

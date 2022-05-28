@@ -1,5 +1,7 @@
 package com.calisapp.model;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -52,6 +55,11 @@ public class CalendarUser {
 	@Column(name="DAYS")
 	private List<Integer> daysRoutine;
 	
+
+	@ManyToMany(cascade= CascadeType.ALL)
+	private List<DayAndOpinion> dayAndOpinion;
+
+	
 	public CalendarUser() {};
 	
 	public CalendarUser(Date dayFinishRoutine, List<Integer> daysRoutine, Integer weeksRoutine, Routine routine) {
@@ -60,6 +68,7 @@ public class CalendarUser {
 		this.weeksRoutine = weeksRoutine;
 		this.routine = routine;
 		this.dayInitRoutine = new Date();
+		this.dayAndOpinion = new ArrayList<DayAndOpinion>();
 	}
 	
 	public CalendarUser(CalendarUserBuilder builder) {
@@ -67,9 +76,19 @@ public class CalendarUser {
 		this.weeksRoutine = builder.weeksRoutine;
 		this.routine = builder.routine;
 		this.daysRoutine = builder.daysRoutinee;
-		this.dayInitRoutine = new Date();
+		this.dayAndOpinion = builder.dayAndOpinion;
 	}
 
+	public DayAndOpinion addOpinion(String opinion) {
+		Date today = new Date();
+		LocalDate localDateInitRoutine = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date today2 = Date.from(localDateInitRoutine.atStartOfDay(defaultZoneId).toInstant());
+		DayAndOpinion dayAndOpinion = new DayAndOpinion(today2,opinion);
+		this.dayAndOpinion.add(dayAndOpinion);
+		return dayAndOpinion;
+	}
+	
 	/*----------------------------------------------------------------
 		Descripción:	Get y Set de variables.
 		Fecha: 			24/04/2022
@@ -118,6 +137,14 @@ public class CalendarUser {
 	public void setWeeksRoutine(Integer weeksRoutine) {
 		this.weeksRoutine = weeksRoutine;
 	}
+	
+	public List<DayAndOpinion> getDayAndOpinion() {
+		return dayAndOpinion;
+	}
+
+	public void setDayAndOpinion(List<DayAndOpinion> dayAndOpinion) {
+		this.dayAndOpinion = dayAndOpinion;
+	}
 
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de CalendarUser.
@@ -129,12 +156,15 @@ public class CalendarUser {
 		private Routine routine;
 		private Integer weeksRoutine;
 		private List<Integer> daysRoutinee;
+		private List<DayAndOpinion> dayAndOpinion;
+		
 		
 		public CalendarUserBuilder() {
 			this.dayInitRoutine = new Date();	
 			this.routine = new RoutineOfUser();
 			this.weeksRoutine = 3;
 			this.daysRoutinee = new ArrayList<Integer>();
+			this.dayAndOpinion = new ArrayList<DayAndOpinion>();
 		}
 	    
 	    public CalendarUserBuilder withDayInitRoutine (Date dayInitRoutine) {
@@ -149,6 +179,11 @@ public class CalendarUser {
 	    
 	    public CalendarUserBuilder withDaysRoutine(List<Integer> daysRoutinee) {
 	        this.daysRoutinee = daysRoutinee;
+	        return this;
+	    }
+	    
+	    public CalendarUserBuilder withDayAndOpinion(List<DayAndOpinion> dayAndOpinion) {
+	        this.dayAndOpinion = dayAndOpinion;
 	        return this;
 	    }
 	    

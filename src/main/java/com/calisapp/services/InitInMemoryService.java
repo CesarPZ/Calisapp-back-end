@@ -1,6 +1,11 @@
 package com.calisapp.services;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.model.CalendarUser;
+import com.calisapp.model.DayAndOpinion;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.ProcessExercise;
 import com.calisapp.model.Routine;
@@ -427,6 +434,91 @@ public class InitInMemoryService {
 				.withLevel("3")
 				.build();
 		
+		Date today = new Date();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+			
+		LocalDate localDateInit = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-14);
+		Date dateOpinionInit = Date.from(localDateInit.atStartOfDay(defaultZoneId).toInstant());
+		
+		
+		List<Integer> daysRoutine= new ArrayList<Integer>();
+		daysRoutine.add(1);
+		daysRoutine.add(3);
+		daysRoutine.add(4);
+		daysRoutine.add(5);
+		daysRoutine.add(6);
+		
+		LocalDate localDate1 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-14);
+		Date dateOpinion1 = Date.from(localDate1.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate2 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-13);
+		Date dateOpinion2 = Date.from(localDate2.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate3 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-12);
+		Date dateOpinion3 = Date.from(localDate3.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate4 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-11);
+		Date dateOpinion4 = Date.from(localDate4.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate5 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-10);
+		Date dateOpinion5 = Date.from(localDate5.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate6 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-9);
+		Date dateOpinion6 = Date.from(localDate6.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate7 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-8);
+		Date dateOpinion7 = Date.from(localDate7.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate8 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-7);
+		Date dateOpinion8 = Date.from(localDate8.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate9 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-6);
+		Date dateOpinion9 = Date.from(localDate9.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate10 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-5);
+		Date dateOpinion10 = Date.from(localDate10.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate11 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-4);
+		Date dateOpinion11 = Date.from(localDate11.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate12 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-3);
+		Date dateOpinion12 = Date.from(localDate12.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate13 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-2);
+		Date dateOpinion13 = Date.from(localDate13.atStartOfDay(defaultZoneId).toInstant());
+		LocalDate localDate14 = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().plusDays(-1);
+		Date dateOpinion14 = Date.from(localDate14.atStartOfDay(defaultZoneId).toInstant());
+
+		
+		List<DayAndOpinion> dayAndOpinions = new ArrayList<DayAndOpinion>();
+		DayAndOpinion dayAndOpinion1 = new DayAndOpinion(dateOpinion1, "Bien");
+		DayAndOpinion dayAndOpinion2 = new DayAndOpinion(dateOpinion2, "Regular");
+		DayAndOpinion dayAndOpinion3 = new DayAndOpinion(dateOpinion3, "No realizada'");
+		DayAndOpinion dayAndOpinion4 = new DayAndOpinion(dateOpinion4, "Bien");
+		DayAndOpinion dayAndOpinion5 = new DayAndOpinion(dateOpinion5, "Regular");
+		DayAndOpinion dayAndOpinion6 = new DayAndOpinion(dateOpinion6, "Mal");
+		DayAndOpinion dayAndOpinion7 = new DayAndOpinion(dateOpinion7, "No realizada");
+		DayAndOpinion dayAndOpinion8 = new DayAndOpinion(dateOpinion8, "Bien");
+		DayAndOpinion dayAndOpinion9 = new DayAndOpinion(dateOpinion9, "Regular");
+		DayAndOpinion dayAndOpinion10 = new DayAndOpinion(dateOpinion10, "No realizada");
+		DayAndOpinion dayAndOpinion11 = new DayAndOpinion(dateOpinion11, "Bien");
+		DayAndOpinion dayAndOpinion12 = new DayAndOpinion(dateOpinion12, "Regular");
+		DayAndOpinion dayAndOpinion13 = new DayAndOpinion(dateOpinion13, "Bien");
+		DayAndOpinion dayAndOpinion14 = new DayAndOpinion(dateOpinion14, "No realizada");
+		dayAndOpinions.add(dayAndOpinion1);
+		dayAndOpinions.add(dayAndOpinion2);
+		dayAndOpinions.add(dayAndOpinion3);
+		dayAndOpinions.add(dayAndOpinion4);
+		dayAndOpinions.add(dayAndOpinion5);
+		dayAndOpinions.add(dayAndOpinion6);
+		dayAndOpinions.add(dayAndOpinion7);
+		dayAndOpinions.add(dayAndOpinion8);
+		dayAndOpinions.add(dayAndOpinion9);
+		dayAndOpinions.add(dayAndOpinion10);
+		dayAndOpinions.add(dayAndOpinion11);
+		dayAndOpinions.add(dayAndOpinion12);
+		dayAndOpinions.add(dayAndOpinion13);
+		dayAndOpinions.add(dayAndOpinion14);
+		
+		CalendarUser calendarUser1 = new CalendarUser.CalendarUserBuilder()
+				.withDayInitRoutine(dateOpinionInit)
+				.withRoutine(rutina1)
+				.withWeeksRoutine(4)
+				.withDaysRoutine(daysRoutine)
+				.withDayAndOpinion(dayAndOpinions)
+				.build();
+		
+		List<CalendarUser> calendarUsers = new ArrayList<CalendarUser>();
+		calendarUsers.add(calendarUser1);
+		user1.setCalendar(calendarUsers);
 		/*	
 		exerciseService.save(exercise1);
 		exerciseService.save(exercise2);
