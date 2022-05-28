@@ -1,5 +1,6 @@
 package com.calisapp.services;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -7,6 +8,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -15,9 +18,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.calisapp.daos.DayRoutineDAO;
+import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.CalendarUser;
+import com.calisapp.model.DayAndOpinion;
 import com.calisapp.model.Exercise;
 import com.calisapp.model.Routine;
+import com.calisapp.model.User;
 import com.calisapp.repositories.CalendarUserRepository;
 
 @Service
@@ -44,10 +50,10 @@ public class CalendarUserService {
 		List<CalendarUser> calendars = this.calendarUserRepository.findWithUserId(idUser);
 		
 		for(CalendarUser calendar : calendars) {
-			List<Date> scheduledDays = this.calculateCalendarDays(calendar);
+			Set<Date> scheduledDays = this.calculateCalendarDays(calendar);
 			List<Integer> numberDaysRotine = this.calculateDaysExercise(calendar.getRoutine());
 			
-			daysRoutine.addAll(this.createDaysRoutine(scheduledDays, numberDaysRotine, calendar.getRoutine()));
+			daysRoutine.addAll(this.createDaysRoutine(scheduledDays, numberDaysRotine, calendar));
 		}
 		return daysRoutine;
 	}
@@ -57,8 +63,8 @@ public class CalendarUserService {
 	 	 			y los retorna en una lista.
 		Fecha: 		11/05/2022
 	--------------------------------------------------------------------*/
-	private List<Date> calculateCalendarDays(CalendarUser calendar) {
-		List<Date> scheduledDays = new ArrayList<Date>();
+	private Set<Date> calculateCalendarDays(CalendarUser calendar) {
+		Set<Date> scheduledDays = new HashSet<Date>();
 		for(Integer dayNumber: calendar.getDaysRoutine()) {
 			scheduledDays.addAll(this.calculateScheduledDays(dayNumber,calendar.getWeeksRoutine(), calendar.getDayInitRoutine()));
 		}
@@ -71,17 +77,17 @@ public class CalendarUserService {
 	 				sean del dia dayNumber (1-Lunes; 2-Martes; 3-Miercoles ...)
 		Fecha: 		11/05/2022
 	--------------------------------------------------------------------*/
-	private List<Date> calculateScheduledDays(Integer dayNumber, Integer weeksRoutine, Date dateInitRoutine) {
-		List<Date> scheduledDays = new ArrayList<Date>();
+	private Set<Date> calculateScheduledDays(Integer dayNumber, Integer weeksRoutine, Date dateInitRoutine) {
+		Set<Date> scheduledDays = new HashSet<Date>();
 		LocalDate localDateInitRoutine = dateInitRoutine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate firstDayOfExercise = LocalDate.now();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 
 		for(int i=0; i<6; i++) {
-			localDateInitRoutine = localDateInitRoutine.plusDays(1);
 			if(localDateInitRoutine.getDayOfWeek().getValue() == dayNumber) {
 				firstDayOfExercise = localDateInitRoutine;
 			}
+			localDateInitRoutine = localDateInitRoutine.plusDays(1);
 		}
 		for(int i = 0; i<weeksRoutine; i++) {
 			LocalDate dayRoutine = firstDayOfExercise.plusDays(i*7);
@@ -116,8 +122,8 @@ public class CalendarUserService {
 	 				dia numberDaysRotine, segun el orden de fechas de scheduledDays.
 		Fecha: 		11/05/2022
 	--------------------------------------------------------------------*/
-	private List<DayRoutineDAO> createDaysRoutine(List<Date> scheduledDays, 
-			 								List<Integer> numberDaysRotine, Routine routine){
+	private List<DayRoutineDAO> createDaysRoutine(Set<Date> scheduledDays, List<Integer> numberDaysRotine,
+												 CalendarUser calendar){
 		
 		List<DayRoutineDAO> dayRoutineDAOs = new ArrayList<DayRoutineDAO>();
 		List<Date> scheduledDaysSorted = scheduledDays.stream()
@@ -125,8 +131,9 @@ public class CalendarUserService {
 					  .collect(Collectors.toList());
 		Integer dayPos = 1;
 		for(Date day: scheduledDaysSorted) {
+			String estadoDeAnimo = calculateEstadoDeAnimo(calendar.getDayAndOpinion(),day);
 			Integer pos = this.numberRoutineCorresponding(dayPos,numberDaysRotine);
-			DayRoutineDAO diaDeRutina = new DayRoutineDAO(day,routine, pos);
+			DayRoutineDAO diaDeRutina = new DayRoutineDAO(day,calendar.getRoutine(), pos, calendar.getId(), estadoDeAnimo);
 			dayRoutineDAOs.add(diaDeRutina);
 			dayPos = dayPos + 1;
 		}
@@ -134,6 +141,17 @@ public class CalendarUserService {
 		return dayRoutineDAOs;
 	}
 	
+	private String calculateEstadoDeAnimo(List<DayAndOpinion> dayAndOpinions, Date day) {
+		String estadoDeAnimo = "";
+		for(DayAndOpinion dayAndOpinion : dayAndOpinions ) {
+			Date dayToOpinion = dayAndOpinion.getDayOpinon();
+			if(dayToOpinion.getDate() == day.getDate()) {
+				return dayAndOpinion.getOpinion();
+			}
+		}
+		return estadoDeAnimo;
+	}
+
 	/*--------------------------------------------------------------------
 	 	Descripción: Calcula el dia de la rutina, dependiendo del dia del calendio 
 	 				recibido por por parametro(dayPos).
@@ -163,4 +181,12 @@ public class CalendarUserService {
 	public CalendarUser save(CalendarUser model) {
 		return calendarUserRepository.save(model);
 	}
+
+	public CalendarUser setOpinionRoutine(Integer calendarId, String opinon) {
+		CalendarUser calendarUser = this.calendarUserRepository.findById(calendarId).get();
+		calendarUser.addOpinion(opinon);
+		return save(calendarUser);
+		
+	}
+	
 }

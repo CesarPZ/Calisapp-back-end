@@ -14,14 +14,19 @@ public class DayRoutineDAO {
 	private Integer exerciseNumberDayRoutine;
 	private List<Exercise> exercises;
 	private Routine routine;
+	private Integer idCalendarUser;
+	private String estadoDeAnimo;
 	
 	public DayRoutineDAO() {};
 	
-	public DayRoutineDAO(Date dayRoutine,Routine routine, Integer exerciseNumberDayRoutine) {
+	public DayRoutineDAO(Date dayRoutine,Routine routine, Integer exerciseNumberDayRoutine, 
+			Integer idCalendarUser, String estadoDeAnimo) {
 		this.dayRoutine = dayRoutine;
 		this.routineName = routine.getNameRoutine();
 		this.exerciseNumberDayRoutine = exerciseNumberDayRoutine;
 		this.routine = routine;
+		this.idCalendarUser = idCalendarUser;
+		this.estadoDeAnimo = estadoDeAnimo;
 		List<Exercise> ejercicios = new ArrayList<Exercise>();
 		for(Exercise ejercicio: routine.getExercises()) {
 			if(ejercicio.getDayExercise() == exerciseNumberDayRoutine){
@@ -70,5 +75,20 @@ public class DayRoutineDAO {
 	public void setRoutine(Routine routine) {
 		this.routine = routine;
 	}
-	
+
+	public Integer getIdCalendarUser() {
+		return idCalendarUser;
+	}
+
+	public void setIdCalendarUser(Integer idCalendarUser) {
+		this.idCalendarUser = idCalendarUser;
+	}
+
+	public String getEstadoDeAnimo() {
+		return estadoDeAnimo;
+	}
+
+	public void setEstadoDeAnimo(String estadoDeAnimo) {
+		this.estadoDeAnimo = estadoDeAnimo;
+	}
 }

@@ -1,6 +1,7 @@
 package com.calisapp.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -77,11 +78,11 @@ public class RoutineService {
 		Fecha: 			24/04/2022
 	-------------------------------------------------------*/
 	public Routine createRoutine(Long userId, String nameRoutine, List<Integer> excersicesId, 
-								List<Integer> daysRoutine, Integer weeksRoutine, Boolean routineByLevel){
+								List<Integer> daysRoutine, Integer weeksRoutine){
 		
 		User user = this.userService.findByID(userId);
 		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersicesId);
-		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios, routineByLevel);
+		Routine newRoutine = user.generateRoutine(nameRoutine, ejercicios);
 		
 		exerciseService.saveAll(newRoutine.getExercises());
 		save(newRoutine);
@@ -92,6 +93,23 @@ public class RoutineService {
 		return newRoutine;
 	}
 
+	public Routine createRouitneFromWithExercise(Long userId, String nameRoutine, List<Integer> excersices,
+			List<Integer> daysRoutine, Integer weeksRoutine, Map<Integer, Integer> daysExercise) {
+	
+		User user = this.userService.findByID(userId);
+		Set<Exercise> ejercicios = this.exerciseService.findExcersicesByID(excersices);
+		Routine newRoutine = user.generateRoutineWithExercise(nameRoutine, ejercicios, daysExercise);
+		
+		exerciseService.saveAll(newRoutine.getExercises());
+		save(newRoutine);
+		
+		CalendarUser calendarUser = user.addEventTocalendar(weeksRoutine, newRoutine, daysRoutine);
+		calendarUserService.save(calendarUser);
+		
+		return newRoutine;
+	}
+		
+	
 	/*-------------------------------------------------------
 	 	Descripción:	Retorna todas las rutinas del usuario
 	 					recibido por parametro
@@ -164,4 +182,5 @@ public class RoutineService {
 		
 		return this.routineRepository.save(routineToUpdate);
 	}
+
 }
