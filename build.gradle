@@ -35,7 +35,21 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 		
 	implementation 'io.springfox:springfox-swagger2:3.0.0'	
-    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.8'	
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.4.8'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-api
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-api', version: '3.141.59'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-chrome-driver
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.8.0'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-support
+	implementation group: 'org.seleniumhq.selenium', name: 'selenium-support', version: '4.2.1'
+	// https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+	implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.1.0'
+	// https://mvnrepository.com/artifact/org.junit.platform/junit-platform-commons
+	implementation group: 'org.junit.platform', name: 'junit-platform-commons', version: '1.8.2'
+	// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-remote-driver
+//	implementation group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version: '2.53.1'
 }
 
 tasks.named('test') {
