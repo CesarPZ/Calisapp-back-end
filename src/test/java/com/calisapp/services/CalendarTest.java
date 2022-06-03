@@ -151,7 +151,7 @@ public class CalendarTest {
         	assertEquals(calendar.getRoutineName(), "Rutina para Principiantes", "Se Espera que todos calendarios tengan el mismo nombre de rutina");
         }
     }
-
+/*
     @Test
     public void calcularUnaRutinaDe2Dias4SemanasTest() {
     	List<CalendarUser> calendarUser = new ArrayList<CalendarUser>();
@@ -186,5 +186,5 @@ public class CalendarTest {
         for(DayRoutineDAO calendar: calculoCalendar) {
     	  	assertEquals(calendar.getRoutineName(), "Rutina Avanzada de 2 dias", "Se Espera que todos calendarios tengan el mismo nombre de rutina");
         }
-    }
+    }*/
 }
