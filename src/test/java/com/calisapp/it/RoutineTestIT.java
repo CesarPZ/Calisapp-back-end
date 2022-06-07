@@ -1,10 +1,10 @@
 package com.calisapp.it;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -13,24 +13,28 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 
 public class RoutineTestIT {
 	public static WebDriver driver=null;
-
-	public RoutineTestIT() {}
+	public static By starRoutine = By.xpath("//button[contains(text(),'Iniciar Rutina')]");
+	public static By messageAlert = By.xpath("//h4[contains(text(),'Su rutina se generó correctamente!')]");
 	
+	public RoutineTestIT() {}
+
 	@Before
     public void initializeDriver() throws MalformedURLException {
 		ChromeDriverManager.getInstance().setup();
-		
+
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--start-maximized");
 		
         driver = new ChromeDriver(options);  
         
-        userLogged();
+        userLogged();  
 	}
     
     @After
@@ -41,49 +45,56 @@ public class RoutineTestIT {
     public void userLogged() {
         driver.get("http://localhost:4200/#/login");
       
-		driver.findElement(By.id("mat-input-0")).sendKeys("jmdicostanzo11@gmail.com"); 
-		driver.findElement(By.id("mat-input-1")).sendKeys("1234");
+        setInputData("jmdicostanzo11@gmail.com", "1234");
 		
 		WebElement login = driver.findElement(By.className("btn"));
         login.click(); 
     }
     
-    @Test
-    public void whenIEnterAllTheValidDataThenTheStartRoutineButtonIsEnabled() throws Exception {      
-        driver.getCurrentUrl();
+    public void setInputData (String mail, String password) {
+    	driver.findElement(By.id("mat-input-0")).sendKeys(mail); 
+		driver.findElement(By.id("mat-input-1")).sendKeys(password);
+    }
+    
+    public void selectRoutine() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 
     	//El usuario clikea en el link Actividades Usuario
-        WebElement activityUserLink = driver.findElement(By.xpath("//*[contains(@id,'activityUser')]"));
+        WebElement activityUserLink = new WebDriverWait(driver, 10)
+    			.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'activityUser')]"))); 
         activityUserLink.click();        
-        Thread.sleep(2000);        
 
     	//El usuario elige generar una rutina por nivel
-    	WebElement routineLink = driver.findElement(By.xpath("//*[contains(@id,'routineByLevel')]"));
-    	routineLink.click();
+        WebElement routineLink = new WebDriverWait(driver, 10)
+    			.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(@id,'routineByLevel')]"))); 
+        routineLink.click();
     	
     	//El usuario clickea para ver las rutinas del nivel deseado
     	WebElement watchRoutines = driver.findElement(By.className("btn-warning"));
     	watchRoutines.click();
 
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
     	//El usuario elige la rutina deseada
-        WebElement routine = driver.findElement(By.xpath("//a[contains(text(),' Rutina Espartana ')]"));
+        WebElement routine = new WebDriverWait(driver, 10)
+    			.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[contains(text(),' Rutina Espartana ')]"))); 
         
         //EL usuario hace scroll
         js.executeScript("arguments[0].scrollIntoView();", routine);
-        Thread.sleep(1000);        
-
-        routine.click();      
-
-        //El usuario ingresa la cantidad de semanas 
+        routine.click();    
+    }
+    
+    public void setInputDataTheroutine() {
+    	numberOfWeeks();
+    	selectTheDaysOfTheRoutine();
+    }
+    
+    public void numberOfWeeks() {
+    	//El usuario ingresa la cantidad de semanas 
         WebElement weeksRoutine = driver.findElement(By.name("weeksRoutine"));
         weeksRoutine.sendKeys("4"); 
-
-        //El usuario clickea en el checkbox para elegir los días
+    }
+    
+    public void selectTheDaysOfTheRoutine() {
+    	//El usuario clickea en el checkbox para elegir los días
         WebElement checkBox = driver.findElement(By.className("mat-select-arrow"));
         checkBox.click();
     	        
@@ -96,230 +107,86 @@ public class RoutineTestIT {
         
         WebElement daySelect3 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-4')]"));
         daySelect3.click();
-        
-        //Se Testea que el boton iniciar rutina este habilitado
-        boolean value = driver.findElement(By.xpath("//button[contains(text(),'Iniciar Rutina')]")).isEnabled();
+    }
+    
+    public void clickStarRoutine() {
+    	 JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        Assert.assertEquals(value, true);      
+         //Se clickea en el boton iniciar rutina         
+         WebElement startRoutine = new WebDriverWait(driver, 10)
+     			.until(ExpectedConditions.elementToBeClickable(By.id("startRoutine"))); 
+         js.executeScript("arguments[0].click();", startRoutine);
+    }
+    
+    @Test
+    public void whenIEnterAllTheValidDataThenTheStartRoutineButtonIsEnabled() throws Exception {      
+        driver.getCurrentUrl();
+                  
+        selectRoutine();
+        setInputDataTheroutine();
+        
+        boolean value = driver.findElement(starRoutine).isEnabled();
+
+        assertEquals(value, true);      
     }
     
     @Test
     public void whenDaysOfTheWeekAreNotEnteredTheRoutineStartButtonIsDisabled() throws Exception {      
-        driver.getCurrentUrl();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario clikea en el link Actividades Usuario
-        WebElement activityUserLink = driver.findElement(By.xpath("//*[contains(@id,'activityUser')]"));
-        activityUserLink.click();        
-        Thread.sleep(2000);        
-
-    	//El usuario elige generar una rutina por nivel
-    	WebElement routineLink = driver.findElement(By.xpath("//*[contains(@id,'routineByLevel')]"));
-    	routineLink.click();
+    	driver.getCurrentUrl();
     	
-    	//El usuario clickea para ver las rutinas del nivel deseado
-    	WebElement watchRoutines = driver.findElement(By.className("btn-warning"));
-    	watchRoutines.click();
+    	selectRoutine();
+    	numberOfWeeks();
 
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        boolean value = driver.findElement(starRoutine).isEnabled();
 
-    	//El usuario elige la rutina deseada
-        WebElement routine = driver.findElement(By.xpath("//a[contains(text(),' Rutina Espartana ')]"));
-        
-        //EL usuario hace scroll
-        js.executeScript("arguments[0].scrollIntoView();", routine);
-        Thread.sleep(1000);        
-
-        routine.click();      
-
-        //El usuario ingresa la cantidad de semanas 
-        WebElement weeksRoutine = driver.findElement(By.name("weeksRoutine"));
-        weeksRoutine.sendKeys("4"); 
-
-        //Se Testea que el boton iniciar rutina este deshabilitado
-        boolean value = driver.findElement(By.xpath("//button[contains(text(),'Iniciar Rutina')]")).isEnabled();
-
-        Assert.assertEquals(value, false);
+        assertEquals(value, false);
     }
     
     @Test
     public void whenTheNumberOfWeeksIsNotEnteredTheRoutineStartButtonIsDisabled() throws Exception {      
         driver.getCurrentUrl();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
         
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario clikea en el link Actividades Usuario
-        WebElement activityUserLink = driver.findElement(By.xpath("//*[contains(@id,'activityUser')]"));
-        activityUserLink.click();        
-        Thread.sleep(2000);        
-
-    	//El usuario elige generar una rutina por nivel
-    	WebElement routineLink = driver.findElement(By.xpath("//*[contains(@id,'routineByLevel')]"));
-    	routineLink.click();
-    	
-    	//El usuario clickea para ver las rutinas del nivel deseado
-    	WebElement watchRoutines = driver.findElement(By.className("btn-warning"));
-    	watchRoutines.click();
-
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario elige la rutina deseada
-        WebElement routine = driver.findElement(By.xpath("//a[contains(text(),' Rutina Espartana ')]"));
+        selectRoutine();    
+        selectTheDaysOfTheRoutine();
         
-        //EL usuario hace scroll
-        js.executeScript("arguments[0].scrollIntoView();", routine);
-        Thread.sleep(1000);        
+        boolean value = driver.findElement(starRoutine).isEnabled();
 
-        routine.click();      
-
-        //El usuario clickea en el checkbox para elegir los días
-        WebElement checkBox = driver.findElement(By.className("mat-select-arrow"));
-        checkBox.click();
-    	        
-        //El usuario selecciona los días de la rutina
-        WebElement daySelect1 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-0')]"));
-        daySelect1.click();
-        
-        WebElement daySelect2 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-2')]"));
-        daySelect2.click();
-        
-        WebElement daySelect3 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-4')]"));
-        daySelect3.click();
-        
-        //Se Testea que el boton iniciar rutina este deshabilitado
-        boolean value = driver.findElement(By.xpath("//button[contains(text(),'Iniciar Rutina')]")).isEnabled();
-
-        Assert.assertEquals(value, false);
+        assertEquals(value, false);
     }
-    
+   
     @Test
     public void WhenIEnterAllTheCorrectDataAndClickOnTheStartRoutineButtonTheRoutineIsGeneratedCorrectly() throws Exception {      
         driver.getCurrentUrl();
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
 
-    	//El usuario clikea en el link Actividades Usuario
-        WebElement activityUserLink = driver.findElement(By.xpath("//*[contains(@id,'activityUser')]"));
-        activityUserLink.click();        
-        Thread.sleep(2000);        
-
-    	//El usuario elige generar una rutina por nivel
-    	WebElement routineLink = driver.findElement(By.xpath("//*[contains(@id,'routineByLevel')]"));
-    	routineLink.click();
-    	
-    	//El usuario clickea para ver las rutinas del nivel deseado
-    	WebElement watchRoutines = driver.findElement(By.className("btn-warning"));
-    	watchRoutines.click();
-
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario elige la rutina deseada
-        WebElement routine = driver.findElement(By.xpath("//a[contains(text(),' Rutina Espartana ')]"));
-        
-        //EL usuario hace scroll
-        js.executeScript("arguments[0].scrollIntoView();", routine);
-        Thread.sleep(1000);        
-
-        routine.click();      
-
-        //El usuario ingresa la cantidad de semanas 
-        WebElement weeksRoutine = driver.findElement(By.name("weeksRoutine"));
-        weeksRoutine.sendKeys("4"); 
-
-        //El usuario clickea en el checkbox para elegir los días
-        WebElement checkBox = driver.findElement(By.className("mat-select-arrow"));
-        checkBox.click();
-    	        
-        //El usuario selecciona los días de la rutina
-        WebElement daySelect1 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-0')]"));
-        daySelect1.click();
-        
-        WebElement daySelect2 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-2')]"));
-        daySelect2.click();
-        
-        WebElement daySelect3 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-4')]"));
-        daySelect3.click();
-
-        //Se clickea en el boton iniciar rutina 
-        WebElement startRoutine = driver.findElement(By.id("startRoutine"));  
-        js.executeScript("arguments[0].click();", startRoutine);
-
-        Thread.sleep(3000);        
-
-        //Se testea que aparezca el modal con el texto que se genero correctamente la rutina 
-        WebElement message = driver.findElement(By.xpath("//h4[contains(text(),'Su rutina se generó correctamente!')]"));
-        String messageExpCurrent = message.getText();
+        selectRoutine();    
+        setInputDataTheroutine();
+        clickStarRoutine();
+  
+        WebElement alert = new WebDriverWait(driver, 10)
+        		.until(ExpectedConditions.visibilityOfElementLocated(messageAlert));
+     
+        String messageExpCurrent = alert.getText();
         String messageExp = "SU RUTINA SE GENERÓ CORRECTAMENTE!";
 
-        Assert.assertEquals(messageExp, messageExpCurrent); 
+        assertEquals(messageExp, messageExpCurrent); 
     }
     
     @Test
     public void whenIGenerateARoutineCorrectlyThenClickButtonViewMyRoutinesRedirectToMyRoutinesPage() throws Exception {      
-        driver.getCurrentUrl();
+    	driver.getCurrentUrl();
         JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        selectRoutine();    
+        setInputDataTheroutine();
+        clickStarRoutine();
         
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario clikea en el link Actividades Usuario
-        WebElement activityUserLink = driver.findElement(By.xpath("//*[contains(@id,'activityUser')]"));
-        activityUserLink.click();        
-        Thread.sleep(2000);        
-
-    	//El usuario elige generar una rutina por nivel
-    	WebElement routineLink = driver.findElement(By.xpath("//*[contains(@id,'routineByLevel')]"));
-    	routineLink.click();
-    	
-    	//El usuario clickea para ver las rutinas del nivel deseado
-    	WebElement watchRoutines = driver.findElement(By.className("btn-warning"));
-    	watchRoutines.click();
-
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-    	//El usuario elige la rutina deseada
-        WebElement routine = driver.findElement(By.xpath("//a[contains(text(),' Rutina Espartana ')]"));
-        
-        //EL usuario hace scroll
-        js.executeScript("arguments[0].scrollIntoView();", routine);
-        Thread.sleep(1000);        
-
-        routine.click();      
-
-        //El usuario ingresa la cantidad de semanas 
-        WebElement weeksRoutine = driver.findElement(By.name("weeksRoutine"));
-        weeksRoutine.sendKeys("4"); 
-
-        //El usuario clickea en el checkbox para elegir los días
-        WebElement checkBox = driver.findElement(By.className("mat-select-arrow"));
-        checkBox.click();
-    	        
-        //El usuario selecciona los días de la rutina
-        WebElement daySelect1 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-0')]"));
-        daySelect1.click();
-        
-        WebElement daySelect2 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-2')]"));
-        daySelect2.click();
-        
-        WebElement daySelect3 = driver.findElement(By.xpath("//*[contains(@id,'mat-option-4')]"));
-        daySelect3.click();
-
-        //Se clickea en el boton iniciar rutina 
-        WebElement startRoutine = driver.findElement(By.id("startRoutine"));  
-        js.executeScript("arguments[0].click();", startRoutine);
-
-        Thread.sleep(3000);               
-        
-        //Se testea cuando se clikea en el botón de ver mis rutinas te redirije a la page de mis rutinas
-        WebElement lookRoutine = driver.findElement(By.xpath("//button[contains(text(),'Ver mis rutinas')]"));
-        lookRoutine.click();        
+        WebElement lookRoutine = new WebDriverWait(driver, 10)
+    			.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[contains(text(),'Ver mis rutinas')]"))); 
+        js.executeScript("arguments[0].click();", lookRoutine);
 
         String currentUrl="http://localhost:4200/#/myRoutine";
         String expectedUrl= driver.getCurrentUrl();
         
-        Assert.assertEquals(expectedUrl,currentUrl);  
+        assertEquals(expectedUrl,currentUrl);  
     }
 }
