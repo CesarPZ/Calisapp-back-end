@@ -1,10 +1,10 @@
 package com.calisapp.it;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -12,16 +12,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 
 public class RegisterTestIT {
 	public static WebDriver driver=null;
+	public static By buttonRegister = By.className("btn");
 
 	public RegisterTestIT() {}
 	
 	@Before
-    public void initializeDriver() throws MalformedURLException {
+    public void initializeDriver() throws MalformedURLException {		
 		ChromeDriverManager.getInstance().setup();
 		
 		ChromeOptions options = new ChromeOptions();
@@ -35,109 +38,108 @@ public class RegisterTestIT {
         driver.close();
     }
 
+    public void getUrlRegister() {
+        driver.get("http://localhost:4200/#/register");
+    }
+    
+    public void setInputData (String mail, String name, String password) {
+    	driver.findElement(By.name("mail")).sendKeys(mail); 
+		driver.findElement(By.name("name")).sendKeys(name);
+		driver.findElement(By.name("password")).sendKeys(password);
+    }
+    
     @Test
     public void whenIEnterAEmailAndNameAndPasswordValidTheRegisterButtonIsEnabled() throws Exception {      
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
         
-		driver.findElement(By.name("mail")).sendKeys("test@gmail.com");
-		driver.findElement(By.name("name")).sendKeys("testff");
-		driver.findElement(By.name("password")).sendKeys("123456");
+    	setInputData("test@gmail.com", "testff", "123456");
         
-        boolean value = driver.findElement(By.className("btn")).isEnabled();
+        boolean value = driver.findElement(buttonRegister).isEnabled();
 
-        Assert.assertEquals(value, true);
+        assertEquals(value, true);
     }
     
     @Test
     public void whenIEnterAnInvalidMailTheRegisterButtonIsDisabled() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
         
-        driver.findElement(By.name("mail")).sendKeys("test");
-		driver.findElement(By.name("name")).sendKeys("test");
-		driver.findElement(By.name("password")).sendKeys("123456");
+    	setInputData("test", "test", "123456");
         
-        boolean value = driver.findElement(By.className("btn")).isEnabled();
+        boolean value = driver.findElement(buttonRegister).isEnabled();
 
-        Assert.assertEquals(value, false);
+        assertEquals(value, false);
     }
     
     @Test
     public void whenIEnterAnInvalidNameTheRegisterButtonIsDisabled() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
         
-        driver.findElement(By.name("mail")).sendKeys("test@gmail.com");
-		driver.findElement(By.name("name")).sendKeys("tes");
-		driver.findElement(By.name("password")).sendKeys("123456");
+    	setInputData("test@gmail.com", "tes", "123456");
 		
-        boolean value = driver.findElement(By.className("btn")).isEnabled();
+        boolean value = driver.findElement(buttonRegister).isEnabled();
         
-        Assert.assertEquals(value, false);
+        assertEquals(value, false);
     }
     
     @Test
     public void whenIEnterAnInvalidPasswordTheRegisterButtonIsDisabled() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
         
-        driver.findElement(By.name("mail")).sendKeys("test@gmail.com");
-		driver.findElement(By.name("name")).sendKeys("test");
-		driver.findElement(By.name("password")).sendKeys("123");
+    	setInputData("test@gmail.com", "test", "123");
 		
-        boolean value = driver.findElement(By.className("btn")).isEnabled();
+        boolean value = driver.findElement(buttonRegister).isEnabled();
         
-        Assert.assertEquals(value, false);
+        assertEquals(value, false);
     }
     
     @Test
     public void whenIEnterAnEmailThatAlreadyExistsThenErrorMessage() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
         String mail = "jmdicostanzo11@gmail.com";
         
-        driver.findElement(By.name("mail")).sendKeys(mail); //Dato repetido
-		driver.findElement(By.name("name")).sendKeys("test");
-		driver.findElement(By.name("password")).sendKeys("1234");
+        setInputData(mail, "test", "123456");
 		 
-		WebElement login = driver.findElement(By.className("btn"));
+		WebElement login = driver.findElement(buttonRegister);
         login.click();
         
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
-
-        WebElement message = driver.findElement(By.className("alert"));
-        String messageExpCurrent = message.getText();
+        WebElement alert = new WebDriverWait(driver, 10)
+        		.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
+     
+        String messageExpCurrent = alert.getText();
         String messageExp = "El usuario con el email: " + mail + " ya existe!!!";
 
-        Assert.assertEquals(messageExp, messageExpCurrent);  
+        assertEquals(messageExp, messageExpCurrent);  
     }
     /* Guarda el usuario en la base de datos
     @Test
     public void whenIEnterAllTheDataWellAndClickTheRegisterButtonTheUserIsRegistered() throws Exception { 
     	driver.get("http://localhost:4200/#/register");
         
-        driver.findElement(By.name("mail")).sendKeys("test4@gmail.com");
-		driver.findElement(By.name("name")).sendKeys("test");
-		driver.findElement(By.name("password")).sendKeys("123456");
+        setInputData("test3@gmail.com", "test", "123456");
         
-		WebElement login = driver.findElement(By.className("btn"));
+		WebElement login = driver.findElement(buttonRegister);
         login.click();
         
-        Thread.sleep(3000);        
-
+        new WebDriverWait(driver, 10)
+		.until(ExpectedConditions.urlMatches("http://localhost:4200/#/home"));
+        
         String currentUrl="http://localhost:4200/#/home";
         String expectedUrl= driver.getCurrentUrl();
         
-        Assert.assertEquals(expectedUrl,currentUrl);  
+        assertEquals(expectedUrl,currentUrl); 
     }*/
     
     @Test
     public void whenClickLoginLinkRedirectToLoginPage() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+    	getUrlRegister();
      
-    	WebElement loginLink = driver.findElement(By.xpath("//a[contains(text(),'Inicia sesión')]"));
+    	WebElement loginLink = driver.findElement(By.linkText("¿Ya tienes una cuenta? Inicia sesión"));
     	loginLink.click();        
 
         String currentUrl="http://localhost:4200/#/login";
         String expectedUrl= driver.getCurrentUrl();
         
-        Assert.assertEquals(expectedUrl,currentUrl);     
+        assertEquals(expectedUrl,currentUrl);     
     }
     
     @Test
@@ -155,6 +157,6 @@ public class RegisterTestIT {
         String currentUrl="http://localhost:4200/#/register";
         String expectedUrl= driver.getCurrentUrl();
         
-        Assert.assertEquals(expectedUrl,currentUrl);     
+        assertEquals(expectedUrl,currentUrl);     
     }
 }
