@@ -54,6 +54,9 @@ public class User {
 	@ManyToMany(cascade= CascadeType.ALL)
 	private List<CalendarUser> calendar;
 	
+	@Column
+	private String mobileNumber;
+	
 	public User() { }
 
 	public User(String aName, String aMail, String aPassword) {
@@ -62,6 +65,7 @@ public class User {
 	    this.password = aPassword;
 	    this.routines = new ArrayList<Routine>();
 	    this.calendar =  new ArrayList<CalendarUser>();
+	    this.mobileNumber = "";
 	}
 	
 	public User(UserBuilder userBuilder) {
@@ -70,6 +74,7 @@ public class User {
 	    this.password = userBuilder.password;
 	    this.routines = userBuilder.routines;
 	    this.calendar = userBuilder.calendar;
+	    this.mobileNumber = userBuilder.mobileNumber;
 	}
 
 	/*----------------------------------------------------------------
@@ -178,6 +183,14 @@ public class User {
 		this.calendar = calendar;
 	}
 
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de User.
 		Fecha: 			20/04/2022
@@ -189,6 +202,7 @@ public class User {
 		private String password;
 		private List<Routine> routines;
 		private List<CalendarUser> calendar;
+		private String mobileNumber;
 			
 		public UserBuilder() {
 			this.name = "Julian";
@@ -196,6 +210,7 @@ public class User {
 			this.password = "miContraseña";
 			this.routines = new ArrayList<Routine>();
 			this.calendar = new ArrayList<CalendarUser>();
+			this.mobileNumber = "+549011123456";
 		}
 			
 	    public UserBuilder withName(String name) {
@@ -220,6 +235,10 @@ public class User {
 	    
 	    public UserBuilder withCalendar(List<CalendarUser> calendar) {
 	        this.calendar = calendar;
+	        return this;
+	    }
+	    public UserBuilder withMobileNumber(String mobileNumber) {
+	        this.mobileNumber = mobileNumber;
 	        return this;
 	    }
 	    

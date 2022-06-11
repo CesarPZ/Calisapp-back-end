@@ -1,5 +1,9 @@
 package com.calisapp.services;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.regex.Pattern;
@@ -8,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.calisapp.daos.DayRoutineDAO;
 import com.calisapp.exceptions.ResourceNotFoundException;
 import com.calisapp.model.User;
 import com.calisapp.repositories.UserRepository;
@@ -16,6 +21,8 @@ import com.calisapp.repositories.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository  repository;
+	@Autowired
+	private CalendarUserService calendarUserService;
 	
 	@Transactional
 	public User save(User model) {		
@@ -107,5 +114,33 @@ public class UserService {
 		if(name == null || password.length() < 4) {
 			throw new ResourceNotFoundException("Password must be longer than 4 characters");
 		}
-	}	
+	}
+
+	public List<String> getUserWithRoutineToday() {
+		List<String> userWhatsApp = new ArrayList<String>();
+		List<User> users = this.repository.findAll();
+		for(User user: users) {
+			if(user.getMobileNumber() != null  && 
+				!this.userHaveRoutineToday(user.getId()).isEmpty()) {
+				userWhatsApp.add(user.getMobileNumber());	
+			}
+		}
+		return userWhatsApp;
+	}
+
+	public List<DayRoutineDAO> userHaveRoutineToday(Long userId) {
+		List<DayRoutineDAO> routinesToday = new ArrayList<DayRoutineDAO>();
+		List<DayRoutineDAO> allDaysRoutines = calendarUserService.findWithUserId(userId);
+		LocalDate now = LocalDate.now();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date today = Date.from(now.atStartOfDay(defaultZoneId).toInstant());
+		
+		for(DayRoutineDAO daysRoutine : allDaysRoutines) {
+			if(daysRoutine.getDayRoutine().getDate() == today.getDate()){
+				routinesToday.add(daysRoutine);
+			}
+		}
+		return routinesToday;
+	}
+	
 }
