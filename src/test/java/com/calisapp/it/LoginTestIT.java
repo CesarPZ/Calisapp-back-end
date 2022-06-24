@@ -8,20 +8,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 
 public class LoginTestIT {
 	public static WebDriver driver=null;
 	public static By buttonLogin = By.name("submitLogin");
-	
+	public static By activityUserButton = By.id("activityUser");
+	public static By messageAlert = By.className("alert");
+
 	public LoginTestIT() {}
 	
 	@Before
@@ -39,29 +38,15 @@ public class LoginTestIT {
         driver.close();
     }
     
-    public void userLogged() {
-    	getUrlLogin();
-      
-        setInputData("jmdicostanzo11@gmail.com", "1234");
-		
-		WebElement login = driver.findElement(buttonLogin);
-        login.click(); 
-    }
-    
     public void getUrlLogin() {
         driver.get("http://localhost:4200/#/login");
-    }
-    
-    public void setInputData (String mail, String password) {
-    	driver.findElement(By.id("mat-input-0")).sendKeys(mail); 
-		driver.findElement(By.id("mat-input-1")).sendKeys(password);
     }
     
     @Test
     public void whenIEnterAValidEmailAndPasswordTheLoginButtonIsEnabled() throws Exception {      
     	getUrlLogin();
     	
-    	setInputData("test@gmail.com", "123456");
+    	TestUtils.setInputData("test@gmail.com", "123456", driver);
         
         boolean value = driver.findElement(buttonLogin).isEnabled();
 
@@ -72,7 +57,7 @@ public class LoginTestIT {
     public void whenIEnterAnInvalidMailTheLoginButtonIsDisabled() throws Exception { 
     	getUrlLogin();
     	
-    	setInputData("test", "123456");
+    	TestUtils.setInputData("test", "123456", driver);
         
         boolean value = driver.findElement(buttonLogin).isEnabled();
 
@@ -83,7 +68,7 @@ public class LoginTestIT {
     public void whenIEnterAnInvalidPasswordTheLoginButtonIsDisabled() throws Exception { 
     	getUrlLogin();        
     	
-    	setInputData("test@gmail.com", "123");
+    	TestUtils.setInputData("test@gmail.com", "123", driver);
 		
         boolean value = driver.findElement(buttonLogin).isEnabled();
         
@@ -94,15 +79,14 @@ public class LoginTestIT {
     public void whenIEnterAllTheDataWellAndClickTheLoginButtonTheUserIsLogged() throws Exception { 
     	getUrlLogin();
     	
-    	setInputData("jmdicostanzo11@gmail.com", "1234");
+    	TestUtils.setInputData("jmdicostanzo11@gmail.com", "1234", driver);
     	
 		WebElement login = driver.findElement(buttonLogin);
         login.click();
-        
-        new WebDriverWait(driver, 10)
-        		.until(ExpectedConditions.urlMatches("http://localhost:4200/#/home"));
-     
-        String currentUrl="http://localhost:4200/#/home";
+             
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/welcome");
+
+        String currentUrl="http://localhost:4200/#/welcome";
         String expectedUrl= driver.getCurrentUrl();
         
         assertEquals(expectedUrl,currentUrl);
@@ -112,14 +96,13 @@ public class LoginTestIT {
     public void whenEnterIncorrectDataThenErrorMessage() throws Exception { 
     	getUrlLogin();
     	
-        setInputData("jmdicostanzo11@gmail.com", "12345"); //password incorrecto
+    	TestUtils.setInputData("jmdicostanzo11@gmail.com", "12345", driver); //password incorrecto
 		 
 		WebElement login = driver.findElement(buttonLogin);
         login.click();
-        
-        WebElement alert = new WebDriverWait(driver, 10)
-        		.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
-     
+   
+        WebElement alert = WaitElement.waitForVisibilityOfElementLocated(driver, 10, messageAlert);
+
         String messageExpCurrent = alert.getText();
         String messageExp = "Ingresó mal los datos";
 
@@ -151,6 +134,8 @@ public class LoginTestIT {
     	WebElement loginLink = driver.findElement(By.id("loginLink"));
     	loginLink.click();     
 
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/login");
+
         String currentUrl="http://localhost:4200/#/login";
         String expectedUrl= driver.getCurrentUrl();
         
@@ -159,12 +144,15 @@ public class LoginTestIT {
     
     @Test
     public void whenTheUserIsLoggedTheLogoutButtonIsVisible() throws Exception { 
-    	userLogged();
-        
-        new WebDriverWait(driver, 10)
-        	.until(ExpectedConditions.urlMatches("http://localhost:4200/#/home"));
-        
+    	TestUtils.userLogged("jmdicostanzo11@gmail.com", "1234", driver);
+                
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/welcome");
+
         driver.getCurrentUrl();
+        
+        //El usuario clikea en el link Actividades Usuario        
+        WebElement activityUserLink = WaitElement.waitForElementToBeClickable(driver, 10, activityUserButton);
+        activityUserLink.click();
         
         //Se testea que el boton de salir es visible cuando el usuario esta logueado
         boolean isPresent = driver.findElement(By.id("logout")).isDisplayed();
@@ -175,10 +163,9 @@ public class LoginTestIT {
     @Test
     public void whenTheUserNotIsLoggedTheLogoutButtonIsNotVisible() throws Exception { 
         driver.get("http://localhost:4200/#/home");
+      
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/home");
         
-        new WebDriverWait(driver, 10)
-        	.until(ExpectedConditions.urlMatches("http://localhost:4200/#/home"));    
-
         //Se testea que el boton de salir no es visible cuando el usuario no esta logueado
         Boolean isPresent = driver.findElements(By.id("logout")).size() > 0;
 
@@ -187,19 +174,9 @@ public class LoginTestIT {
     
     @Test
     public void WhenTheUserLogoutTheLoginButtonIsVisible() throws Exception { 
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        userLogged(); 
-        
+    	TestUtils.userLogged("jmdicostanzo11@gmail.com", "1234", driver); 
         driver.getCurrentUrl();
-
-        //salir de la app
-        WebElement logout = new WebDriverWait(driver, 10)
-			.until(ExpectedConditions.elementToBeClickable(By.id("logout"))); 
-        logout.click();
-
-        WebElement outButton = driver.findElement(By.id("outButton"));
-        js.executeScript("arguments[0].click();", outButton);
+        TestUtils.userLogout(driver);
 
     	//Se testea que al salir el boton de ingresar se hace visible
     	boolean ingresarLink = driver.findElement(By.id("getInTo")).isDisplayed();
@@ -210,29 +187,3 @@ public class LoginTestIT {
         assertEquals(isPresent, false);
     }
 }
-
-
-
-
-//      driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-//      Thread.sleep(3000);        
-
-      
-    //   WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
-   //    WebElement message = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
-      
-  //     WebDriverWait alertAwaiter = new WebDriverWait(driver, Duration.ofSeconds(10));
-  //     alertAwaiter.until(ExpectedConditions.alertIsPresent());
-     /*  
-      Wait<WebDriver> mWait = new FluentWait<WebDriver>(driver)
-      		.withTimeout(Duration.ofSeconds(10))
-      		.pollingEvery(Duration.ofSeconds(2))
-      		.ignoring(NoSuchElementException.class);
-      
-      WebElement message = mWait.until(new Function<WebDriver,WebElement>(){
-      	public WebElement apply(WebDriver driver) {
-      		return driver.findElement(By.className("alert"));
-      	}
-      });
-*/
-      
