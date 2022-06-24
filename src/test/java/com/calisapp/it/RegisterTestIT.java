@@ -12,14 +12,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 
 public class RegisterTestIT {
 	public static WebDriver driver=null;
 	public static By buttonRegister = By.className("btn");
+	public static By messageAlert = By.className("alert");
 
 	public RegisterTestIT() {}
 	
@@ -42,17 +41,11 @@ public class RegisterTestIT {
         driver.get("http://localhost:4200/#/register");
     }
     
-    public void setInputData (String mail, String name, String password) {
-    	driver.findElement(By.name("mail")).sendKeys(mail); 
-		driver.findElement(By.name("name")).sendKeys(name);
-		driver.findElement(By.name("password")).sendKeys(password);
-    }
-    
     @Test
     public void whenIEnterAEmailAndNameAndPasswordValidTheRegisterButtonIsEnabled() throws Exception {      
     	getUrlRegister();
         
-    	setInputData("test@gmail.com", "testff", "123456");
+    	TestUtils.setInputDataRegister("test@gmail.com", "testff", "123456", driver);
         
         boolean value = driver.findElement(buttonRegister).isEnabled();
 
@@ -63,7 +56,7 @@ public class RegisterTestIT {
     public void whenIEnterAnInvalidMailTheRegisterButtonIsDisabled() throws Exception { 
     	getUrlRegister();
         
-    	setInputData("test", "test", "123456");
+    	TestUtils.setInputDataRegister("test", "test", "123456", driver);
         
         boolean value = driver.findElement(buttonRegister).isEnabled();
 
@@ -74,7 +67,7 @@ public class RegisterTestIT {
     public void whenIEnterAnInvalidNameTheRegisterButtonIsDisabled() throws Exception { 
     	getUrlRegister();
         
-    	setInputData("test@gmail.com", "tes", "123456");
+    	TestUtils.setInputDataRegister("test@gmail.com", "tes", "123456", driver);
 		
         boolean value = driver.findElement(buttonRegister).isEnabled();
         
@@ -85,7 +78,7 @@ public class RegisterTestIT {
     public void whenIEnterAnInvalidPasswordTheRegisterButtonIsDisabled() throws Exception { 
     	getUrlRegister();
         
-    	setInputData("test@gmail.com", "test", "123");
+    	TestUtils.setInputDataRegister("test@gmail.com", "test", "123", driver);
 		
         boolean value = driver.findElement(buttonRegister).isEnabled();
         
@@ -97,14 +90,13 @@ public class RegisterTestIT {
     	getUrlRegister();
         String mail = "jmdicostanzo11@gmail.com";
         
-        setInputData(mail, "test", "123456");
+        TestUtils.setInputDataRegister(mail, "test", "123456", driver);
 		 
 		WebElement login = driver.findElement(buttonRegister);
         login.click();
         
-        WebElement alert = new WebDriverWait(driver, 10)
-        		.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
-     
+        WebElement alert = WaitElement.waitForVisibilityOfElementLocated(driver, 10, messageAlert);
+
         String messageExpCurrent = alert.getText();
         String messageExp = "El usuario con el email: " + mail + " ya existe!!!";
 
@@ -113,17 +105,16 @@ public class RegisterTestIT {
     /* Guarda el usuario en la base de datos
     @Test
     public void whenIEnterAllTheDataWellAndClickTheRegisterButtonTheUserIsRegistered() throws Exception { 
-    	driver.get("http://localhost:4200/#/register");
+        getUrlRegister();
         
-        setInputData("test3@gmail.com", "test", "123456");
+        TestUtils.setInputDataRegister("test@gmail.com", "test", "123456", driver);
         
-		WebElement login = driver.findElement(buttonRegister);
-        login.click();
+		WebElement register = driver.findElement(buttonRegister);
+		register.click();
         
-        new WebDriverWait(driver, 10)
-		.until(ExpectedConditions.urlMatches("http://localhost:4200/#/home"));
-        
-        String currentUrl="http://localhost:4200/#/home";
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/welcome");
+
+        String currentUrl="http://localhost:4200/#/welcome";
         String expectedUrl= driver.getCurrentUrl();
         
         assertEquals(expectedUrl,currentUrl); 
@@ -153,6 +144,8 @@ public class RegisterTestIT {
     	//El usuario clikea en el link registrarse
     	WebElement registerLink = driver.findElement(By.id("registerLink"));
     	registerLink.click();     
+
+        WaitElement.waitForUrlMatches(driver, 10, "http://localhost:4200/#/register");
 
         String currentUrl="http://localhost:4200/#/register";
         String expectedUrl= driver.getCurrentUrl();
