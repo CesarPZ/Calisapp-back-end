@@ -4,8 +4,10 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,15 +118,16 @@ public class UserService {
 		}
 	}
 
-	public List<String> getUserWithRoutineToday() {
-		List<String> userWhatsApp = new ArrayList<String>();
+	public Set<User> getUserWithRoutineToday() {
+		Set<User> userWhatsApp = new HashSet<User>();
 		List<User> users = this.repository.findAll();
 		for(User user: users) {
-			if(user.getMobileNumber() != null  && 
-				!this.userHaveRoutineToday(user.getId()).isEmpty()) {
-				userWhatsApp.add(user.getMobileNumber());	
+			if(user.getMobileNumber() != null  /*&& 
+				!this.userHaveRoutineToday(user.getId()).isEmpty()*/) {
+				userWhatsApp.add(user);	
 			}
 		}
+		
 		return userWhatsApp;
 	}
 

@@ -55,7 +55,7 @@ public class InitInMemoryService {
 	
 	private void fireInitialData() {
 		User user1 = new User("Cesar", "perez.cesaar@gmail.com", "1234");
-		user1.setMobileNumber("+54901166547656");
+		user1.setMobileNumber("+5491166547656");
 		User user2 = new User("Marcelo", "jmdicostanzo11@gmail.com", "1234");
 
 		ProcessExercise processExercise1 = new ProcessExercise.ProcessExerciseBuilder()
