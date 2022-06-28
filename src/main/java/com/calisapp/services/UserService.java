@@ -61,12 +61,13 @@ public class UserService {
 	}
 
 	@Transactional
-	public User update(Long id, String name, String password) throws Exception {
+	public User update(Long id, String name, String password, String mobileNumber) throws Exception {
 		User user = this.findByID(id);		
 		validateNameAndPassword(name, password);
 		
 		user.setName(name);
 		user.setPassword(password);
+		user.setMobileNumber(mobileNumber);
 		
 		return this.repository.save(user);
 	}

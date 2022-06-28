@@ -151,14 +151,15 @@ public class UserControllerTest {
     	Long id = 5L;
     	String newName = "pepe";
     	String newPassword = "12345678";
+    	String mobileNumber = "1123456789";
     		
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-        		.put("/api/users/"+id+"?name="+newName+"&password="+newPassword))
+        		.put("/api/users/"+id+"?name="+newName+"&password="+newPassword+"&mobileNumber="+mobileNumber))
         		.andReturn();        
         
         int status = mvcResult.getResponse().getStatus();
         
         assertEquals(200, status);
-        verify(userService, times(1)).update(id, "pepe", "12345678");        
+        verify(userService, times(1)).update(id, "pepe", "12345678", "1123456789");        
     }
 }

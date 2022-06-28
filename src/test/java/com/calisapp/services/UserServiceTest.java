@@ -127,13 +127,14 @@ public class UserServiceTest {
         
 	    assertThat(userService.findByID(1L).getName()).isEqualTo("Alex");
 
-        userService.update(1L, "newName", "newPassword");
+        userService.update(1L, "newName", "newPassword", "1234567890");
                 
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
            
         verify(userRepository).save(captor.capture());
         assertThat(captor.getValue().getName().equals(user.get().getName()));
 	    assertThat(userService.findByID(1L).getName()).isEqualTo("newName");
+	    assertThat(userService.findByID(1L).getMobileNumber()).isEqualTo("1234567890");
     }    
     
     @Test 
@@ -144,7 +145,7 @@ public class UserServiceTest {
 	    assertThat(userService.findByID(1L).getName()).isEqualTo("Alex");
         
         ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-        	userService.update(1L, "new", "newPassword");
+        	userService.update(1L, "new", "newPassword", "1234567890");
 		});	
 	    
 		assertEquals("Name must be longer than 4 characters", exception.getMessage());
@@ -158,7 +159,7 @@ public class UserServiceTest {
 	    assertThat(userService.findByID(1L).getName()).isEqualTo("Alex");
         
         ResourceNotFoundException exception = Assertions.assertThrows(ResourceNotFoundException.class, () -> {
-        	userService.update(1L, "newName", "pas");
+        	userService.update(1L, "newName", "pas", "1234567890");
 		});	
 	    
 		assertEquals("Password must be longer than 4 characters", exception.getMessage());
