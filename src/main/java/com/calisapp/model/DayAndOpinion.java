@@ -23,17 +23,26 @@ public class DayAndOpinion {
 	private Date dayOpinon;
 	@Column
 	private String opinion;
+	@Column
+	private Integer dayNumberRoutine;
 	
 	public DayAndOpinion() { }
 	
-	public DayAndOpinion(Date dayOpinon, String opinion) {
+	public DayAndOpinion(Date dayOpinon, String opinion, Integer dayNumberRoutine) {
 		this.dayOpinon = dayOpinon;
 		this.opinion = opinion;
+		this.dayNumberRoutine = dayNumberRoutine;
 	}
-
+	
+	public DayAndOpinion(Date dayOpinon, Integer dayNumberRoutine) {
+		this.dayOpinon = dayOpinon;
+		this.dayNumberRoutine = dayNumberRoutine;
+	}
+	
 	public DayAndOpinion(DayAndOpinionBuilder builder) {
 		this.dayOpinon = builder.dayOpinon;
 		this.opinion = builder.opinion;
+		this.dayNumberRoutine = builder.dayNumberRoutine;
 	}
 
 	public Integer getId() {
@@ -59,6 +68,15 @@ public class DayAndOpinion {
 	public void setOpinion(String opinion) {
 		this.opinion = opinion;
 	}
+	
+	public Integer getDayNumberRoutine() {
+		return dayNumberRoutine;
+	}
+
+	public void setDayNumberRoutine(Integer dayNumberRoutine) {
+		this.dayNumberRoutine = dayNumberRoutine;
+	}
+
 	/*----------------------------------------------------------------
 		Descripción:	Clase builder estatica de CalendarUser.
 		Fecha: 			21/04/2022
@@ -67,6 +85,7 @@ public class DayAndOpinion {
 	
 		private Date dayOpinon;
 		private String opinion;
+		private Integer dayNumberRoutine;
 		
 		public DayAndOpinionBuilder() {
 			this.dayOpinon = new Date();	
@@ -80,6 +99,11 @@ public class DayAndOpinion {
 	    
 	    public DayAndOpinionBuilder withOpinion(String opinion) {
 	        this.opinion = opinion;
+	        return this;
+	    }
+	    
+	    public DayAndOpinionBuilder withDayNumberRoutine(Integer dayNumberRoutine) {
+	        this.dayNumberRoutine = dayNumberRoutine;
 	        return this;
 	    }
 	    

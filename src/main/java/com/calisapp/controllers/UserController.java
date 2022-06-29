@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.calisapp.daos.DayRoutineDAO;
+import com.calisapp.model.CalendarUser;
 import com.calisapp.model.User;
 import com.calisapp.services.UserService;
 
@@ -81,7 +82,7 @@ public class UserController {
     
     @GetMapping("/api/routinesToday/{idUser}")
     public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Long idUser) {
-    	List<DayRoutineDAO> list = userService.userHaveRoutineToday(idUser);
+    	List<CalendarUser> list = userService.userHaveRoutineToday(idUser);
 
         return ResponseEntity.ok().body(list);
     }

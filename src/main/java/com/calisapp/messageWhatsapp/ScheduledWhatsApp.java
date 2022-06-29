@@ -18,7 +18,7 @@ public class ScheduledWhatsApp {
 	@Autowired
 	private UserService userService;
 	
-	@Scheduled(cron = "0 1 18 * * ?", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 25 11 * * ?", zone = "America/Buenos_Aires")
 	public void scheduleTaskUsingCronExpression() {
 		Set<User> whatsAppUserRoutineToday = userService.getUserWithRoutineToday();
 		SendMessage.main(whatsAppUserRoutineToday);

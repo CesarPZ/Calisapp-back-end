@@ -3,8 +3,12 @@ package com.calisapp.model;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -55,11 +59,9 @@ public class CalendarUser {
 	@Column(name="DAYS")
 	private List<Integer> daysRoutine;
 	
-
 	@ManyToMany(cascade= CascadeType.ALL)
 	private List<DayAndOpinion> dayAndOpinion;
 
-	
 	public CalendarUser() {};
 	
 	public CalendarUser(Date dayFinishRoutine, List<Integer> daysRoutine, Integer weeksRoutine, Routine routine) {
@@ -68,9 +70,56 @@ public class CalendarUser {
 		this.weeksRoutine = weeksRoutine;
 		this.routine = routine;
 		this.dayInitRoutine = new Date();
-		this.dayAndOpinion = new ArrayList<DayAndOpinion>();
+		this.dayAndOpinion = this.calculateDays(daysRoutine, weeksRoutine, new Date());
 	}
 	
+	private List<DayAndOpinion> calculateDays(List<Integer> daysRoutine, Integer weeksRoutine, Date initRoutine) {
+		List<DayAndOpinion> scheduledDays = new ArrayList<DayAndOpinion>();
+		List<Date> allDays = new ArrayList<Date>();
+		Integer position = 1;
+		for(Integer dayNumber: daysRoutine) {
+			allDays.addAll(this.calculateScheduledDays(dayNumber,weeksRoutine,initRoutine));
+		}
+		
+		List<Date> scheduledDaysSorted = allDays.stream()
+				  .sorted(Comparator.comparingLong(Date::getTime))
+				  .collect(Collectors.toList());
+		
+		for(Date day: scheduledDaysSorted) {
+			DayAndOpinion dayAndOpinion = new DayAndOpinion(day,position);
+			scheduledDays.add(dayAndOpinion);
+			position++;
+		}
+		return scheduledDays;
+	}
+	
+	/*--------------------------------------------------------------------
+	 	Descripción: Calcula las fechas intermedias entre el dateInitRoutine
+	 				hasta la cantidad de semanas recibidas por paramtro, que 
+	 				sean del dia dayNumber (1-Lunes; 2-Martes; 3-Miercoles ...)
+		Fecha: 		11/05/2022
+	--------------------------------------------------------------------*/
+	private  List<Date> calculateScheduledDays(Integer dayNumber, Integer weeksRoutine, Date dateInitRoutine) {
+		List<Date> scheduledDays = new  ArrayList<Date>();
+		LocalDate localDateInitRoutine = dateInitRoutine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate firstDayOfExercise = LocalDate.now();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+
+		for(int i=0; i<7; i++) {
+			if(localDateInitRoutine.getDayOfWeek().getValue() == dayNumber) {
+				firstDayOfExercise = localDateInitRoutine;
+			}else {
+				localDateInitRoutine = localDateInitRoutine.plusDays(1);
+			}
+		}
+		
+		for(int i = 0; i<weeksRoutine; i++) {
+			LocalDate dayRoutine = firstDayOfExercise.plusDays(i*7);
+			scheduledDays.add(Date.from(dayRoutine.atStartOfDay(defaultZoneId).toInstant()));
+		}
+		return scheduledDays;
+	}
+
 	public CalendarUser(CalendarUserBuilder builder) {
 		this.dayInitRoutine = builder.dayInitRoutine;
 		this.weeksRoutine = builder.weeksRoutine;
@@ -81,12 +130,18 @@ public class CalendarUser {
 
 	public DayAndOpinion addOpinion(String opinion) {
 		Date today = new Date();
+		DayAndOpinion defaultDayAndOpinion = new DayAndOpinion();
 		LocalDate localDateInitRoutine = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		ZoneId defaultZoneId = ZoneId.systemDefault();
 		Date today2 = Date.from(localDateInitRoutine.atStartOfDay(defaultZoneId).toInstant());
-		DayAndOpinion dayAndOpinion = new DayAndOpinion(today2,opinion);
-		this.dayAndOpinion.add(dayAndOpinion);
-		return dayAndOpinion;
+		for(DayAndOpinion dayAndOpinion: dayAndOpinion) {
+			if(dayAndOpinion.getDayOpinon().getTime()== today2.getTime()) {
+				dayAndOpinion.setOpinion(opinion);
+				return dayAndOpinion;
+			}
+		}
+
+		return defaultDayAndOpinion;
 	}
 	
 	/*----------------------------------------------------------------
@@ -157,7 +212,6 @@ public class CalendarUser {
 		private Integer weeksRoutine;
 		private List<Integer> daysRoutinee;
 		private List<DayAndOpinion> dayAndOpinion;
-		
 		
 		public CalendarUserBuilder() {
 			this.dayInitRoutine = new Date();	

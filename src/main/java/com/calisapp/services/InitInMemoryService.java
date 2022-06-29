@@ -480,20 +480,20 @@ public class InitInMemoryService {
 
 		
 		List<DayAndOpinion> dayAndOpinions = new ArrayList<DayAndOpinion>();
-		DayAndOpinion dayAndOpinion1 = new DayAndOpinion(dateOpinion1, "Bien");
-		DayAndOpinion dayAndOpinion2 = new DayAndOpinion(dateOpinion2, "Regular");
-		DayAndOpinion dayAndOpinion3 = new DayAndOpinion(dateOpinion3, "No realizada'");
-		DayAndOpinion dayAndOpinion4 = new DayAndOpinion(dateOpinion4, "Bien");
-		DayAndOpinion dayAndOpinion5 = new DayAndOpinion(dateOpinion5, "Regular");
-		DayAndOpinion dayAndOpinion6 = new DayAndOpinion(dateOpinion6, "Mal");
-		DayAndOpinion dayAndOpinion7 = new DayAndOpinion(dateOpinion7, "No realizada");
-		DayAndOpinion dayAndOpinion8 = new DayAndOpinion(dateOpinion8, "Bien");
-		DayAndOpinion dayAndOpinion9 = new DayAndOpinion(dateOpinion9, "Regular");
-		DayAndOpinion dayAndOpinion10 = new DayAndOpinion(dateOpinion10, "No realizada");
-		DayAndOpinion dayAndOpinion11 = new DayAndOpinion(dateOpinion11, "Bien");
-		DayAndOpinion dayAndOpinion12 = new DayAndOpinion(dateOpinion12, "Regular");
-		DayAndOpinion dayAndOpinion13 = new DayAndOpinion(dateOpinion13, "Bien");
-		DayAndOpinion dayAndOpinion14 = new DayAndOpinion(dateOpinion14, "No realizada");
+		DayAndOpinion dayAndOpinion1 = new DayAndOpinion(dateOpinion1, "Bien",1);
+		DayAndOpinion dayAndOpinion2 = new DayAndOpinion(dateOpinion2, "Regular",1);
+		DayAndOpinion dayAndOpinion3 = new DayAndOpinion(dateOpinion3, "No realizada",1);
+		DayAndOpinion dayAndOpinion4 = new DayAndOpinion(dateOpinion4, "Bien",1);
+		DayAndOpinion dayAndOpinion5 = new DayAndOpinion(dateOpinion5, "Regular",1);
+		DayAndOpinion dayAndOpinion6 = new DayAndOpinion(dateOpinion6, "Mal",1);
+		DayAndOpinion dayAndOpinion7 = new DayAndOpinion(dateOpinion7, "No realizada",1);
+		DayAndOpinion dayAndOpinion8 = new DayAndOpinion(dateOpinion8, "Bien",1);
+		DayAndOpinion dayAndOpinion9 = new DayAndOpinion(dateOpinion9, "Regular",1);
+		DayAndOpinion dayAndOpinion10 = new DayAndOpinion(dateOpinion10, "No realizada",1);
+		DayAndOpinion dayAndOpinion11 = new DayAndOpinion(dateOpinion11, "Bien",1);
+		DayAndOpinion dayAndOpinion12 = new DayAndOpinion(dateOpinion12, "Regular",1);
+		DayAndOpinion dayAndOpinion13 = new DayAndOpinion(dateOpinion13, "Bien",1);
+		DayAndOpinion dayAndOpinion14 = new DayAndOpinion(dateOpinion14, "No realizada",1);
 		dayAndOpinions.add(dayAndOpinion1);
 		dayAndOpinions.add(dayAndOpinion2);
 		dayAndOpinions.add(dayAndOpinion3);

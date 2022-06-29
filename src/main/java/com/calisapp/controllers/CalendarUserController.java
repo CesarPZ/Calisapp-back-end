@@ -1,5 +1,6 @@
 package com.calisapp.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.calisapp.daos.DayRoutineDAO;
 import com.calisapp.model.CalendarUser;
+import com.calisapp.model.DayAndOpinion;
 import com.calisapp.model.Exercise;
 import com.calisapp.services.CalendarUserService;
 
@@ -35,7 +37,7 @@ public class CalendarUserController {
     
     @GetMapping("/api/calendarUser/{idUser}")
     public ResponseEntity<?> allRoutinesOfUser(@PathVariable("idUser") Long idUser) {
-    	List<DayRoutineDAO> list = calendarUserService.findWithUserId(idUser);
+    	List<CalendarUser> list = calendarUserService.findWithUserId(idUser);
 
         return ResponseEntity.ok().body(list);
     }
@@ -48,5 +50,4 @@ public class CalendarUserController {
     	
         return ResponseEntity.ok().body(calendarUser);
     }
-    
 }
