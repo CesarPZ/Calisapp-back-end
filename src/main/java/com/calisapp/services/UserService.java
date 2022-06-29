@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.calisapp.daos.DayRoutineDAO;
 import com.calisapp.exceptions.ResourceNotFoundException;
+import com.calisapp.model.CalendarUser;
 import com.calisapp.model.User;
 import com.calisapp.repositories.UserRepository;
 
@@ -131,19 +132,10 @@ public class UserService {
 		return userWhatsApp;
 	}
 
-	public List<DayRoutineDAO> userHaveRoutineToday(Long userId) {
-		List<DayRoutineDAO> routinesToday = new ArrayList<DayRoutineDAO>();
-		List<DayRoutineDAO> allDaysRoutines = calendarUserService.findWithUserId(userId);
-		LocalDate now = LocalDate.now();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
-		Date today = Date.from(now.atStartOfDay(defaultZoneId).toInstant());
-		
-		for(DayRoutineDAO daysRoutine : allDaysRoutines) {
-			if(daysRoutine.getDayRoutine().getDate() == today.getDate()){
-				routinesToday.add(daysRoutine);
-			}
-		}
-		return routinesToday;
+	public List<CalendarUser> userHaveRoutineToday(Long userId) {
+		List<CalendarUser> allDaysRoutines = calendarUserService.findWithUserIdToday(userId);
+
+		return allDaysRoutines;
 	}
 	
 }

@@ -40,17 +40,11 @@ public class CalendarUserService {
 	 				dia. 
 		Fecha: 		11/05/2022
 	-------------------------------------------------------*/
-	public List<DayRoutineDAO> findWithUserId(Long idUser) {
-		List<DayRoutineDAO> daysRoutine = new  ArrayList<DayRoutineDAO>();
+	public List<CalendarUser> findWithUserId(Long idUser) {
+		//List<DayRoutineDAO> daysRoutine = new  ArrayList<DayRoutineDAO>();
 		List<CalendarUser> calendars = this.calendarUserRepository.findWithUserId(idUser);
-		
-		for(CalendarUser calendar : calendars) {
-			Set<Date> scheduledDays = this.calculateCalendarDays(calendar);
-			List<Integer> numberDaysRotine = this.calculateDaysExercise(calendar.getRoutine());
-			
-			daysRoutine.addAll(this.createDaysRoutine(scheduledDays, numberDaysRotine, calendar));
-		}
-		return daysRoutine;
+
+		return calendars;
 	}
 	
 	/*--------------------------------------------------------------------
@@ -183,5 +177,28 @@ public class CalendarUserService {
 		return save(calendarUser);
 		
 	}
-	
+
+	public List<CalendarUser> findWithUserIdToday(Long userId) {
+		List<CalendarUser> calendarToday = new ArrayList<CalendarUser> ();
+		List<CalendarUser> allCalendarToday = this.calendarUserRepository.findWithUserId(userId);
+		
+		for(CalendarUser calendar : allCalendarToday) {
+			if(this.includeToday(calendar)) {
+				calendarToday.add(calendar);
+			}
+		}
+		return calendarToday;
+	}
+
+	private boolean includeToday(CalendarUser calendar) {
+		LocalDate now = LocalDate.now();
+		ZoneId defaultZoneId = ZoneId.systemDefault();
+		Date today = Date.from(now.atStartOfDay(defaultZoneId).toInstant());
+		for(DayAndOpinion dayAndOpinion : calendar.getDayAndOpinion()) {
+			if(dayAndOpinion.getDayOpinon().getTime() == today.getTime() ) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

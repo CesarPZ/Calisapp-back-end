@@ -1,5 +1,6 @@
 package com.calisapp.repositories;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.calisapp.model.CalendarUser;
+import com.calisapp.model.DayAndOpinion;
 
 @Configuration
 @Repository
@@ -19,5 +21,5 @@ public interface CalendarUserRepository extends CrudRepository<CalendarUser, Lon
 	List<CalendarUser> findWithUserId(@Param("idUser") Long idUser);
 
 	Optional<CalendarUser> findById(Integer calendarId);
-	
+
 }
