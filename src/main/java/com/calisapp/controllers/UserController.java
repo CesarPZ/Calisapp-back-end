@@ -72,9 +72,10 @@ public class UserController {
     @PutMapping("/api/users/{id}")
 	public ResponseEntity<User> updateUserById(@Valid @PathVariable("id") Long id, 
 											@RequestParam(value="name", required=false) String name,
-											@RequestParam(value="password", required=false) String password) throws Exception {
+											@RequestParam(value="password", required=false) String password,
+											@RequestParam(value="mobileNumber", required=false) String mobileNumber) throws Exception {
 		
-		User userUpdate = userService.update(id,name,password);
+		User userUpdate = userService.update(id,name,password,mobileNumber);
 
 		return ResponseEntity.ok().body(userUpdate);	
 	}
