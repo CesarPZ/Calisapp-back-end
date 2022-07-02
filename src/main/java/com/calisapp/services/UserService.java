@@ -124,10 +124,12 @@ public class UserService {
 		Set<User> userWhatsApp = new HashSet<User>();
 		List<User> users = this.repository.findAll();
 		for(User user: users) {
-			if(user.getMobileNumber() != null  /*&& 
-				!this.userHaveRoutineToday(user.getId()).isEmpty()*/) {
-				userWhatsApp.add(user);	
-			}
+			//if(user.getMobileNumber() != null  && user.getMobileNumber() != "") {
+				List<CalendarUser> allDaysRoutines = calendarUserService.findWithUserIdToday(user.getId());
+				if(!allDaysRoutines.isEmpty()) {
+					userWhatsApp.add(user);
+				}
+			//}
 		}
 		
 		return userWhatsApp;

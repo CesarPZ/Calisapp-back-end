@@ -10,16 +10,16 @@ import com.twilio.type.PhoneNumber;
 
 public class SendMessage { 
     // Find your Account Sid and Token at twilio.com/console 
-    public static final String ACCOUNT_SID = "AC0b5fcc93ef4c77b50d48085c3c8a70f0"; 
-    public static final String AUTH_TOKEN = "303cc7e984885164c488d3dc8289eda7"; 
+    public static final String ACCOUNT_SID = "AC6c3a49d57c646bb77883e8713117afe3"; 
+    public static final String AUTH_TOKEN = "37a5fe05f2ce4463ba0850483fab4fce"; 
  
     public static void main(Set<User> users) { 
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         for(User user: users) {
         	Message message = Message.creator( 
-                    new com.twilio.type.PhoneNumber("whatsapp:" + user.getMobileNumber()), 
+                    new com.twilio.type.PhoneNumber("whatsapp:" + "+549" +user.getMobileNumber()), 
                     new com.twilio.type.PhoneNumber("whatsapp:+14155238886"),  
-                    "Hola "+ user.getName() +" ingresa a: https://calisapp-backend.herokuapp.com/swagger-ui.html para ver tu rutinas")      
+                    "Hola "+ user.getName() +"! El dia de hoy tenes rutinas pendientes, para verlas ingresa a: https://calisapp2.000webhostapp.com/#/myRoutineToday")      
                 .create(); 
         }
     } 

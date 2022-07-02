@@ -175,9 +175,9 @@ public class CalendarUserService {
 		CalendarUser calendarUser = this.calendarUserRepository.findById(calendarId).get();
 		calendarUser.addOpinion(opinon);
 		return save(calendarUser);
-		
 	}
-
+	
+	@Transactional
 	public List<CalendarUser> findWithUserIdToday(Long userId) {
 		List<CalendarUser> calendarToday = new ArrayList<CalendarUser> ();
 		List<CalendarUser> allCalendarToday = this.calendarUserRepository.findWithUserId(userId);
