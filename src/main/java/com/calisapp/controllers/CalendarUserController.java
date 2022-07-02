@@ -22,7 +22,7 @@ import com.calisapp.services.CalendarUserService;
 
 @RestController
 @EnableAutoConfiguration
-@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
+@CrossOrigin(origins = {"https://calisapp2.000webhostapp.com", "http://localhost:4200"},maxAge = 3600)
 public class CalendarUserController {
 
     @Autowired

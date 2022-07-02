@@ -1,7 +1,6 @@
 package com.calisapp.messageWhatsapp;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +17,9 @@ public class ScheduledWhatsApp {
 	@Autowired
 	private UserService userService;
 	
-	@Scheduled(cron = "0 25 11 * * ?", zone = "America/Buenos_Aires")
+	@Scheduled(cron = "0 * * * * ?", zone = "America/Buenos_Aires")
 	public void scheduleTaskUsingCronExpression() {
+		System.out.println("Current time is :: " + Calendar.getInstance().getTime());
 		Set<User> whatsAppUserRoutineToday = userService.getUserWithRoutineToday();
 		SendMessage.main(whatsAppUserRoutineToday);
 	}

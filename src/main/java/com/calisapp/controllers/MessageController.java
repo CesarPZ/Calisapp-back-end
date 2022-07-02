@@ -15,7 +15,7 @@ import com.twilio.rest.api.v2010.account.Message;
 
 @RestController
 @EnableAutoConfiguration
-@CrossOrigin(origins = "http://localhost:4200",maxAge = 3600)
+@CrossOrigin(origins = {"https://calisapp2.000webhostapp.com", "http://localhost:4200"},maxAge = 3600)
 public class MessageController {
 	@Autowired
 	private MessageService messageService;
