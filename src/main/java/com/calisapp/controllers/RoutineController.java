@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.calisapp.model.Routine;
+import com.calisapp.model.User;
 import com.calisapp.services.RoutineService;
 
 @RestController
@@ -124,6 +125,13 @@ public class RoutineController {
     	Routine newRoutine = routineService.createRouitneFromWithExercise(userId, nameRoutine, excersices, daysRoutine, weeksRoutine, daysExercise);
     	
         return ResponseEntity.ok().body(newRoutine);
+    }
+    
+    @GetMapping("/api/routineId/{idRoutine}")
+    public ResponseEntity<?> getUserById(@PathVariable("idRoutine") Integer id) {
+    	Routine user = routineService.findByID(id);
+    	
+    	return ResponseEntity.ok().body(user);
     }
     
 }
