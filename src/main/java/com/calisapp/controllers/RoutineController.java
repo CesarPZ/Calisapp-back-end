@@ -25,7 +25,7 @@ import com.calisapp.services.RoutineService;
 
 @RestController
 @EnableAutoConfiguration
-@CrossOrigin(origins = {"https://calisapp2.000webhostapp.com", "http://localhost:4200"},maxAge = 3600)
+@CrossOrigin(origins = {"https://calisapp2.000webhostapp.com", "https://calisaapp.000webhostapp.com", "http://localhost:4200"},maxAge = 3600)
 public class RoutineController {
 
     @Autowired
