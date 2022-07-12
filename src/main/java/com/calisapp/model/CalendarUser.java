@@ -103,7 +103,7 @@ public class CalendarUser {
 		List<Date> scheduledDays = new  ArrayList<Date>();
 		LocalDate localDateInitRoutine = dateInitRoutine.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		LocalDate firstDayOfExercise = LocalDate.now();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
+		ZoneId defaultZoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 
 		for(int i=0; i<7; i++) {
 			if(localDateInitRoutine.getDayOfWeek().getValue() == dayNumber) {
@@ -132,7 +132,7 @@ public class CalendarUser {
 		Date today = new Date();
 		DayAndOpinion defaultDayAndOpinion = new DayAndOpinion();
 		LocalDate localDateInitRoutine = today.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
+		ZoneId defaultZoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 		Date today2 = Date.from(localDateInitRoutine.atStartOfDay(defaultZoneId).toInstant());
 		for(DayAndOpinion dayAndOpinion: dayAndOpinion) {
 			if(dayAndOpinion.getDayOpinon().getTime()== today2.getTime()) {
