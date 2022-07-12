@@ -192,7 +192,7 @@ public class CalendarUserService {
 
 	private boolean includeToday(CalendarUser calendar) {
 		LocalDate now = LocalDate.now();
-		ZoneId defaultZoneId = ZoneId.systemDefault();
+		ZoneId defaultZoneId = ZoneId.of("America/Argentina/Buenos_Aires");
 		Date today = Date.from(now.atStartOfDay(defaultZoneId).toInstant());
 		for(DayAndOpinion dayAndOpinion : calendar.getDayAndOpinion()) {
 			if(dayAndOpinion.getDayOpinon().getTime() == today.getTime() ) {
